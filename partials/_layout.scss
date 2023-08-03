@@ -312,3 +312,34 @@ p {
     }
   }
 }
+
+    /* Adicione estilos para o aviso de consentimento de cookies */
+    .aviso-cookies {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color:  $white-normal ;
+        color: $secondary-dark;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .aviso-cookies p {
+        margin: 0;
+    }
+
+    .aviso-cookies button {
+      background-color: $primary-light;
+      color: $white-normal;
+      border: none;
+      padding: 12px 25px;
+      cursor: pointer;
+      margin-top: 10px;
+      border-radius: 25px; 
+  }
+
+  .aviso-cookies button:hover {
+    background-color: $secondary-light;
+    color: $white-normal;
+  }

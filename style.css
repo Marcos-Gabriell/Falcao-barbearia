@@ -360,6 +360,37 @@ i {
     max-width: 64px;
   }
 }
+/* Adicione estilos para o aviso de consentimento de cookies */
+.aviso-cookies {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #FFF;
+  color: #06090c;
+  padding: 10px;
+  text-align: center;
+}
+
+.aviso-cookies p {
+  margin: 0;
+}
+
+.aviso-cookies button {
+  background-color: #0c2135;
+  color: #FFF;
+  border: none;
+  padding: 12px 25px;
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 25px;
+}
+
+.aviso-cookies button:hover {
+  background-color: #1a1f25;
+  color: #FFF;
+}
+
 body {
   font-family: "Sora", sans-serif;
   width: 100%;
