@@ -14,7 +14,6 @@ A landing page é um site simples que apresenta informações sobre a barbearia,
 -  Exibição a localização.
 -  Exibição doo WhatsApp aonde as pessoas realizam os agendamentos.
 
-
 ## Como Acessar
 
  
