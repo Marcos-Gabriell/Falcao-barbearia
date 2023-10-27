@@ -11,6 +11,7 @@ A landing page é um site simples que apresenta informações sobre a barbearia,
 - Apresentação visual da barbearia com imagens atraentes.
 - Descrição dos serviços oferecidos, como cortes de cabelo, barba, etc.
 - Exibição do horário de funcionamento e dias de atendimento.
+-  Exibição a localização.
 
 ## Como Acessar
 
