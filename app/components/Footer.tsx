@@ -4,9 +4,7 @@ const INSTAGRAM_LINK = "https://instagram.com/SEU_USUARIO_AQUI";
 
 export default function Footer() {
   return (
-    <footer className="relative w-full bg-black text-zinc-300 pt-16 pb-8">
-      {/* fundo com degradê suave */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_#1a150f,_#000)] opacity-40" />
+    <footer className="relative w-full bg-[#0a0a0a] text-zinc-300 pt-16 pb-8">
 
       <div className="relative z-10 max-w-6xl mx-auto px-6">
         
@@ -21,6 +19,8 @@ export default function Footer() {
               estilo e dedicação.
             </p>
           </div>
+
+          {/* COLUNA 2 */}
           <div>
             <h4 className="text-xl font-semibold text-[#e4ddd2]">Contato</h4>
 
@@ -48,6 +48,7 @@ export default function Footer() {
             </a>
           </div>
 
+          {/* COLUNA 3 */}
           <div>
             <h4 className="text-xl font-semibold text-[#e4ddd2]">Siga-nos</h4>
 
@@ -55,9 +56,11 @@ export default function Footer() {
               <a
                 href={INSTAGRAM_LINK}
                 target="_blank"
-                className="flex items-center justify-center h-10 w-10 rounded-full 
-                           border border-[#c59d6e]/50 text-[#c59d6e] 
-                           hover:bg-[#c59d6e]/20 transition"
+                className="
+                  flex items-center justify-center h-10 w-10 rounded-full 
+                  border border-[#c59d6e]/50 text-[#c59d6e] 
+                  hover:bg-[#c59d6e]/20 transition
+                "
               >
                 <svg
                   className="h-5 w-5"

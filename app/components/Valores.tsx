@@ -15,7 +15,7 @@ export default function Valores() {
           </h2>
 
           <p className="mt-4 text-lg text-zinc-300 leading-relaxed">
-            Desde 2020, a Falcão Barbearia vem crescendo junto com seus clientes. 
+            Desde 2021, a Falcão Barbearia vem crescendo junto com seus clientes. 
             Começamos em um espaço simples, evoluímos na técnica e no atendimento 
             e agora damos mais um passo, prontos para o futuro — sem perder a essência 
             de barbearia de verdade.
@@ -164,21 +164,31 @@ export default function Valores() {
             </div>
 
             {/* AVISO EM VERMELHO */}
-            <div className="rounded-2xl bg-[#3b0b0b] border border-red-800/70 px-4 py-3 text-xs text-red-100 shadow-[0_0_30px_rgba(127,29,29,0.5)]">
-              <p className="font-semibold text-red-200">
-                Observações importantes:
-              </p>
-              <ul className="mt-2 list-disc space-y-1 pl-4">
-                <li>
-                  Valores referentes ao trabalho anunciado para cada serviço.
-                </li>
-                <li>Pagamento somente no ato do atendimento.</li>
-                <li>
-                  Qualquer serviço extra ou alteração é combinado e ajustado
-                  antes da execução.
-                </li>
-              </ul>
-            </div>
+            <div
+  className="
+    rounded-2xl 
+    bg-[#2a1d07]/80 
+    border border-[#e0b566] 
+    px-5 py-4 
+    text-sm 
+    text-[#f3e4c2] 
+    shadow-[0_0_25px_rgba(224,181,102,0.45)]
+    backdrop-blur-sm
+  "
+>
+  <p className="font-semibold text-[#ffd27c]">
+    ⚠️ Observações importantes:
+  </p>
+
+  <ul className="mt-2 list-disc space-y-1 pl-4">
+    <li>Valores referentes ao trabalho anunciado para cada serviço.</li>
+    <li>Pagamento somente no ato do atendimento.</li>
+    <li>
+      Qualquer serviço extra ou alteração é combinado e ajustado antes da execução.
+    </li>
+  </ul>
+</div>
+
           </div>
         </div>
       </div>

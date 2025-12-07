@@ -58,20 +58,6 @@ export default function Sobre() {
             </div>
           </div>
 
-   <div className="mt-10 space-y-1">
-  <p className="text-lg font-semibold text-[#c59d6e]">
-    Horário de funcionamento:
-  </p>
-
-  <p className="text-zinc-300">
-    <span className="text-[#c59d6e] font-semibold">Segunda a Sexta:</span> 09:00 às 19:00
-  </p>
-
-  <p className="text-zinc-300">
-    <span className="text-[#c59d6e] font-semibold">Sábado:</span> 08:00 às 20:00
-  </p>
-</div>
-
         </div>
 
         <div className="flex-1 flex justify-center md:justify-end">
