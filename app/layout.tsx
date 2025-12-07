@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -69,9 +69,6 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
 
-  // ✔ Tema do navegador (Chrome/Android)
-  themeColor: "#000000",
-
   // ✔ Dados estruturados (Rich Snippets para barbearia no Google)
   other: {
     "script:type": JSON.stringify({
@@ -93,6 +90,10 @@ export const metadata: Metadata = {
       priceRange: "$",
     }),
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#000000",
 };
 
 export default function RootLayout({
