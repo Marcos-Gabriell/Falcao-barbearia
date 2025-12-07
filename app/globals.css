@@ -1,0 +1,37 @@
+
+/* /styles/globals.css */
+
+@import "tailwindcss";
+
+/* --- VARIÁVEIS DE COR DA LOGO (Customizadas) --- */
+:root {
+    /* Base de Cores */
+    --color-cream: #e4ddd2; /* Tom claro da logo (Texto principal) */
+    --color-bronze: #c59d6e; /* Tom escuro/destaque da logo (CTA, Sublinhado) */
+    --color-black-absolute: #000000;
+    --color-dark-soft: #101010;
+}
+
+@layer base {
+    body {
+        /* Fundo com Degradê Sutil para Profundidade em todo o BODY */
+        background: radial-gradient(circle at top, var(--color-dark-soft) 0%, var(--color-black-absolute) 100%) !important;
+        background-color: var(--color-black-absolute) !important;
+        color: var(--color-cream); /* Cor do texto padrão */
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    
+    h1, h2, h3 {
+        /* Garante que o Tailwind processe as cores customizadas */
+        color: var(--color-cream);
+    }
+
+    /* Adicione aqui estilos para o Header/Nav se necessário */
+    .header {
+        /* Exemplo: Fundo do header semi-transparente */
+        background-color: rgba(0, 0, 0, 0.8); 
+        backdrop-filter: blur(5px);
+        /* ... outros estilos de Header ... */
+    }
+}
+
