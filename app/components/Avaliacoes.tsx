@@ -2,7 +2,7 @@ const GOOGLE_ALL_REVIEWS_URL =
   "https://www.google.com/search?client=opera&sca_esv=7c6910cd552a3b71&cs=1&output=search&kgmid=/g/11ybt_kkr2&q=Barbearia+Falc%C3%A3o&shndl=30&shem=damc,shrtsdl&source=sh/x/kp/local/m1/1&kgs=bf51a9cd0e34bf61&utm_source=damc,shrtsdl,sh/x/kp/local/m1/1#lrd=0x76ba32c243da499:0x6b4f599dbbf227ec,1,,,,";
   
 const GOOGLE_NEW_REVIEW_URL =
-  "https://www.google.com/search?client=opera&q=barbearai+tapiramujta&sourceid=opera&ie=UTF-8&oe=UTF-8&lqi=ChViYXJiZWFyaWEgdGFwaXJhbXV0w6FI4o3jn6u9gIAIWh0QABgAGAEiFWJhcmJlYXJpYSB0YXBpcmFtdXTDoZIBC2JhcmJlcl9zaG9wmgFEQ2k5RFFVbFJRVU52WkVOb2RIbGpSamx2VDJ0MGRGUnRWbWhNVlVaNFZtMDVabVJWY0VSamEwcDBaRlV4TmsxdVl4QUL6AQQIABAi#lkt=LocalPoiReviews&rlimm=7732497619216377836";
+  "https://g.page/r/Cewn8rudWU9rEBM/review";
 
 export default function Avaliacoes() {
   return (

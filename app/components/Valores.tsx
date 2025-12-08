@@ -14,15 +14,15 @@ export default function Valores() {
             Nossos Pilares: A Filosofia Falcão
           </h2>
 
-          <p className="mt-4 text-lg text-zinc-300 leading-relaxed">
-            Desde 2021, a Falcão Barbearia vem crescendo junto com seus clientes. 
-            Começamos em um espaço simples, evoluímos na técnica e no atendimento 
-            e agora damos mais um passo, prontos para o futuro — sem perder a essência 
+          <p className="mt-4 text-lg leading-relaxed text-zinc-300">
+            Desde 2021, a Falcão Barbearia vem crescendo junto com seus clientes.
+            Começamos em um espaço simples, evoluímos na técnica e no atendimento
+            e agora damos mais um passo, prontos para o futuro — sem perder a essência
             de barbearia de verdade.
           </p>
 
-          <p className="mt-3 text-zinc-400 leading-relaxed">
-            Cada corte é parte dessa construção: início, evolução e um presente 
+          <p className="mt-3 leading-relaxed text-zinc-400">
+            Cada corte é parte dessa construção: início, evolução e um presente
             preparado para o que vem pela frente.
           </p>
         </div>
@@ -37,8 +37,8 @@ export default function Valores() {
               O começo
             </h3>
             <p className="mt-1 text-xs text-zinc-400">
-              Thaylle inicia os primeiros cortes, aprendendo na prática e ganhando
-              confiança dos primeiros clientes.
+              Thaylle inicia os primeiros cortes, aprendendo na prática e
+              ganhando confiança dos primeiros clientes.
             </p>
           </div>
 
@@ -82,7 +82,7 @@ export default function Valores() {
         </div>
 
         {/* PILARES + TABELA DE PREÇOS */}
-        <div className="grid gap-12 md:grid-cols-[1.2fr_1fr]">
+        <div className="grid gap-12 md:grid-cols-[1.15fr_0.95fr]">
           {/* PILARES */}
           <div>
             <h3 className="text-xl font-semibold text-[#e4ddd2]">
@@ -94,41 +94,44 @@ export default function Valores() {
             </p>
 
             <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
-              <div className="rounded-2xl bg-[#050505]/70 p-5 border border-zinc-800 hover:border-[#c59d6e]/60 transition">
-                <h4 className="text-lg font-semibold text-[#c59d6e]">Precisão</h4>
-                <p className="mt-2 text-sm text-zinc-400">
-                  Acabamento alinhado, degradê limpo e linhas bem definidas.
-                </p>
-              </div>
-
-              <div className="rounded-2xl bg-[#050505]/70 p-5 border border-zinc-800 hover:border-[#c59d6e]/60 transition">
-                <h4 className="text-lg font-semibold text-[#c59d6e]">Atitude</h4>
-                <p className="mt-2 text-sm text-zinc-400">
-                  Estilo que acompanha sua personalidade — do clássico ao ousado.
-                </p>
-              </div>
-
-              <div className="rounded-2xl bg-[#050505]/70 p-5 border border-zinc-800 hover:border-[#c59d6e]/60 transition">
-                <h4 className="text-lg font-semibold text-[#c59d6e]">Confiança</h4>
-                <p className="mt-2 text-sm text-zinc-400">
-                  Transparência, escuta atenta e compromisso com o resultado.
-                </p>
-              </div>
-
-              <div className="rounded-2xl bg-[#050505]/70 p-5 border border-zinc-800 hover:border-[#c59d6e]/60 transition">
-                <h4 className="text-lg font-semibold text-[#c59d6e]">
-                  Pontualidade
-                </h4>
-                <p className="mt-2 text-sm text-zinc-400">
-                  Horário marcado é compromisso sério com o seu tempo.
-                </p>
-              </div>
+              {[
+                {
+                  titulo: "Precisão",
+                  texto:
+                    "Acabamento alinhado, degradê limpo e linhas bem definidas.",
+                },
+                {
+                  titulo: "Atitude",
+                  texto:
+                    "Estilo que acompanha sua personalidade — do clássico ao ousado.",
+                },
+                {
+                  titulo: "Confiança",
+                  texto:
+                    "Transparência, escuta atenta e compromisso com o resultado.",
+                },
+                {
+                  titulo: "Pontualidade",
+                  texto:
+                    "Horário marcado é compromisso sério com o seu tempo.",
+                },
+              ].map((pilar) => (
+                <div
+                  key={pilar.titulo}
+                  className="rounded-2xl border border-zinc-800 bg-[#050505]/70 p-5 transition hover:border-[#c59d6e]/60"
+                >
+                  <h4 className="text-lg font-semibold text-[#c59d6e]">
+                    {pilar.titulo}
+                  </h4>
+                  <p className="mt-2 text-sm text-zinc-400">{pilar.texto}</p>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* TABELA DE PREÇOS */}
+          {/* TABELA DE PREÇOS + AVISO */}
           <div className="space-y-4">
-            <div className="rounded-3xl bg-[#050505]/90 border border-zinc-800 p-6 shadow-[0_0_40px_rgba(0,0,0,0.6)]">
+            <div className="rounded-3xl border border-zinc-800 bg-[#050505]/90 p-6 shadow-[0_0_40px_rgba(0,0,0,0.6)]">
               <h3 className="text-lg font-semibold text-[#e4ddd2]">
                 Tabela de preços
               </h3>
@@ -163,32 +166,34 @@ export default function Valores() {
               </div>
             </div>
 
-            {/* AVISO EM VERMELHO */}
+            {/* AVISO EM DESTAQUE */}
             <div
-  className="
-    rounded-2xl 
-    bg-[#2a1d07]/80 
-    border border-[#e0b566] 
-    px-5 py-4 
-    text-sm 
-    text-[#f3e4c2] 
-    shadow-[0_0_25px_rgba(224,181,102,0.45)]
-    backdrop-blur-sm
-  "
->
-  <p className="font-semibold text-[#ffd27c]">
-    ⚠️ Observações importantes:
-  </p>
+              className="
+                rounded-2xl 
+                bg-[#2a1d07]/80 
+                border border-[#e0b566] 
+                px-5 py-4 
+                text-sm 
+                text-[#f3e4c2] 
+                shadow-[0_0_25px_rgba(224,181,102,0.45)]
+                backdrop-blur-sm
+              "
+            >
+              <p className="font-semibold text-[#ffd27c]">
+                ⚠️ Observações importantes:
+              </p>
 
-  <ul className="mt-2 list-disc space-y-1 pl-4">
-    <li>Valores referentes ao trabalho anunciado para cada serviço.</li>
-    <li>Pagamento somente no ato do atendimento.</li>
-    <li>
-      Qualquer serviço extra ou alteração é combinado e ajustado antes da execução.
-    </li>
-  </ul>
-</div>
-
+              <ul className="mt-2 list-disc space-y-1 pl-4">
+                <li>
+                  Valores referentes ao trabalho anunciado para cada serviço.
+                </li>
+                <li>Pagamento somente no ato do atendimento.</li>
+                <li>
+                  Qualquer serviço extra ou alteração é combinado e ajustado
+                  antes da execução.
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>

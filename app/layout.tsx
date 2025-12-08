@@ -2,13 +2,13 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.seusite.com"), // coloque seu domínio final depois
+  metadataBase: new URL("https://www.falcaobarbearia.online"), 
   title: {
-    default: "Falcão Barbearia Tapiramutá | Corte Masculino, Barba e Degradê - BA",
+    default: "Falcão Barbearia Tapiramutá | Corte Masculino",
     template: "%s | Falcão Barbearia",
   },
   description:
-    "Barbearia premium em Tapiramutá - BA. Corte masculino moderno, degradê, barba alinhada e acabamento profissional. Atendimento com hora marcada. Agende pelo WhatsApp!",
+    "Barbearia em Tapiramutá - BA. Corte masculino moderno, degradê, barba alinhada e acabamento profissional. Agende pelo WhatsApp!",
   keywords: [
     "Barbearia Tapiramutá",
     "Falcão Barbearia",
@@ -39,18 +39,17 @@ export const metadata: Metadata = {
     },
   },
 
-  // ✔ OpenGraph (Compartilhamento)
   openGraph: {
     type: "website",
     locale: "pt_BR",
-    url: "https://www.seusite.com",
+    url: "https://www.falcaobarbearia.online",
     siteName: "Falcão Barbearia",
-    title: "Falcão Barbearia | Corte Masculino e Barba Premium em Tapiramutá",
+    title: "Falcão Barbearia | Corte Masculino em Tapiramutá",
     description:
-      "Barbearia premium em Tapiramutá - BA. Corte masculino moderno, degradê profissional, barba alinhada. Atendimento com hora marcada. Agende agora!",
+      "Barbearia em Tapiramutá - BA. Corte masculino moderno, degradê profissional, barba alinhada. Agende agora!",
     images: [
       {
-        url: "https://www.seusite.com/logo1.png",
+        url: "https://www.falcaobarbearia.online/logo1.png",
         width: 1200,
         height: 1200,
         alt: "Falcão Barbearia - Logo - Tapiramutá BA",
@@ -59,37 +58,34 @@ export const metadata: Metadata = {
     ],
   },
 
-  // ✔ Twitter Card
   twitter: {
     card: "summary_large_image",
     title: "Falcão Barbearia Tapiramutá | Corte & Barba Premium",
     description:
       "Corte masculino moderno, degradê, barba alinhada e acabamento profissional. Atendimento com hora marcada em Tapiramutá - BA.",
-    images: ["https://www.seusite.com/logo1.png"],
+    images: ["https://www.falcaobarbearia.online/logo1.png"],
     creator: "@falcaobarbearia",
   },
 
-  // ✔ Ícones / Favicon
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
     apple: "/apple-touch-icon.png",
   },
 
-  // ✔ Dados estruturados (Rich Snippets para barbearia no Google)
   other: {
     "script:type": JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Barbershop",
-      "@id": "https://www.seusite.com",
+      "@id": "https://www.falcaobarbearia.online",
       name: "Falcão Barbearia",
       alternateName: "Falcão Barbearia Tapiramutá",
-      description: "Barbearia premium em Tapiramutá - BA especializada em corte masculino moderno, degradê, barba alinhada e acabamento profissional.",
+      description: "Barbearia em Tapiramutá - BA especializada em corte masculino moderno, degradê, barba alinhada e acabamento profissional.",
       image: [
-        "https://www.seusite.com/logo1.png",
-        "https://www.seusite.com/cortes/corte1.jpg",
+        "https://www.falcaobarbearia.online/logo1.png",
+        "https://www.falcaobarbearia.online/cortes/corte1.jpg",
       ],
-      logo: "https://www.seusite.com/logo1.png",
+      logo: "https://www.falcaobarbearia.online/logo1.png",
       address: {
         "@type": "PostalAddress",
         streetAddress: "R. Olavo Bilac",
