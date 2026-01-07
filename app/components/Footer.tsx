@@ -8,10 +8,8 @@ export default function Footer() {
 
       <div className="relative z-10 max-w-6xl mx-auto px-6">
         
-        {/* GRID PRINCIPAL */}
         <div className="grid gap-12 md:grid-cols-3">
 
-          {/* COLUNA 1 */}
           <div>
             <h3 className="text-2xl font-bold text-[#e4ddd2]">Falcão Barbearia</h3>
             <p className="mt-3 text-zinc-400 leading-relaxed">
@@ -20,7 +18,6 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* COLUNA 2 */}
           <div>
             <h4 className="text-xl font-semibold text-[#e4ddd2]">Contato</h4>
 
@@ -48,7 +45,6 @@ export default function Footer() {
             </a>
           </div>
 
-          {/* COLUNA 3 */}
           <div>
             <h4 className="text-xl font-semibold text-[#e4ddd2]">Siga-nos</h4>
 
@@ -75,7 +71,6 @@ export default function Footer() {
 
         </div>
 
-        {/* COPYRIGHT */}
         <div className="mt-14 border-t border-zinc-800 pt-6 text-center">
           <p className="text-sm text-zinc-500">
             © {new Date().getFullYear()} Falcão Barbearia — Todos os direitos reservados.
