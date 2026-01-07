@@ -166,34 +166,57 @@ export default function Valores() {
               </div>
             </div>
 
-            {/* AVISO EM DESTAQUE */}
-            <div
-              className="
-                rounded-2xl 
-                bg-[#2a1d07]/80 
-                border border-[#e0b566] 
-                px-5 py-4 
-                text-sm 
-                text-[#f3e4c2] 
-                shadow-[0_0_25px_rgba(224,181,102,0.45)]
-                backdrop-blur-sm
-              "
-            >
-              <p className="font-semibold text-[#ffd27c]">
-                ⚠️ Observações importantes:
-              </p>
+           <div
+  className="
+    relative
+    rounded-2xl 
+    bg-[#2a1d07]/80 
+    border border-[#e0b566] 
+    px-5 py-4 
+    text-sm 
+    text-[#f3e4c2] 
+    shadow-[0_0_25px_rgba(224,181,102,0.45)]
+    backdrop-blur-sm
+  "
+>
+  {/* SELO */}
+ <span
+  className="
+    absolute
+    -top-3
+    -right-3
+    rounded-full
+    bg-red-600
+    px-3
+    py-1
+    text-[10px]
+    font-extrabold
+    uppercase
+    tracking-widest
+    text-white
+    shadow-[0_0_15px_rgba(220,38,38,0.8)]
+    border
+    border-red-400
+  "
+>
+  IMPORTANTE
+</span>
 
-              <ul className="mt-2 list-disc space-y-1 pl-4">
-                <li>
-                  Valores referentes ao trabalho anunciado para cada serviço.
-                </li>
-                <li>Pagamento somente no ato do atendimento.</li>
-                <li>
-                  Qualquer serviço extra ou alteração é combinado e ajustado
-                  antes da execução.
-                </li>
-              </ul>
-            </div>
+
+  <p className="font-semibold text-[#ffd27c]">
+    ⚠️ Observações importantes:
+  </p>
+
+  <ul className="mt-2 list-disc space-y-1 pl-4">
+    <li>Valores referentes ao trabalho anunciado para cada serviço.</li>
+    <li>Pagamento somente no ato do atendimento.</li>
+    <li>
+      Qualquer serviço extra ou alteração é combinado e ajustado
+      antes da execução.
+    </li>
+  </ul>
+</div>
+
           </div>
         </div>
       </div>

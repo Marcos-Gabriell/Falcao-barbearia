@@ -3,6 +3,10 @@ import { WHATSAPP_LINK } from "../utils/links";
 const INSTAGRAM_LINK = "https://instagram.com/SEU_USUARIO_AQUI";
 
 export default function Footer() {
+
+  const startYear = 2021;
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className="relative w-full bg-[#0a0a0a] text-zinc-300 pt-16 pb-8">
 
@@ -73,8 +77,8 @@ export default function Footer() {
 
         <div className="mt-14 border-t border-zinc-800 pt-6 text-center">
           <p className="text-sm text-zinc-500">
-            © {new Date().getFullYear()} Falcão Barbearia — Todos os direitos reservados.
-          </p>
+          © {startYear}–{currentYear} Falcão Barbearia — Todos os direitos reservados.
+        </p>
         </div>
 
       </div>
