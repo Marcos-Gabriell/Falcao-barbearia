@@ -54,7 +54,7 @@ export default function Footer() {
 
             <div className="flex gap-4 mt-4">
               <a
-                href={INSTAGRAM_LINK}
+                href={https://instagram.com/barbeariafalcao_}
                 target="_blank"
                 className="
                   flex items-center justify-center h-10 w-10 rounded-full 
