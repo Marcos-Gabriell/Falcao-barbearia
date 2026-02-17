@@ -97,7 +97,6 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { themeColor: "#000000" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  // Schema.org (JSON-LD) — super importante pro Google entender negócio local
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Barbershop",
@@ -120,7 +119,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       postalCode: site.postalCode,
       addressCountry: site.country,
     },
-    // Se você tiver coordenadas exatas, pode ajustar
     geo: {
       "@type": "GeoCoordinates",
       latitude: -11.8167,
@@ -132,10 +130,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       containedInPlace: { "@type": "State", name: "Bahia" },
     },
     openingHours: ["Mo-Fr 09:00-19:00", "Sa 08:00-20:00"],
-    sameAs: [
-      // Se tiver Instagram/Google Perfil, coloca aqui depois
-      // "https://www.instagram.com/seuperfil",
-    ],
+    sameAs: [],
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Serviços de Barbearia",
@@ -143,7 +138,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {
           "@type": "Offer",
           priceCurrency: "BRL",
-          price: "0", // <- TROQUE pelo preço real
+          price: "0",
           itemOffered: {
             "@type": "Service",
             name: "Corte Masculino",
@@ -153,7 +148,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {
           "@type": "Offer",
           priceCurrency: "BRL",
-          price: "0", // <- TROQUE pelo preço real
+          price: "0",
           itemOffered: {
             "@type": "Service",
             name: "Degradê",
@@ -163,7 +158,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {
           "@type": "Offer",
           priceCurrency: "BRL",
-          price: "0", // <- TROQUE pelo preço real
+          price: "0",
           itemOffered: {
             "@type": "Service",
             name: "Barba Completa",
@@ -182,6 +177,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+
+        {/* Barberpole side accents — purely decorative, hidden from screen readers */}
+        <div className="barberpole-left"  aria-hidden="true" />
+        <div className="barberpole-right" aria-hidden="true" />
+
         {children}
       </body>
     </html>

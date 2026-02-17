@@ -1,37 +1,277 @@
-
-/* /styles/globals.css */
-
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:wght@300;400;500&display=swap");
 @import "tailwindcss";
 
-/* --- VARIÁVEIS DE COR DA LOGO (Customizadas) --- */
 :root {
-    /* Base de Cores */
-    --color-cream: #e4ddd2; /* Tom claro da logo (Texto principal) */
-    --color-bronze: #c59d6e; /* Tom escuro/destaque da logo (CTA, Sublinhado) */
-    --color-black-absolute: #000000;
-    --color-dark-soft: #101010;
+  --color-cream: #e4ddd2;
+  --color-bronze: #c59d6e;
+  --color-bronze-light: #e4c08a;
+  --color-black: #000000;
+  --color-dark: #0a0a0a;
+  --color-dark-soft: #080604;
 }
+
+/* ─── KEYFRAMES ──────────────────────────────────────────── */
+
+@keyframes pole-spin {
+  from { background-position: 0 0; }
+  to   { background-position: 0 -120px; }
+}
+
+@keyframes pole-spin-r {
+  from { background-position: 0 0; }
+  to   { background-position: 0 120px; }
+}
+
+@keyframes drift-x {
+  from { background-position: 0 0; }
+  to   { background-position: 200px 0; }
+}
+
+@keyframes drift-diag {
+  from { background-position: 0 0; }
+  to   { background-position: 200px 200px; }
+}
+
+@keyframes drift-diag-r {
+  from { background-position: 0 0; }
+  to   { background-position: -200px -200px; }
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.55; }
+  50%       { opacity: 0.85; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes float-up {
+  0%   { transform: translateY(0)   scale(1)   opacity(0); }
+  50%  { transform: translateY(-40px) scale(1.1) opacity(1); }
+  100% { transform: translateY(-80px) scale(0.8) opacity(0); }
+}
+
+/* ─── BASE ───────────────────────────────────────────────── */
 
 @layer base {
-    body {
-        /* Fundo com Degradê Sutil para Profundidade em todo o BODY */
-        background: radial-gradient(circle at top, var(--color-dark-soft) 0%, var(--color-black-absolute) 100%) !important;
-        background-color: var(--color-black-absolute) !important;
-        color: var(--color-cream); /* Cor do texto padrão */
-        font-family: Arial, Helvetica, sans-serif;
-    }
-    
-    h1, h2, h3 {
-        /* Garante que o Tailwind processe as cores customizadas */
-        color: var(--color-cream);
-    }
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-    /* Adicione aqui estilos para o Header/Nav se necessário */
-    .header {
-        /* Exemplo: Fundo do header semi-transparente */
-        background-color: rgba(0, 0, 0, 0.8); 
-        backdrop-filter: blur(5px);
-        /* ... outros estilos de Header ... */
-    }
+  html { scroll-behavior: smooth; }
+
+  body {
+    color: var(--color-cream);
+    font-family: "Barlow", sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--color-dark-soft);
+
+    /* ── LAYER 1 — deep rich base ── */
+    background-image:
+      /* layer 5: floating bokeh dots */
+      radial-gradient(circle 1px at 15% 20%, rgba(197,157,110,0.18) 0%, transparent 100%),
+      radial-gradient(circle 1px at 45% 55%, rgba(197,157,110,0.14) 0%, transparent 100%),
+      radial-gradient(circle 1px at 78% 35%, rgba(197,157,110,0.12) 0%, transparent 100%),
+      radial-gradient(circle 1px at 62% 80%, rgba(197,157,110,0.10) 0%, transparent 100%),
+      radial-gradient(circle 2px at 30% 70%, rgba(197,157,110,0.08) 0%, transparent 100%),
+
+      /* layer 4: fine diagonal hatch — barbershop texture */
+      repeating-linear-gradient(
+        -55deg,
+        transparent 0px,
+        transparent 18px,
+        rgba(197,157,110,0.028) 18px,
+        rgba(197,157,110,0.028) 19px
+      ),
+
+      /* layer 3: perpendicular hatch cross */
+      repeating-linear-gradient(
+        35deg,
+        transparent 0px,
+        transparent 18px,
+        rgba(197,157,110,0.018) 18px,
+        rgba(197,157,110,0.018) 19px
+      ),
+
+      /* layer 2: barberpole stripe — vertical bands */
+      repeating-linear-gradient(
+        180deg,
+        rgba(197,157,110,0.038) 0px,
+        rgba(197,157,110,0.038) 2px,
+        transparent 2px,
+        transparent 30px
+      ),
+
+      /* layer 1: base vignette */
+      radial-gradient(ellipse 120% 80% at 50% 0%,   #14100a 0%, #080604 55%),
+      radial-gradient(ellipse 100% 60% at 50% 100%, #100d07 0%, #080604 50%);
+  }
+
+  /* ── ANIMATED TEXTURE OVERLAY (::before) ── */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+
+    /* barberpole diagonal stripes moving */
+    background-image:
+      repeating-linear-gradient(
+        -45deg,
+        transparent              0px,
+        transparent              28px,
+        rgba(197,157,110,0.032)  28px,
+        rgba(197,157,110,0.032)  30px,
+        transparent              30px,
+        transparent              58px,
+        rgba(197,157,110,0.018)  58px,
+        rgba(197,157,110,0.018)  60px
+      );
+    background-size: 85px 85px;
+    animation: drift-diag 18s linear infinite;
+  }
+
+  /* ── NOISE GRAIN (::after) ── */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.28;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  }
+
+  h1, h2 {
+    font-family: "Cormorant Garamond", serif;
+    color: var(--color-cream);
+  }
+
+  h3, h4 { color: var(--color-cream); }
+
+  ::selection {
+    background-color: rgba(197, 157, 110, 0.3);
+    color: var(--color-cream);
+  }
+
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: #060504; }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(197, 157, 110, 0.35);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(197, 157, 110, 0.6); }
 }
 
+/* ─── BARBERPOLE SIDE ACCENTS ─────────────────────────────── */
+/* Left pole — stripes rising */
+.barberpole-left {
+  position: fixed;
+  top: 0; bottom: 0; left: 0;
+  width: 3px;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+  background-image: repeating-linear-gradient(
+    180deg,
+    rgba(197,157,110,0.5)  0px,
+    rgba(197,157,110,0.5)  10px,
+    rgba(139,78,28,0.35)   10px,
+    rgba(139,78,28,0.35)   20px,
+    rgba(80,50,20,0.25)    20px,
+    rgba(80,50,20,0.25)    30px,
+    rgba(197,157,110,0.5)  30px
+  );
+  background-size: 3px 30px;
+  animation: pole-spin 2s linear infinite;
+}
+
+/* Right pole — stripes descending */
+.barberpole-right {
+  position: fixed;
+  top: 0; bottom: 0; right: 0;
+  width: 3px;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+  background-image: repeating-linear-gradient(
+    180deg,
+    rgba(197,157,110,0.5)  0px,
+    rgba(197,157,110,0.5)  10px,
+    rgba(139,78,28,0.35)   10px,
+    rgba(139,78,28,0.35)   20px,
+    rgba(80,50,20,0.25)    20px,
+    rgba(80,50,20,0.25)    30px,
+    rgba(197,157,110,0.5)  30px
+  );
+  background-size: 3px 30px;
+  animation: pole-spin-r 2s linear infinite;
+}
+
+/* ─── SECTION DIVIDERS ───────────────────────────────────── */
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(197,157,110,0.08) 15%,
+    rgba(197,157,110,0.35) 50%,
+    rgba(197,157,110,0.08) 85%,
+    transparent 100%
+  );
+}
+
+/* ─── UTILITIES ──────────────────────────────────────────── */
+.gold-shimmer {
+  background: linear-gradient(90deg, #c59d6e, #e4c08a, #a17843, #e4c08a, #c59d6e);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+/* vintage diamond pattern for alternating sections */
+.bg-diamond {
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      transparent 0px, transparent 14px,
+      rgba(197,157,110,0.022) 14px, rgba(197,157,110,0.022) 15px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0px, transparent 14px,
+      rgba(197,157,110,0.022) 14px, rgba(197,157,110,0.022) 15px
+    );
+}
+
+/* subtle moving lines for section overlays */
+.bg-moving-lines {
+  background-image: repeating-linear-gradient(
+    -55deg,
+    transparent 0px, transparent 28px,
+    rgba(197,157,110,0.03) 28px, rgba(197,157,110,0.03) 30px
+  );
+  background-size: 85px 85px;
+  animation: drift-diag 22s linear infinite;
+}
+
+.bg-moving-lines-r {
+  background-image: repeating-linear-gradient(
+    55deg,
+    transparent 0px, transparent 28px,
+    rgba(197,157,110,0.03) 28px, rgba(197,157,110,0.03) 30px
+  );
+  background-size: 85px 85px;
+  animation: drift-diag-r 22s linear infinite;
+}

@@ -5,7 +5,7 @@ import Sobre from "./components/Sobre";
 import Valores from "./components/Valores";
 import Cortes from "./components/Cortes";
 import Avaliacoes from "./components/Avaliacoes";
-import Localizacao from "./components/Localizacao";
+import Localizacao from "../app/components/Localizacao";
 import Footer from "./components/Footer";
 import WhatsFloating from "./components/WhatsFloating";
 
