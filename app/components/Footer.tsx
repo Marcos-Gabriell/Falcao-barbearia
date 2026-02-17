@@ -41,7 +41,8 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer ref={ref} className="relative w-full bg-[#050505] text-zinc-400 overflow-hidden">
+  <footer className="relative w-full bg-transparent text-zinc-400 overflow-hidden">
+
       {/* Decorative top border with glow */}
       <div className="relative">
         <motion.div

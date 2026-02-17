@@ -47,7 +47,7 @@ export default function Hero() {
     <section
       ref={sectionRef}
       id="inicio"
-      className="relative min-h-[100svh] flex items-center justify-center overflow-hidden bg-[#030303]"
+      className="relative min-h-[100svh] flex items-center justify-center overflow-hidden bg-transparent"
     >
       {/* BACKGROUND - Versão limpa com mais degradês */}
       <motion.div className="absolute inset-0 pointer-events-none" style={{ y: bgY }}>
@@ -104,7 +104,7 @@ export default function Hero() {
         />
 
         {/* Vinheta */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_50%,transparent_0%,rgba(0,0,0,0.4)_60%,rgba(0,0,0,0.85)_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_55%_at_50%_45%,transparent_0%,rgba(0,0,0,0.35)_60%,rgba(0,0,0,0.65)_100%)]" />
       </motion.div>
 
       {/* Top line */}
@@ -258,7 +258,7 @@ export default function Hero() {
 
         {/* NAVALHA */}
         <motion.div
-          className="hidden md:flex mx-auto md:mx-0 flex-shrink-0 order-2 md:order-2 items-center justify-center
+          className="flex mx-auto md:mx-0 flex-shrink-0 order-2 md:order-2 items-center justify-center
                      w-[280px] sm:w-[360px] md:w-[420px] lg:w-[520px]"
           initial={{ opacity: 0, scale: 0.85, rotate: -120 }}
           animate={{ opacity: 1, scale: 1, rotate: 0 }}
@@ -279,7 +279,7 @@ export default function Hero() {
           >
             <motion.div
               animate={razorControls}
-              className="drop-shadow-[0_0_40px_rgba(197,157,110,0.35)] hover:drop-shadow-[0_0_70px_rgba(197,157,110,0.55)] transition-all duration-300"
+              className="drop-shadow-[0_0_24px_rgba(197,157,110,0.22)] hover:drop-shadow-[0_0_40px_rgba(197,157,110,0.35)] transition-all duration-300"
             >
               <GiRazor className="w-[220px] h-[220px] sm:w-[260px] sm:h-[260px] md:w-[320px] md:h-[320px] lg:w-[380px] lg:h-[380px]" />
             </motion.div>

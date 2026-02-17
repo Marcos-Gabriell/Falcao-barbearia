@@ -74,7 +74,7 @@ export default function Avaliacoes() {
   const reviewsInView = useInView(reviewsRef, { once: true, margin: "-60px" });
 
   return (
-    <section id="avaliacoes" className="relative w-full bg-[#030303] py-32 text-zinc-300 overflow-hidden">
+    <section id="avaliacoes" className="relative w-full bg-transparent py-32 text-zinc-300 overflow-hidden">
       {/* Ambient background */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_rgba(197,157,110,0.04),_transparent_50%)]" />

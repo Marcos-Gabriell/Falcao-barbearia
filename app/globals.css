@@ -5,13 +5,14 @@
   --color-cream: #e4ddd2;
   --color-bronze: #c59d6e;
   --color-bronze-light: #e4c08a;
+
+  /* ✅ menos preto puro (fica “grafite premium”) */
   --color-black: #000000;
-  --color-dark: #0a0a0a;
-  --color-dark-soft: #080604;
+  --color-dark: #0b0b0f;
+  --color-dark-soft: #0e0f14;
 }
 
 /* ─── KEYFRAMES ──────────────────────────────────────────── */
-
 @keyframes drift-diag {
   from { background-position: 0 0; }
   to   { background-position: 200px 200px; }
@@ -23,7 +24,6 @@
 }
 
 /* ─── BASE ───────────────────────────────────────────────── */
-
 @layer base {
   *, *::before, *::after {
     box-sizing: border-box;
@@ -40,50 +40,49 @@
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
     background-color: var(--color-dark-soft);
 
-    /* Background layers */
+    /* ✅ background global mais bonito e menos “buraco preto” */
     background-image:
-      /* floating bokeh dots */
-      radial-gradient(circle 1px at 15% 20%, rgba(197,157,110,0.18) 0%, transparent 100%),
-      radial-gradient(circle 1px at 45% 55%, rgba(197,157,110,0.14) 0%, transparent 100%),
-      radial-gradient(circle 1px at 78% 35%, rgba(197,157,110,0.12) 0%, transparent 100%),
-      radial-gradient(circle 1px at 62% 80%, rgba(197,157,110,0.10) 0%, transparent 100%),
-      radial-gradient(circle 2px at 30% 70%, rgba(197,157,110,0.08) 0%, transparent 100%),
+      /* bokeh mais suave */
+      radial-gradient(circle 1px at 15% 20%, rgba(197,157,110,0.14) 0%, transparent 100%),
+      radial-gradient(circle 1px at 45% 55%, rgba(197,157,110,0.12) 0%, transparent 100%),
+      radial-gradient(circle 1px at 78% 35%, rgba(197,157,110,0.10) 0%, transparent 100%),
+      radial-gradient(circle 1px at 62% 80%, rgba(197,157,110,0.08) 0%, transparent 100%),
+      radial-gradient(circle 2px at 30% 70%, rgba(197,157,110,0.06) 0%, transparent 100%),
 
-      /* fine diagonal hatch */
+      /* hatch bem leve */
       repeating-linear-gradient(
         -55deg,
         transparent 0px,
         transparent 18px,
-        rgba(197,157,110,0.028) 18px,
-        rgba(197,157,110,0.028) 19px
+        rgba(197,157,110,0.020) 18px,
+        rgba(197,157,110,0.020) 19px
       ),
-
-      /* perpendicular hatch cross */
       repeating-linear-gradient(
         35deg,
         transparent 0px,
         transparent 18px,
-        rgba(197,157,110,0.018) 18px,
-        rgba(197,157,110,0.018) 19px
+        rgba(197,157,110,0.014) 18px,
+        rgba(197,157,110,0.014) 19px
       ),
 
-      /* vertical bands */
+      /* bands bem discretas */
       repeating-linear-gradient(
         180deg,
-        rgba(197,157,110,0.038) 0px,
-        rgba(197,157,110,0.038) 2px,
+        rgba(197,157,110,0.028) 0px,
+        rgba(197,157,110,0.028) 2px,
         transparent 2px,
-        transparent 30px
+        transparent 34px
       ),
 
-      /* base vignette */
-      radial-gradient(ellipse 120% 80% at 50% 0%,   #14100a 0%, #080604 55%),
-      radial-gradient(ellipse 100% 60% at 50% 100%, #100d07 0%, #080604 50%);
+      /* ✅ vignette mais suave (menos preto chapado) */
+      radial-gradient(ellipse 120% 80% at 50% 0%,   #151826 0%, #0e0f14 58%),
+      radial-gradient(ellipse 110% 70% at 50% 100%, #121523 0%, #0e0f14 55%);
   }
 
-  /* Animated texture overlay */
+  /* ✅ Animated texture overlay (mais lento e menos pesado) */
   body::before {
     content: "";
     position: fixed;
@@ -95,27 +94,38 @@
       repeating-linear-gradient(
         -45deg,
         transparent              0px,
-        transparent              28px,
-        rgba(197,157,110,0.032)  28px,
-        rgba(197,157,110,0.032)  30px,
         transparent              30px,
-        transparent              58px,
-        rgba(197,157,110,0.018)  58px,
-        rgba(197,157,110,0.018)  60px
+        rgba(197,157,110,0.020)  30px,
+        rgba(197,157,110,0.020)  32px,
+        transparent              32px,
+        transparent              62px,
+        rgba(197,157,110,0.012)  62px,
+        rgba(197,157,110,0.012)  64px
       );
-    background-size: 85px 85px;
-    animation: drift-diag 18s linear infinite;
+
+    background-size: 90px 90px;
+    opacity: 0.70;
+    animation: drift-diag 36s linear infinite; /* antes 18s */
   }
 
-  /* Noise grain */
+  /* ✅ Noise grain MUITO mais leve (isso evita travar) */
   body::after {
     content: "";
     position: fixed;
     inset: 0;
     pointer-events: none;
     z-index: 1;
-    opacity: 0.28;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+
+    opacity: 0.10; /* antes 0.28 */
+
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.25'/%3E%3C/svg%3E");
+    background-size: 220px 220px;
+  }
+
+  /* ✅ performance mobile */
+  @media (max-width: 768px){
+    body::before { animation: none; opacity: 0.55; }
+    body::after { opacity: 0.06; }
   }
 
   h1, h2 {
@@ -131,12 +141,12 @@
   }
 
   ::-webkit-scrollbar { width: 5px; }
-  ::-webkit-scrollbar-track { background: #060504; }
+  ::-webkit-scrollbar-track { background: #0a0b10; }
   ::-webkit-scrollbar-thumb {
-    background: rgba(197, 157, 110, 0.35);
+    background: rgba(197, 157, 110, 0.30);
     border-radius: 3px;
   }
-  ::-webkit-scrollbar-thumb:hover { background: rgba(197, 157, 110, 0.6); }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(197, 157, 110, 0.55); }
 }
 
 /* ─── SECTION DIVIDERS ───────────────────────────────────── */
@@ -147,7 +157,7 @@
     90deg,
     transparent 0%,
     rgba(197,157,110,0.08) 15%,
-    rgba(197,157,110,0.35) 50%,
+    rgba(197,157,110,0.32) 50%,
     rgba(197,157,110,0.08) 85%,
     transparent 100%
   );
@@ -163,28 +173,26 @@
   animation: shimmer 4s linear infinite;
 }
 
-/* vintage diamond pattern for alternating sections */
 .bg-diamond {
   background-image:
     repeating-linear-gradient(
       45deg,
       transparent 0px, transparent 14px,
-      rgba(197,157,110,0.022) 14px, rgba(197,157,110,0.022) 15px
+      rgba(197,157,110,0.018) 14px, rgba(197,157,110,0.018) 15px
     ),
     repeating-linear-gradient(
       -45deg,
       transparent 0px, transparent 14px,
-      rgba(197,157,110,0.022) 14px, rgba(197,157,110,0.022) 15px
+      rgba(197,157,110,0.018) 14px, rgba(197,157,110,0.018) 15px
     );
 }
 
-/* subtle moving lines for section overlays */
 .bg-moving-lines {
   background-image: repeating-linear-gradient(
     -55deg,
-    transparent 0px, transparent 28px,
-    rgba(197,157,110,0.03) 28px, rgba(197,157,110,0.03) 30px
+    transparent 0px, transparent 30px,
+    rgba(197,157,110,0.022) 30px, rgba(197,157,110,0.022) 32px
   );
-  background-size: 85px 85px;
-  animation: drift-diag 22s linear infinite;
+  background-size: 90px 90px;
+  animation: drift-diag 44s linear infinite;
 }
