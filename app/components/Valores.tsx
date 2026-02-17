@@ -3,23 +3,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
-function FadeIn({ children, delay = 0, className = "", direction = "up" }: { children: React.ReactNode; delay?: number; className?: string; direction?: "up" | "left" | "right" }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
-  const initial = { opacity: 0, y: direction === "up" ? 40 : 0, x: direction === "left" ? -40 : direction === "right" ? 40 : 0 };
-  return (
-    <motion.div
-      ref={ref}
-      initial={initial}
-      animate={inView ? { opacity: 1, y: 0, x: 0 } : initial}
-      transition={{ duration: 0.75, delay, ease: [0.22, 1, 0.36, 1] }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
 const timeline = [
   { ano: "2020", titulo: "O começo", texto: "Thaylle inicia os primeiros cortes, aprendendo na prática e ganhando confiança dos primeiros clientes." },
   { ano: "Evolução", titulo: "Técnica e detalhe", texto: "Aperfeiçoamento constante em degradê, acabamento e barba completa." },
@@ -45,169 +28,234 @@ const servicos = [
   { nome: "Luzes", preco: "R$ 80" },
 ];
 
-function TimelineBar() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-  return (
-    <motion.div
-      ref={ref}
-      className="hidden sm:block absolute top-5 left-[12.5%] right-[12.5%] h-[1px] bg-gradient-to-r from-[#c59d6e] via-[#c59d6e]/60 to-[#c59d6e]/20"
-      initial={{ scaleX: 0, originX: 0 }}
-      animate={inView ? { scaleX: 1 } : { scaleX: 0 }}
-      transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-    />
-  );
-}
-
 export default function Valores() {
+  const titleRef = useRef(null);
+  const titleInView = useInView(titleRef, { once: true, margin: "-80px" });
+  const timelineRef = useRef(null);
+  const timelineInView = useInView(timelineRef, { once: true, margin: "-60px" });
+  const pilaresRef = useRef(null);
+  const pilaresInView = useInView(pilaresRef, { once: true, margin: "-60px" });
+  const precosRef = useRef(null);
+  const precosInView = useInView(precosRef, { once: true, margin: "-60px" });
+
   return (
-    <section id="valores" className="relative w-full bg-black py-28 text-zinc-300 overflow-hidden">
+    <section id="valores" className="relative w-full bg-[#030303] py-32 text-zinc-300 overflow-hidden">
+      {/* Ambient background */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_rgba(197,157,110,0.04),_transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_rgba(197,157,110,0.03),_transparent_50%)]" />
+      </div>
+
+      {/* Top line */}
       <motion.div
-        className="pointer-events-none absolute inset-0"
-        animate={{ background: ["radial-gradient(circle at top, #1a150f, #000) opacity-40", "radial-gradient(circle at bottom, #1a150f, #000) opacity-40", "radial-gradient(circle at top, #1a150f, #000) opacity-40"] }}
-        transition={{ duration: 10, repeat: Infinity }}
+        className="absolute top-0 left-0 right-0 h-px"
+        style={{ background: "linear-gradient(90deg, transparent, rgba(197,157,110,0.4), transparent)" }}
+        animate={{ opacity: [0.4, 0.8, 0.4] }}
+        transition={{ duration: 4, repeat: Infinity }}
       />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_#1a150f,_#000)] opacity-40" />
 
-      <div className="relative z-10 mx-auto flex max-w-6xl flex-col gap-20 px-6">
-        <FadeIn>
-          <span className="inline-block font-mono text-[10px] tracking-[0.4em] text-[#c59d6e] uppercase border border-[#c59d6e]/30 px-3 py-1 mb-4">
-            ✦ Filosofia
-          </span>
-          <h2 className="text-4xl font-extrabold text-[#e4ddd2] sm:text-5xl">
-            Nossos Pilares: A Filosofia Falcão
-          </h2>
-          <motion.div
-            className="mt-3 h-[1px] w-24 bg-gradient-to-r from-[#c59d6e] to-transparent"
-            initial={{ scaleX: 0, originX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.3 }}
-          />
-          <p className="mt-5 text-lg leading-relaxed text-zinc-300 max-w-3xl">
-            Desde 2021, a Falcão Barbearia vem crescendo junto com seus clientes. Começamos em um espaço simples, evoluímos na técnica e no atendimento e agora damos mais um passo, prontos para o futuro — sem perder a essência de barbearia de verdade.
-          </p>
-          <p className="mt-3 leading-relaxed text-zinc-400 max-w-3xl">
-            Cada corte é parte dessa construção: início, evolução e um presente preparado para o que vem pela frente.
-          </p>
-        </FadeIn>
+      <div className="relative z-10 mx-auto max-w-7xl px-6">
 
-        <div className="relative">
-          <TimelineBar />
-          <div className="grid gap-6 rounded-3xl border border-zinc-800 bg-[#050505]/70 p-8 sm:grid-cols-4 relative">
-            {timeline.map((item, i) => (
-              <FadeIn key={item.ano} delay={i * 0.12}>
+        {/* Header - mesmo padrão da galeria */}
+        <div className="mb-20" ref={titleRef}>
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+            <div className="max-w-2xl">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={titleInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.6 }}
+                className="flex items-center gap-4 mb-6"
+              >
+                <span className="font-mono text-[10px] tracking-[0.4em] text-[#c59d6e] uppercase">
+                  Filosofia
+                </span>
                 <motion.div
-                  className="relative pt-8"
-                  whileHover={{ y: -4 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                >
+                  className="h-px flex-1 max-w-[100px] bg-gradient-to-r from-[#c59d6e]/60 to-transparent"
+                  initial={{ scaleX: 0, originX: 0 }}
+                  animate={titleInView ? { scaleX: 1 } : {}}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                />
+              </motion.div>
+
+              <motion.h2
+                initial={{ opacity: 0, y: 30 }}
+                animate={titleInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.8, delay: 0.1 }}
+                className="text-5xl sm:text-6xl lg:text-7xl font-bold text-[#e4ddd2] leading-[0.95] tracking-tight"
+              >
+                Nossos
+                <br />
+                <span className="text-[#c59d6e]">Pilares</span>
+              </motion.h2>
+            </div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={titleInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="text-zinc-500 max-w-xs text-sm leading-relaxed lg:text-right"
+            >
+              Desde 2021, crescendo junto com nossos clientes. Técnica, atendimento e essência de barbearia de verdade.
+            </motion.p>
+          </div>
+        </div>
+
+        {/* Timeline - horizontal clean */}
+        <div ref={timelineRef} className="mb-24">
+          {/* Timeline line */}
+          <motion.div
+            className="hidden md:block h-px bg-gradient-to-r from-transparent via-[#c59d6e]/40 to-transparent mb-12"
+            initial={{ scaleX: 0 }}
+            animate={timelineInView ? { scaleX: 1 } : {}}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-6">
+            {timeline.map((item, i) => (
+              <motion.div
+                key={item.ano}
+                initial={{ opacity: 0, y: 30 }}
+                animate={timelineInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.7, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                className="relative group"
+              >
+                {/* Dot indicator */}
+                <div className="flex items-center gap-3 mb-4">
                   <motion.div
-                    className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 bg-[#c59d6e] rotate-45"
-                    whileHover={{ scale: 1.5, rotate: 90 }}
-                    transition={{ type: "spring", stiffness: 400 }}
+                    className="w-2 h-2 rounded-full bg-[#c59d6e]"
+                    animate={{ scale: [1, 1.3, 1], opacity: [0.6, 1, 0.6] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
                   />
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#c59d6e]">{item.ano}</p>
-                  <h3 className="mt-2 text-sm font-semibold text-[#e4ddd2]">{item.titulo}</h3>
-                  <p className="mt-2 text-xs text-zinc-400 leading-relaxed">{item.texto}</p>
-                </motion.div>
-              </FadeIn>
+                  <span className="text-[11px] font-mono tracking-[0.3em] text-[#c59d6e] uppercase">
+                    {item.ano}
+                  </span>
+                </div>
+
+                <h3 className="text-lg font-semibold text-[#e4ddd2] mb-2 group-hover:text-[#c59d6e] transition-colors duration-300">
+                  {item.titulo}
+                </h3>
+                <p className="text-sm text-zinc-500 leading-relaxed">
+                  {item.texto}
+                </p>
+
+                {/* Hover line */}
+                <motion.div
+                  className="absolute bottom-0 left-0 h-px bg-[#c59d6e]/30 w-0 group-hover:w-full transition-all duration-500"
+                />
+              </motion.div>
             ))}
           </div>
         </div>
 
-        <div className="grid gap-14 md:grid-cols-[1.15fr_0.95fr]">
-          <div>
-            <FadeIn>
-              <h3 className="text-2xl font-semibold text-[#e4ddd2]">4 Pilares da marca</h3>
-              <p className="mt-2 text-sm text-zinc-400 max-w-md">
-                A cada atendimento, a Falcão Barbearia se apoia nesses pilares para entregar um padrão alto em tudo que faz.
-              </p>
-            </FadeIn>
+        {/* Pilares + Preços grid */}
+        <div className="grid gap-16 lg:grid-cols-2">
+          
+          {/* Pilares */}
+          <div ref={pilaresRef}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={pilaresInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6 }}
+              className="flex items-center gap-3 mb-8"
+            >
+              <span className="text-[11px] font-mono tracking-[0.3em] text-[#c59d6e] uppercase">
+                4 Pilares
+              </span>
+              <div className="h-px flex-1 bg-gradient-to-r from-[#c59d6e]/30 to-transparent" />
+            </motion.div>
 
-            <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {pilares.map((pilar, i) => (
-                <FadeIn key={pilar.titulo} delay={0.1 + i * 0.1}>
+                <motion.div
+                  key={pilar.titulo}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={pilaresInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.6, delay: 0.1 + i * 0.08 }}
+                  className="group p-5 rounded-2xl bg-zinc-900/30 border border-zinc-800/50 hover:border-[#c59d6e]/30 transition-all duration-300"
+                  whileHover={{ y: -4 }}
+                >
                   <motion.div
-                    className="rounded-2xl border border-zinc-800 bg-[#050505]/70 p-5 h-full"
-                    whileHover={{ borderColor: "rgba(197,157,110,0.6)", y: -4, boxShadow: "0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(197,157,110,0.08)" }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  >
-                    <motion.div
-                      className="w-6 h-[2px] bg-[#c59d6e] mb-3"
-                      initial={{ scaleX: 0, originX: 0 }}
-                      whileInView={{ scaleX: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: 0.2 + i * 0.1 }}
-                    />
-                    <h4 className="text-base font-semibold text-[#c59d6e]">{pilar.titulo}</h4>
-                    <p className="mt-2 text-sm text-zinc-400 leading-relaxed">{pilar.texto}</p>
-                  </motion.div>
-                </FadeIn>
+                    className="w-8 h-0.5 bg-[#c59d6e] mb-4 origin-left"
+                    initial={{ scaleX: 0 }}
+                    animate={pilaresInView ? { scaleX: 1 } : {}}
+                    transition={{ duration: 0.6, delay: 0.3 + i * 0.1 }}
+                  />
+                  <h4 className="text-base font-semibold text-[#e4ddd2] mb-2 group-hover:text-[#c59d6e] transition-colors">
+                    {pilar.titulo}
+                  </h4>
+                  <p className="text-sm text-zinc-500 leading-relaxed">
+                    {pilar.texto}
+                  </p>
+                </motion.div>
               ))}
             </div>
           </div>
 
-          <div className="space-y-4">
-            <FadeIn delay={0.1} direction="right">
-              <motion.div
-                className="rounded-3xl border border-zinc-800 bg-[#050505]/90 p-7 shadow-[0_0_40px_rgba(0,0,0,0.6)]"
-                whileHover={{ boxShadow: "0 0 60px rgba(0,0,0,0.8), 0 0 30px rgba(197,157,110,0.08)" }}
-                transition={{ duration: 0.4 }}
-              >
-                <h3 className="text-lg font-semibold text-[#e4ddd2]">Tabela de preços</h3>
-                <p className="mt-1 text-xs uppercase tracking-[0.18em] text-[#c59d6e]">valores por serviço</p>
+          {/* Tabela de preços */}
+          <div ref={precosRef}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={precosInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6 }}
+              className="flex items-center gap-3 mb-8"
+            >
+              <span className="text-[11px] font-mono tracking-[0.3em] text-[#c59d6e] uppercase">
+                Valores
+              </span>
+              <div className="h-px flex-1 bg-gradient-to-r from-[#c59d6e]/30 to-transparent" />
+            </motion.div>
 
-                <div className="mt-5 space-y-3 text-sm">
-                  {servicos.map((item, i) => (
-                    <motion.div
-                      key={item.nome}
-                      className="flex items-center gap-2 text-zinc-300"
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: 0.05 * i }}
-                      whileHover={{ x: 4 }}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={precosInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="p-6 rounded-2xl bg-zinc-900/30 border border-zinc-800/50"
+            >
+              <div className="space-y-3">
+                {servicos.map((item, i) => (
+                  <motion.div
+                    key={item.nome}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={precosInView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ duration: 0.5, delay: 0.15 + i * 0.04 }}
+                    className="flex items-center gap-3 group"
+                  >
+                    <span className="text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors">
+                      {item.nome}
+                    </span>
+                    <span className="flex-1 border-b border-dotted border-zinc-800 group-hover:border-zinc-700 transition-colors" />
+                    <motion.span
+                      className="text-sm font-bold text-[#c59d6e]"
+                      whileHover={{ scale: 1.05 }}
                     >
-                      <span className="text-xs font-medium uppercase tracking-wide text-zinc-300">{item.nome}</span>
-                      <span className="mx-2 flex-1 border-b border-dotted border-zinc-700" />
-                      <motion.span
-                        className="text-sm font-bold text-[#c59d6e]"
-                        whileHover={{ textShadow: "0 0 12px rgba(197,157,110,0.8)" }}
-                      >
-                        {item.preco}
-                      </motion.span>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            </FadeIn>
+                      {item.preco}
+                    </motion.span>
+                  </motion.div>
+                ))}
+              </div>
 
-            <FadeIn delay={0.2} direction="right">
+              {/* Observação sutil */}
               <motion.div
-                className="relative rounded-2xl bg-[#2a1d07]/80 border border-[#e0b566] px-5 py-5 text-sm text-[#f3e4c2] backdrop-blur-sm"
-                animate={{ boxShadow: ["0 0 20px rgba(224,181,102,0.3)", "0 0 35px rgba(224,181,102,0.5)", "0 0 20px rgba(224,181,102,0.3)"] }}
-                transition={{ duration: 3, repeat: Infinity }}
+                initial={{ opacity: 0 }}
+                animate={precosInView ? { opacity: 1 } : {}}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="mt-6 pt-4 border-t border-zinc-800/50"
               >
-                <motion.span
-                  className="absolute -top-3 -right-3 rounded-full bg-red-600 px-3 py-1 text-[10px] font-extrabold uppercase tracking-widest text-white border border-red-400"
-                  animate={{ boxShadow: ["0 0 10px rgba(220,38,38,0.6)", "0 0 20px rgba(220,38,38,0.9)", "0 0 10px rgba(220,38,38,0.6)"] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                >
-                  IMPORTANTE
-                </motion.span>
-
-                <p className="font-semibold text-[#ffd27c]">⚠️ Observações importantes:</p>
-                <ul className="mt-2 list-disc space-y-1 pl-4 text-[#f3e4c2]/90">
-                  <li>Valores referentes ao trabalho anunciado para cada serviço.</li>
-                  <li>Pagamento somente no ato do atendimento.</li>
-                  <li>Qualquer serviço extra ou alteração é combinado e ajustado antes da execução.</li>
-                </ul>
+                <p className="text-[11px] text-zinc-600 leading-relaxed">
+                  Valores referentes ao trabalho anunciado. Pagamento no ato do atendimento. Serviços extras são combinados antes.
+                </p>
               </motion.div>
-            </FadeIn>
+            </motion.div>
           </div>
         </div>
       </div>
+
+      {/* Bottom decorative */}
+      <motion.div
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-px h-20 bg-gradient-to-t from-[#c59d6e]/20 to-transparent"
+        animate={{ opacity: [0.3, 0.6, 0.3] }}
+        transition={{ duration: 3, repeat: Infinity }}
+      />
     </section>
   );
 }
