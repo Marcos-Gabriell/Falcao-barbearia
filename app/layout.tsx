@@ -177,11 +177,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-
-        {/* Barberpole side accents — purely decorative, hidden from screen readers */}
-        <div className="barberpole-left"  aria-hidden="true" />
-        <div className="barberpole-right" aria-hidden="true" />
-
         {children}
       </body>
     </html>

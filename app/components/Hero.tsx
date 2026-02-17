@@ -49,26 +49,46 @@ export default function Hero() {
       id="inicio"
       className="relative min-h-[100svh] flex items-center justify-center overflow-hidden bg-[#030303]"
     >
-      {/* BACKGROUND - Versão limpa */}
+      {/* BACKGROUND - Versão limpa com mais degradês */}
       <motion.div className="absolute inset-0 pointer-events-none" style={{ y: bgY }}>
-        {/* Gradient orbs - mais sutis */}
+        {/* Gradient orbs */}
         <motion.div
           className="absolute top-[10%] right-[15%] w-[500px] h-[500px] rounded-full"
           style={{ 
-            background: "radial-gradient(circle, rgba(197,157,110,0.08) 0%, transparent 70%)", 
+            background: "radial-gradient(circle, rgba(197,157,110,0.1) 0%, transparent 70%)", 
             filter: "blur(80px)" 
           }}
           animate={{ scale: [1, 1.2, 1], x: [0, 30, 0], y: [0, -20, 0] }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute bottom-[20%] left-[5%] w-[400px] h-[400px] rounded-full"
+          className="absolute bottom-[15%] left-[5%] w-[450px] h-[450px] rounded-full"
           style={{ 
-            background: "radial-gradient(circle, rgba(197,157,110,0.06) 0%, transparent 70%)", 
-            filter: "blur(60px)" 
+            background: "radial-gradient(circle, rgba(197,157,110,0.08) 0%, transparent 70%)", 
+            filter: "blur(70px)" 
           }}
           animate={{ scale: [1, 1.15, 1], x: [0, -20, 0] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        />
+        {/* Extra gradient - centro inferior */}
+        <motion.div
+          className="absolute bottom-[30%] left-[40%] w-[600px] h-[400px] rounded-full"
+          style={{ 
+            background: "radial-gradient(ellipse, rgba(197,157,110,0.06) 0%, transparent 70%)", 
+            filter: "blur(100px)" 
+          }}
+          animate={{ scale: [1, 1.1, 1], y: [0, 20, 0] }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+        />
+        {/* Extra gradient - topo esquerdo */}
+        <motion.div
+          className="absolute top-[20%] left-[20%] w-[350px] h-[350px] rounded-full"
+          style={{ 
+            background: "radial-gradient(circle, rgba(197,157,110,0.05) 0%, transparent 70%)", 
+            filter: "blur(60px)" 
+          }}
+          animate={{ scale: [1, 1.25, 1] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
         />
 
         {/* Grid sutil */}

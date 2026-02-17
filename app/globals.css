@@ -12,45 +12,14 @@
 
 /* ─── KEYFRAMES ──────────────────────────────────────────── */
 
-@keyframes pole-spin {
-  from { background-position: 0 0; }
-  to   { background-position: 0 -120px; }
-}
-
-@keyframes pole-spin-r {
-  from { background-position: 0 0; }
-  to   { background-position: 0 120px; }
-}
-
-@keyframes drift-x {
-  from { background-position: 0 0; }
-  to   { background-position: 200px 0; }
-}
-
 @keyframes drift-diag {
   from { background-position: 0 0; }
   to   { background-position: 200px 200px; }
 }
 
-@keyframes drift-diag-r {
-  from { background-position: 0 0; }
-  to   { background-position: -200px -200px; }
-}
-
-@keyframes breathe {
-  0%, 100% { opacity: 0.55; }
-  50%       { opacity: 0.85; }
-}
-
 @keyframes shimmer {
   0%   { background-position: -200% center; }
   100% { background-position: 200% center; }
-}
-
-@keyframes float-up {
-  0%   { transform: translateY(0)   scale(1)   opacity(0); }
-  50%  { transform: translateY(-40px) scale(1.1) opacity(1); }
-  100% { transform: translateY(-80px) scale(0.8) opacity(0); }
 }
 
 /* ─── BASE ───────────────────────────────────────────────── */
@@ -73,16 +42,16 @@
     -moz-osx-font-smoothing: grayscale;
     background-color: var(--color-dark-soft);
 
-    /* ── LAYER 1 — deep rich base ── */
+    /* Background layers */
     background-image:
-      /* layer 5: floating bokeh dots */
+      /* floating bokeh dots */
       radial-gradient(circle 1px at 15% 20%, rgba(197,157,110,0.18) 0%, transparent 100%),
       radial-gradient(circle 1px at 45% 55%, rgba(197,157,110,0.14) 0%, transparent 100%),
       radial-gradient(circle 1px at 78% 35%, rgba(197,157,110,0.12) 0%, transparent 100%),
       radial-gradient(circle 1px at 62% 80%, rgba(197,157,110,0.10) 0%, transparent 100%),
       radial-gradient(circle 2px at 30% 70%, rgba(197,157,110,0.08) 0%, transparent 100%),
 
-      /* layer 4: fine diagonal hatch — barbershop texture */
+      /* fine diagonal hatch */
       repeating-linear-gradient(
         -55deg,
         transparent 0px,
@@ -91,7 +60,7 @@
         rgba(197,157,110,0.028) 19px
       ),
 
-      /* layer 3: perpendicular hatch cross */
+      /* perpendicular hatch cross */
       repeating-linear-gradient(
         35deg,
         transparent 0px,
@@ -100,7 +69,7 @@
         rgba(197,157,110,0.018) 19px
       ),
 
-      /* layer 2: barberpole stripe — vertical bands */
+      /* vertical bands */
       repeating-linear-gradient(
         180deg,
         rgba(197,157,110,0.038) 0px,
@@ -109,12 +78,12 @@
         transparent 30px
       ),
 
-      /* layer 1: base vignette */
+      /* base vignette */
       radial-gradient(ellipse 120% 80% at 50% 0%,   #14100a 0%, #080604 55%),
       radial-gradient(ellipse 100% 60% at 50% 100%, #100d07 0%, #080604 50%);
   }
 
-  /* ── ANIMATED TEXTURE OVERLAY (::before) ── */
+  /* Animated texture overlay */
   body::before {
     content: "";
     position: fixed;
@@ -122,7 +91,6 @@
     pointer-events: none;
     z-index: 0;
 
-    /* barberpole diagonal stripes moving */
     background-image:
       repeating-linear-gradient(
         -45deg,
@@ -139,7 +107,7 @@
     animation: drift-diag 18s linear infinite;
   }
 
-  /* ── NOISE GRAIN (::after) ── */
+  /* Noise grain */
   body::after {
     content: "";
     position: fixed;
@@ -169,51 +137,6 @@
     border-radius: 3px;
   }
   ::-webkit-scrollbar-thumb:hover { background: rgba(197, 157, 110, 0.6); }
-}
-
-/* ─── BARBERPOLE SIDE ACCENTS ─────────────────────────────── */
-/* Left pole — stripes rising */
-.barberpole-left {
-  position: fixed;
-  top: 0; bottom: 0; left: 0;
-  width: 3px;
-  z-index: 2;
-  pointer-events: none;
-  overflow: hidden;
-  background-image: repeating-linear-gradient(
-    180deg,
-    rgba(197,157,110,0.5)  0px,
-    rgba(197,157,110,0.5)  10px,
-    rgba(139,78,28,0.35)   10px,
-    rgba(139,78,28,0.35)   20px,
-    rgba(80,50,20,0.25)    20px,
-    rgba(80,50,20,0.25)    30px,
-    rgba(197,157,110,0.5)  30px
-  );
-  background-size: 3px 30px;
-  animation: pole-spin 2s linear infinite;
-}
-
-/* Right pole — stripes descending */
-.barberpole-right {
-  position: fixed;
-  top: 0; bottom: 0; right: 0;
-  width: 3px;
-  z-index: 2;
-  pointer-events: none;
-  overflow: hidden;
-  background-image: repeating-linear-gradient(
-    180deg,
-    rgba(197,157,110,0.5)  0px,
-    rgba(197,157,110,0.5)  10px,
-    rgba(139,78,28,0.35)   10px,
-    rgba(139,78,28,0.35)   20px,
-    rgba(80,50,20,0.25)    20px,
-    rgba(80,50,20,0.25)    30px,
-    rgba(197,157,110,0.5)  30px
-  );
-  background-size: 3px 30px;
-  animation: pole-spin-r 2s linear infinite;
 }
 
 /* ─── SECTION DIVIDERS ───────────────────────────────────── */
@@ -264,14 +187,4 @@
   );
   background-size: 85px 85px;
   animation: drift-diag 22s linear infinite;
-}
-
-.bg-moving-lines-r {
-  background-image: repeating-linear-gradient(
-    55deg,
-    transparent 0px, transparent 28px,
-    rgba(197,157,110,0.03) 28px, rgba(197,157,110,0.03) 30px
-  );
-  background-size: 85px 85px;
-  animation: drift-diag-r 22s linear infinite;
 }
