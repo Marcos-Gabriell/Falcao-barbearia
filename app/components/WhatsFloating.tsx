@@ -6,16 +6,14 @@ import { WHATSAPP_LINK } from "../utils/links";
 
 export default function WhatsFloating() {
   const [visible, setVisible] = useState(false);
-  const [pulse, setPulse] = useState(false);
+  const [pulse,   setPulse]   = useState(false);
 
   useEffect(() => {
-    function handleScroll() {
-      setVisible(window.scrollY > 180);
-    }
-    window.addEventListener("scroll", handleScroll);
-    const t = setTimeout(() => setPulse(true), 3000);
+    const onScroll = () => setVisible(window.scrollY > 200);
+    window.addEventListener("scroll", onScroll);
+    const t = setTimeout(() => setPulse(true), 3500);
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", onScroll);
       clearTimeout(t);
     };
   }, []);
@@ -28,7 +26,8 @@ export default function WhatsFloating() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Agendar pelo WhatsApp"
-          className="fixed bottom-6 right-6 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-[#25d366]"
+          className="fixed bottom-6 right-6 z-50 flex h-16 w-16 items-center justify-center rounded-full"
+          style={{ background: "#25d366" }}
           initial={{ opacity: 0, scale: 0.5, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.5, y: 20 }}
@@ -36,24 +35,35 @@ export default function WhatsFloating() {
           whileHover={{ scale: 1.15 }}
           whileTap={{ scale: 0.92 }}
         >
+          {/* Pulse rings */}
           <motion.div
-            className="absolute inset-0 rounded-full bg-[#25d366]"
-            animate={pulse ? { scale: [1, 1.5, 1], opacity: [0.7, 0, 0.7] } : {}}
+            className="absolute inset-0 rounded-full"
+            style={{ background: "#25d366" }}
+            animate={pulse ? { scale: [1, 1.55, 1], opacity: [0.55, 0, 0.55] } : {}}
             transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
           />
           <motion.div
-            className="absolute inset-0 rounded-full bg-[#25d366]"
-            animate={pulse ? { scale: [1, 1.8, 1], opacity: [0.4, 0, 0.4] } : {}}
+            className="absolute inset-0 rounded-full"
+            style={{ background: "#25d366" }}
+            animate={pulse ? { scale: [1, 1.95, 1], opacity: [0.30, 0, 0.30] } : {}}
             transition={{ duration: 2, repeat: Infinity, ease: "easeOut", delay: 0.3 }}
           />
+
+          {/* Glow */}
           <motion.div
-            animate={{ boxShadow: ["0 0 20px rgba(37,211,102,0.5)", "0 0 40px rgba(37,211,102,0.8)", "0 0 20px rgba(37,211,102,0.5)"] }}
-            transition={{ duration: 2, repeat: Infinity }}
             className="absolute inset-0 rounded-full"
+            animate={{
+              boxShadow: [
+                "0 0 16px rgba(37,211,102,0.45)",
+                "0 0 36px rgba(37,211,102,0.80)",
+                "0 0 16px rgba(37,211,102,0.45)",
+              ],
+            }}
+            transition={{ duration: 2.2, repeat: Infinity }}
           />
+
           <svg
-            width="30"
-            height="30"
+            width="30" height="30"
             viewBox="0 0 256 258"
             xmlns="http://www.w3.org/2000/svg"
             fill="white"

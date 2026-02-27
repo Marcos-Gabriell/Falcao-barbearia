@@ -5,62 +5,57 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 
 const imagens = [
-  { src: "/cortes/corte1.jpg", featured: true },
-  { src: "/cortes/corte2.jpg", featured: false },
-  { src: "/cortes/corte3.png", featured: false },
-  { src: "/cortes/corte4.jpg", featured: true },
-  { src: "/cortes/corte5.png", featured: false },
-  { src: "/cortes/corte6.jpg", featured: false },
-  { src: "/cortes/corte7.jpg", featured: false },
-  { src: "/cortes/corte8.png", featured: true },
-  { src: "/cortes/corte9.png", featured: false },
-    { src: "/cortes/corte10.jpeg", featured: false },
+  { src: "/cortes/corte1.jpg",   featured: true  },
+  { src: "/cortes/corte2.jpg",   featured: false },
+  { src: "/cortes/corte3.png",   featured: false },
+  { src: "/cortes/corte4.jpg",   featured: true  },
+  { src: "/cortes/corte5.png",   featured: false },
+  { src: "/cortes/corte6.jpg",   featured: false },
+  { src: "/cortes/corte7.jpg",   featured: false },
+  { src: "/cortes/corte8.png",   featured: true  },
+  { src: "/cortes/corte9.png",   featured: false },
+  { src: "/cortes/corte10.jpeg", featured: false },
 ];
 
 const INSTAGRAM_URL = "https://instagram.com/barbeariafalcao_";
 
 function GalleryItem({ src, index, featured }: { src: string; index: number; featured: boolean }) {
-  const ref = useRef(null);
+  const ref    = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
   const [hovered, setHovered] = useState(false);
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 44 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.8, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.8, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
       className={`group relative cursor-pointer ${featured ? "md:col-span-2 md:row-span-2" : ""}`}
     >
-      {/* Outer frame with gold accent */}
       <motion.div
         className="relative w-full h-full overflow-hidden rounded-2xl"
-        style={{
-          aspectRatio: featured ? "1/1" : "1/1",
-        }}
+        style={{ aspectRatio: "1/1" }}
         whileHover={{ scale: 1.02 }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       >
-        {/* Gold border glow on hover */}
+        {/* Border glow */}
         <motion.div
           className="absolute inset-0 rounded-2xl z-10 pointer-events-none"
           animate={{
             boxShadow: hovered
-              ? "inset 0 0 0 2px rgba(197,157,110,0.6), 0 20px 60px rgba(0,0,0,0.8)"
-              : "inset 0 0 0 1px rgba(197,157,110,0.15), 0 10px 40px rgba(0,0,0,0.5)",
+              ? "inset 0 0 0 1.5px rgba(197,157,110,0.65), 0 20px 60px rgba(0,0,0,0.85)"
+              : "inset 0 0 0 1px rgba(197,157,110,0.09), 0 8px 32px rgba(0,0,0,0.55)",
           }}
           transition={{ duration: 0.4 }}
         />
 
-        {/* Image container */}
-        <div className="relative w-full h-full overflow-hidden rounded-2xl bg-zinc-950">
+        <div className="relative w-full h-full overflow-hidden rounded-2xl" style={{ background: "#05050a" }}>
+          {/* Imagem */}
           <motion.div
             className="w-full h-full"
-            animate={{
-              scale: hovered ? 1.1 : 1,
-            }}
+            animate={{ scale: hovered ? 1.10 : 1 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
             <Image
@@ -72,72 +67,73 @@ function GalleryItem({ src, index, featured }: { src: string; index: number; fea
             />
           </motion.div>
 
-          {/* Gradient overlay */}
+          {/* Gradient base */}
           <motion.div
-            className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"
-            animate={{ opacity: hovered ? 1 : 0.4 }}
+            className="absolute inset-0"
+            style={{ background: "linear-gradient(to top, rgba(5,5,10,0.88) 0%, rgba(5,5,10,0.15) 55%, transparent 100%)" }}
+            animate={{ opacity: hovered ? 1 : 0.5 }}
             transition={{ duration: 0.4 }}
           />
 
-          {/* Corner accent */}
+          {/* Overlay dourado sutil no hover */}
           <motion.div
-            className="absolute top-4 right-4 w-8 h-8 z-20"
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: hovered ? 1 : 0, scale: hovered ? 1 : 0 }}
-            transition={{ duration: 0.3, delay: 0.1 }}
+            className="absolute inset-0"
+            style={{ background: "linear-gradient(135deg, rgba(197,157,110,0.07) 0%, transparent 55%)" }}
+            animate={{ opacity: hovered ? 1 : 0 }}
+            transition={{ duration: 0.4 }}
+          />
+
+          {/* Corner brackets dourado */}
+          <motion.div
+            className="absolute top-3 right-3 w-6 h-6 z-20"
+            animate={{ opacity: hovered ? 1 : 0, scale: hovered ? 1 : 0.5 }}
+            transition={{ duration: 0.28, delay: 0.04 }}
           >
-            <svg viewBox="0 0 32 32" fill="none" className="w-full h-full">
-              <path d="M0 0h12v2H2v10H0V0z" fill="rgba(197,157,110,0.8)" />
-              <path d="M32 32h-12v-2h10V20h2v12z" fill="rgba(197,157,110,0.8)" />
+            <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
+              <path d="M0 0h9v1.5H1.5v9H0V0z" fill="rgba(197,157,110,0.85)" />
+              <path d="M24 24h-9v-1.5h7.5V15H24v9z" fill="rgba(197,157,110,0.85)" />
             </svg>
           </motion.div>
 
-          {/* Bottom info */}
+          {/* Info bottom */}
           <AnimatePresence>
             {hovered && (
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10 }}
-                transition={{ duration: 0.3 }}
-                className="absolute bottom-0 left-0 right-0 p-5 z-20"
+                exit={{ opacity: 0, y: 8 }}
+                transition={{ duration: 0.26 }}
+                className="absolute bottom-0 left-0 right-0 p-4 z-20"
               >
                 <div className="flex items-end justify-between">
                   <div>
                     <motion.div
+                      className="h-px mb-2"
+                      style={{ background: "linear-gradient(to right, #c59d6e, transparent)" }}
                       initial={{ width: 0 }}
-                      animate={{ width: 32 }}
-                      transition={{ duration: 0.4, delay: 0.1 }}
-                      className="h-px bg-[#c59d6e] mb-3"
+                      animate={{ width: 26 }}
+                      transition={{ duration: 0.35, delay: 0.04 }}
                     />
-                    <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-[#c59d6e]">
+                    <span className="text-[9px] font-mono tracking-[0.30em] uppercase" style={{ color: "#c59d6e" }}>
                       Falcão
                     </span>
-                    <p className="text-xs text-zinc-400 mt-1">Barbearia Premium</p>
+                    <p className="text-[10px] mt-0.5" style={{ color: "rgba(184,180,192,0.60)" }}>Barbearia Premium</p>
                   </div>
-                  
-                  <motion.div
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="flex items-center gap-2 text-[#c59d6e]"
-                  >
-                    <span className="text-[10px] font-mono tracking-wider">#{String(index + 1).padStart(2, "0")}</span>
-                  </motion.div>
+                  <span className="text-[10px] font-mono tracking-wide" style={{ color: "rgba(197,157,110,0.55)" }}>
+                    #{String(index + 1).padStart(2, "0")}
+                  </span>
                 </div>
               </motion.div>
             )}
           </AnimatePresence>
 
-          {/* Shine effect on hover */}
+          {/* Shine sweep */}
           <motion.div
             className="absolute inset-0 z-10 pointer-events-none"
-            style={{
-              background: "linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.1) 45%, transparent 50%)",
-            }}
+            style={{ background: "linear-gradient(105deg, transparent 38%, rgba(255,255,255,0.06) 44%, transparent 50%)" }}
             initial={{ x: "-100%" }}
-            animate={{ x: hovered ? "200%" : "-100%" }}
-            transition={{ duration: 0.8, ease: "easeInOut" }}
+            animate={{ x: hovered ? "220%" : "-100%" }}
+            transition={{ duration: 0.85, ease: "easeInOut" }}
           />
         </div>
       </motion.div>
@@ -145,70 +141,44 @@ function GalleryItem({ src, index, featured }: { src: string; index: number; fea
   );
 }
 
-function InstagramIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-      <rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" strokeWidth="1.5" />
-      <circle cx="12" cy="12" r="4.5" stroke="currentColor" strokeWidth="1.5" />
-      <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" />
-    </svg>
-  );
-}
-
-function ArrowIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-      <path d="M7 17L17 7M17 7H7M17 7V17" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
 export default function Cortes() {
-  const titleRef = useRef(null);
+  const titleRef    = useRef(null);
   const titleInView = useInView(titleRef, { once: true, margin: "-80px" });
-  const ctaRef = useRef(null);
-  const ctaInView = useInView(ctaRef, { once: true, margin: "-40px" });
+  const ctaRef      = useRef(null);
+  const ctaInView   = useInView(ctaRef, { once: true, margin: "-40px" });
 
   return (
-    <section id="cortes" className="relative w-full bg-transparent py-32 text-zinc-300 overflow-hidden">
-      {/* Ambient background */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(197,157,110,0.04),_transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(197,157,110,0.03),_transparent_50%)]" />
-      </div>
-
-      {/* Top decorative line */}
+    <section
+      id="cortes"
+      className="relative w-full py-32 overflow-hidden"
+      style={{ background: "transparent", color: "#b8b4c0" }}
+    >
+      {/* Linha top */}
       <motion.div
         className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: "linear-gradient(90deg, transparent, rgba(197,157,110,0.4), transparent)" }}
+        style={{ background: "linear-gradient(90deg, transparent, rgba(197,157,110,0.35), transparent)" }}
         animate={{ opacity: [0.4, 0.8, 0.4] }}
         transition={{ duration: 4, repeat: Infinity }}
       />
 
-      {/* Floating accent shapes */}
-      <motion.div
-        className="pointer-events-none absolute top-40 -right-20 w-80 h-80 rounded-full opacity-[0.02]"
-        style={{ background: "radial-gradient(circle, #c59d6e 0%, transparent 70%)" }}
-        animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }}
-        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-      />
-
       <div className="relative z-10 mx-auto max-w-7xl px-6">
-        {/* Header - asymmetric layout */}
+
+        {/* Header */}
         <div className="mb-20" ref={titleRef}>
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
             <div className="max-w-2xl">
               <motion.div
-                initial={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0, x: -18 }}
                 animate={titleInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.6 }}
                 className="flex items-center gap-4 mb-6"
               >
-                <span className="font-mono text-[10px] tracking-[0.4em] text-[#c59d6e] uppercase">
+                <span className="font-mono text-[10px] tracking-[0.42em] uppercase" style={{ color: "rgba(197,157,110,0.75)" }}>
                   Galeria
                 </span>
                 <motion.div
-                  className="h-px flex-1 max-w-[100px] bg-gradient-to-r from-[#c59d6e]/60 to-transparent"
+                  className="h-px flex-1 max-w-[90px]"
+                  style={{ background: "linear-gradient(to right, rgba(197,157,110,0.55), transparent)" }}
                   initial={{ scaleX: 0, originX: 0 }}
                   animate={titleInView ? { scaleX: 1 } : {}}
                   transition={{ duration: 0.8, delay: 0.2 }}
@@ -216,64 +186,66 @@ export default function Cortes() {
               </motion.div>
 
               <motion.h2
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 28 }}
                 animate={titleInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.8, delay: 0.1 }}
-                className="text-5xl sm:text-6xl lg:text-7xl font-bold text-[#e4ddd2] leading-[0.95] tracking-tight"
+                transition={{ duration: 0.8, delay: 0.08 }}
+                className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[0.93] tracking-tight"
+                style={{ color: "#e6dfd5" }}
               >
-                Nossos
-                <br />
-                <span className="text-[#c59d6e]">Trabalhos</span>
+                Nossos<br />
+                <span style={{ color: "#c59d6e" }}>Trabalhos</span>
               </motion.h2>
             </div>
 
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={titleInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-zinc-500 max-w-xs text-sm leading-relaxed lg:text-right"
+              transition={{ duration: 0.6, delay: 0.28 }}
+              className="max-w-xs text-sm leading-relaxed lg:text-right"
+              style={{ color: "rgba(160,156,174,0.50)" }}
             >
               Cada corte é uma obra de arte. Precisão, estilo e atenção aos detalhes em cada trabalho.
             </motion.p>
           </div>
         </div>
 
-        {/* Masonry-style gallery grid */}
+        {/* Grid galeria */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 auto-rows-[200px] md:auto-rows-[240px]">
           {imagens.map((img, i) => (
             <GalleryItem key={i} src={img.src} index={i} featured={img.featured} />
           ))}
         </div>
 
-        {/* CTA Section */}
+        {/* CTA Instagram */}
         <motion.div
           ref={ctaRef}
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 36 }}
           animate={ctaInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="mt-20 flex flex-col items-center"
         >
-          {/* Decorative line */}
           <motion.div
-            className="flex items-center gap-4 mb-10"
+            className="flex items-center gap-4 mb-9"
             initial={{ opacity: 0 }}
             animate={ctaInView ? { opacity: 1 } : {}}
             transition={{ delay: 0.2 }}
           >
-            <div className="w-16 h-px bg-gradient-to-r from-transparent to-zinc-800" />
+            <div className="w-14 h-px" style={{ background: "linear-gradient(to right, transparent, rgba(197,157,110,0.22))" }} />
             <motion.div
-              className="w-2 h-2 rotate-45 border border-[#c59d6e]/40"
+              className="w-1.5 h-1.5 rotate-45"
+              style={{ border: "1px solid rgba(197,157,110,0.38)" }}
               animate={{ rotate: [45, 225, 45] }}
               transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
             />
-            <div className="w-16 h-px bg-gradient-to-l from-transparent to-zinc-800" />
+            <div className="w-14 h-px" style={{ background: "linear-gradient(to left, transparent, rgba(197,157,110,0.22))" }} />
           </motion.div>
 
           <motion.p
             initial={{ opacity: 0 }}
             animate={ctaInView ? { opacity: 1 } : {}}
-            transition={{ delay: 0.3 }}
-            className="text-[11px] font-mono tracking-[0.3em] uppercase text-zinc-600 mb-6"
+            transition={{ delay: 0.28 }}
+            className="text-[10px] font-mono tracking-[0.32em] uppercase mb-6"
+            style={{ color: "rgba(160,156,174,0.40)" }}
           >
             Veja mais no Instagram
           </motion.p>
@@ -284,43 +256,54 @@ export default function Cortes() {
             rel="noopener noreferrer"
             className="group relative flex items-center gap-4"
             whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            whileTap={{ scale: 0.97 }}
           >
-            {/* Icon circle */}
+            {/* Ícone */}
             <motion.div
-              className="relative flex items-center justify-center w-14 h-14 rounded-full border border-[#c59d6e]/30 text-[#c59d6e]"
-              whileHover={{ borderColor: "rgba(197,157,110,0.6)", boxShadow: "0 0 30px rgba(197,157,110,0.2)" }}
+              className="relative flex items-center justify-center w-14 h-14 rounded-full"
+              style={{ border: "1px solid rgba(197,157,110,0.26)", color: "rgba(197,157,110,0.70)" }}
+              whileHover={{ borderColor: "rgba(197,157,110,0.55)", boxShadow: "0 0 26px rgba(197,157,110,0.22)" }}
               transition={{ duration: 0.3 }}
             >
-              <InstagramIcon />
-              {/* Rotating ring */}
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" strokeWidth="1.5" />
+                <circle cx="12" cy="12" r="4.5" stroke="currentColor" strokeWidth="1.5" />
+                <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" />
+              </svg>
               <motion.div
-                className="absolute inset-0 rounded-full border border-dashed border-[#c59d6e]/20"
+                className="absolute inset-0 rounded-full"
+                style={{ border: "1px dashed rgba(197,157,110,0.16)" }}
                 animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
               />
             </motion.div>
 
-            {/* Text + arrow */}
+            {/* Label */}
             <div className="flex items-center gap-3">
-              <span className="text-lg font-semibold text-[#e4ddd2] group-hover:text-[#c59d6e] transition-colors duration-300">
+              <span
+                className="text-lg font-semibold transition-colors duration-300 group-hover:text-[#e6dfd5]"
+                style={{ color: "#b8b4c0" }}
+              >
                 @barbeariafalcao_
               </span>
               <motion.div
-                className="text-[#c59d6e]"
+                style={{ color: "#c59d6e" }}
                 animate={{ x: [0, 4, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
               >
-                <ArrowIcon />
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M7 17L17 7M17 7H7M17 7V17" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
               </motion.div>
             </div>
           </motion.a>
         </motion.div>
       </div>
 
-      {/* Bottom decorative element */}
+      {/* Bottom line */}
       <motion.div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-px h-20 bg-gradient-to-t from-[#c59d6e]/20 to-transparent"
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-px h-20"
+        style={{ background: "linear-gradient(to top, rgba(197,157,110,0.18), transparent)" }}
         animate={{ opacity: [0.3, 0.6, 0.3] }}
         transition={{ duration: 3, repeat: Infinity }}
       />
