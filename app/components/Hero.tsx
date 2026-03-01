@@ -61,7 +61,6 @@ export default function Hero() {
       className="relative min-h-[100svh] flex items-center justify-center overflow-hidden"
       style={{ background: "#0a0e1a" }}
     >
-      {/* ── MOSAICO DE FOTOS ── */}
       <motion.div
         className="absolute inset-0 pointer-events-none"
         style={{ y: bgY }}
