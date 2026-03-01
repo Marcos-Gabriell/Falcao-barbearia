@@ -116,12 +116,12 @@ function SectionHeader({ label, titleA, titleB, sub, inView }: any) {
 }
 
 export default function Avaliacoes() {
-  const titleRef   = useRef(null);
-  const titleInView = useInView(titleRef, { once: true, margin: "-80px" });
-  const scoreRef   = useRef(null);
-  const scoreInView = useInView(scoreRef, { once: true, margin: "-60px" });
-  const reviewsRef  = useRef(null);
-  const reviewsInView = useInView(reviewsRef, { once: true, margin: "-60px" });
+  const titleRef      = useRef(null);
+  const titleInView   = useInView(titleRef,    { once: true, margin: "-80px" });
+  const scoreRef      = useRef(null);
+  const scoreInView   = useInView(scoreRef,    { once: true, margin: "-60px" });
+  const reviewsRef    = useRef(null);
+  const reviewsInView = useInView(reviewsRef,  { once: true, margin: "-60px" });
 
   return (
     <section
@@ -129,7 +129,6 @@ export default function Avaliacoes() {
       className="relative w-full py-32 overflow-hidden"
       style={{ background: "transparent" }}
     >
-      {/* Linha top */}
       <motion.div
         className="absolute top-0 left-0 right-0 h-px"
         style={{ background: "linear-gradient(90deg, transparent, rgba(197,157,110,0.35), transparent)" }}
@@ -137,7 +136,6 @@ export default function Avaliacoes() {
         transition={{ duration: 4, repeat: Infinity }}
       />
 
-      {/* Glow ambiente */}
       <div className="pointer-events-none absolute inset-0">
         <motion.div
           className="absolute rounded-full"
@@ -151,7 +149,6 @@ export default function Avaliacoes() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-6">
-        {/* Header */}
         <div ref={titleRef}>
           <SectionHeader
             label="Avaliações"
@@ -163,8 +160,6 @@ export default function Avaliacoes() {
         </div>
 
         <div className="grid gap-12 lg:grid-cols-[280px_1fr] items-start">
-
-          {/* Score */}
           <motion.div
             ref={scoreRef}
             initial={{ opacity: 0, x: -28 }}
@@ -172,7 +167,6 @@ export default function Avaliacoes() {
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="lg:sticky lg:top-8"
           >
-            {/* Card nota */}
             <div
               className="rounded-2xl p-5 mb-6"
               style={{
@@ -211,7 +205,6 @@ export default function Avaliacoes() {
                 </div>
               </div>
 
-              {/* Badge verificado */}
               <div
                 className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-semibold"
                 style={{
@@ -275,6 +268,7 @@ export default function Avaliacoes() {
                 }}
                 whileHover={{ scale: 1.02, boxShadow: "0 4px 32px rgba(197,157,110,0.42)" }}
                 whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.28 }}
               >
                 <GoogleIcon />
                 Ver todas as avaliações
@@ -291,13 +285,13 @@ export default function Avaliacoes() {
                 }}
                 whileHover={{ borderColor: "rgba(197,157,110,0.50)", backgroundColor: "rgba(197,157,110,0.05)" }}
                 whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.28 }}
               >
                 Deixar avaliação
               </motion.a>
             </div>
           </motion.div>
 
-          {/* Cards de review */}
           <div ref={reviewsRef} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {reviews.map((r, i) => (
               <motion.article
@@ -305,7 +299,7 @@ export default function Avaliacoes() {
                 initial={{ opacity: 0, y: 28 }}
                 animate={reviewsInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: i * 0.10, ease: [0.22, 1, 0.36, 1] }}
-                className={`group p-5 rounded-2xl transition-all duration-300 ${i === 0 ? "sm:col-span-2" : ""}`}
+                className={`group p-5 rounded-2xl ${i === 0 ? "sm:col-span-2" : ""}`}
                 style={{
                   background: "#0d0d18",
                   border: "1px solid rgba(197,157,110,0.09)",
@@ -315,8 +309,8 @@ export default function Avaliacoes() {
                   borderColor: "rgba(197,157,110,0.28)",
                   backgroundColor: "#111128",
                 }}
+                whileTap={{ scale: 0.99 }}
               >
-                {/* Header */}
                 <div className="flex items-start justify-between gap-3 mb-4">
                   <div className="flex items-center gap-3">
                     <div
@@ -345,13 +339,10 @@ export default function Avaliacoes() {
                   </div>
                   <Stars count={r.stars} size={12} />
                 </div>
-
-                {/* Texto */}
                 <p className="text-sm leading-relaxed mb-4" style={{ color: "rgba(184,180,192,0.75)" }}>
                   "{r.texto}"
                 </p>
 
-                {/* Serviço */}
                 {r.servico && (
                   <div className="flex items-center gap-2">
                     <span className="w-1 h-1 rounded-full" style={{ background: "#c59d6e" }} />
@@ -365,8 +356,6 @@ export default function Avaliacoes() {
           </div>
         </div>
       </div>
-
-      {/* Bottom decorative */}
       <motion.div
         className="absolute bottom-0 left-1/2 -translate-x-1/2 w-px h-20"
         style={{ background: "linear-gradient(to top, rgba(197,157,110,0.18), transparent)" }}

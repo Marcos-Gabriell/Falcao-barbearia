@@ -213,29 +213,6 @@ export default function Localizacao() {
             className="relative rounded-2xl overflow-hidden"
             style={{ border: "1px solid rgba(197,157,110,0.12)" }}
           >
-            {/* Badge status */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={mapInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ delay: 0.55 }}
-              className="absolute top-4 right-4 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full"
-              style={{
-                background: "rgba(5,5,10,0.88)",
-                border: "1px solid rgba(52,211,153,0.20)",
-                backdropFilter: "blur(8px)",
-              }}
-            >
-              <motion.span
-                className="w-1.5 h-1.5 rounded-full"
-                style={{ background: "#34d399" }}
-                animate={{ opacity: [1, 0.4, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
-              <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: "#34d399" }}>
-                Aberto
-              </span>
-            </motion.div>
-
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3835.049292743803!2d-40.000000!3d-11.000000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x773249761921637b%3A0x6b4f599dbbf227ec!2sBarbearia%20Falc%C3%A3o!5e0!3m2!1spt-BR!2sBR!4v0000000000"
               width="100%"

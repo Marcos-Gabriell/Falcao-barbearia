@@ -12,7 +12,7 @@ const site = {
   phoneE164: "+5574988732790",
   phoneDisplay: "(74) 98873-2790",
   url: "https://www.falcaobarbearia.online",
-  logo: "https://www.falcaobarbearia.online/logo1.png",
+  logo: "https://www.falcaobarbearia.online/logo2.png",
   image1: "https://www.falcaobarbearia.online/cortes/corte1.jpg",
   whatsapp: "https://wa.me/5574988732790?text=Ol%C3%A1!%20Quero%20agendar%20um%20hor%C3%A1rio%20na%20Falc%C3%A3o%20Barbearia.",
   mapsQuery:

@@ -8,6 +8,8 @@ import Avaliacoes  from "./components/Avaliacoes";
 import Localizacao from "./components/Localizacao";
 import Footer      from "./components/Footer";
 import WhatsFloating from "./components/WhatsFloating";
+import IdleModal from "./components/IdleModal";
+
 
 const siteUrl = "https://www.falcaobarbearia.online";
 
@@ -39,6 +41,7 @@ export default function Home() {
         <Localizacao />
       </main>
 
+      <IdleModal />
       <Footer />
       <WhatsFloating />
     </>

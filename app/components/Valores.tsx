@@ -45,14 +45,14 @@ const servicos = [
 ];
 
 export default function Valores() {
-  const titleRef      = useRef(null);
-  const titleInView   = useInView(titleRef,    { once: true, margin: "-80px" });
-  const timelineRef   = useRef(null);
+  const titleRef       = useRef(null);
+  const titleInView    = useInView(titleRef,    { once: true, margin: "-80px" });
+  const timelineRef    = useRef(null);
   const timelineInView = useInView(timelineRef, { once: true, margin: "-60px" });
-  const pilaresRef    = useRef(null);
-  const pilaresInView = useInView(pilaresRef,  { once: true, margin: "-60px" });
-  const precosRef     = useRef(null);
-  const precosInView  = useInView(precosRef,   { once: true, margin: "-60px" });
+  const pilaresRef     = useRef(null);
+  const pilaresInView  = useInView(pilaresRef,  { once: true, margin: "-60px" });
+  const precosRef      = useRef(null);
+  const precosInView   = useInView(precosRef,   { once: true, margin: "-60px" });
 
   return (
     <section
@@ -162,7 +162,8 @@ export default function Valores() {
                 initial={{ opacity: 0, y: 28 }}
                 animate={timelineInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.7, delay: i * 0.10, ease: [0.22, 1, 0.36, 1] }}
-                className="relative group"
+                className="relative group cursor-default"
+                whileHover={{ y: -3 }}
               >
                 <div className="flex items-center gap-3 mb-4">
                   <motion.div
@@ -179,12 +180,14 @@ export default function Valores() {
                   </span>
                 </div>
 
-                <h3
-                  className="text-lg font-semibold mb-2 transition-colors duration-300 group-hover:text-[#c59d6e]"
+                <motion.h3
+                  className="text-lg font-semibold mb-2"
                   style={{ color: "#e6dfd5" }}
+                  whileHover={{ color: "#c59d6e" }}
+                  transition={{ duration: 0.28 }}
                 >
                   {item.titulo}
-                </h3>
+                </motion.h3>
                 <p className="text-sm leading-relaxed" style={{ color: "rgba(160,156,174,0.58)" }}>
                   {item.texto}
                 </p>
@@ -222,8 +225,8 @@ export default function Valores() {
                   key={pilar.titulo}
                   initial={{ opacity: 0, y: 18 }}
                   animate={pilaresInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, delay: 0.10 + i * 0.08 }}
-                  className="group p-5 rounded-2xl transition-all duration-350"
+                  transition={{ duration: 0.6, delay: 0.10 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                  className="group p-5 rounded-2xl"
                   style={{
                     background: "#0d0d18",
                     border: "1px solid rgba(197,157,110,0.09)",
@@ -233,6 +236,7 @@ export default function Valores() {
                     borderColor: "rgba(197,157,110,0.30)",
                     backgroundColor: "#111128",
                   }}
+                  transition={{ duration: 0.28 }}
                 >
                   <motion.div
                     className="w-8 h-0.5 mb-4 origin-left"
@@ -241,12 +245,14 @@ export default function Valores() {
                     animate={pilaresInView ? { scaleX: 1 } : {}}
                     transition={{ duration: 0.6, delay: 0.28 + i * 0.10 }}
                   />
-                  <h4
-                    className="text-base font-semibold mb-2 transition-colors duration-300 group-hover:text-[#c59d6e]"
+                  <motion.h4
+                    className="text-base font-semibold mb-2"
                     style={{ color: "#e6dfd5" }}
+                    whileHover={{ color: "#c59d6e" }}
+                    transition={{ duration: 0.28 }}
                   >
                     {pilar.titulo}
-                  </h4>
+                  </motion.h4>
                   <p className="text-sm leading-relaxed" style={{ color: "rgba(160,156,174,0.55)" }}>
                     {pilar.texto}
                   </p>
@@ -291,7 +297,7 @@ export default function Valores() {
                     key={item.nome}
                     initial={{ opacity: 0, x: -16 }}
                     animate={precosInView ? { opacity: 1, x: 0 } : {}}
-                    transition={{ duration: 0.45, delay: 0.14 + i * 0.045 }}
+                    transition={{ duration: 0.45, delay: 0.14 + i * 0.045, ease: [0.22, 1, 0.36, 1] }}
                     className="group flex items-center gap-3 py-3"
                     style={{
                       borderBottom:
@@ -299,13 +305,17 @@ export default function Valores() {
                           ? "1px solid rgba(197,157,110,0.07)"
                           : "none",
                     }}
+                    whileHover={{ x: 4 }}
+                    // transition dedicado ao hover — não conflita com o animate de entrada
                   >
-                    <span
-                      className="text-sm transition-colors duration-200 group-hover:text-[#e6dfd5]"
+                    <motion.span
+                      className="text-sm"
                       style={{ color: "rgba(184,180,192,0.72)" }}
+                      whileHover={{ color: "#e6dfd5" }}
+                      transition={{ duration: 0.28 }}
                     >
                       {item.nome}
-                    </span>
+                    </motion.span>
                     <span
                       className="flex-1 border-b border-dotted"
                       style={{ borderColor: "rgba(197,157,110,0.10)" }}
@@ -313,7 +323,8 @@ export default function Valores() {
                     <motion.span
                       className="text-sm font-bold"
                       style={{ color: "#c59d6e" }}
-                      whileHover={{ scale: 1.05 }}
+                      whileHover={{ scale: 1.07, color: "#e8c589" }}
+                      transition={{ duration: 0.28 }}
                     >
                       {item.preco}
                     </motion.span>
