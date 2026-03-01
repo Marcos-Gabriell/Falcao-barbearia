@@ -236,7 +236,6 @@ export default function Valores() {
                     borderColor: "rgba(197,157,110,0.30)",
                     backgroundColor: "#111128",
                   }}
-                  transition={{ duration: 0.28 }}
                 >
                   <motion.div
                     className="w-8 h-0.5 mb-4 origin-left"
