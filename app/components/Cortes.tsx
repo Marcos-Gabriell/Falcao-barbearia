@@ -184,7 +184,7 @@ function MobileSlider() {
         {/* Top bar */}
         <div className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-4 pt-5 pointer-events-none">
           <div className="relative h-8 w-24">
-            <Image src="/logo.png" alt="Falcão Barbearia" fill className="object-contain object-left" />
+            <Image src="/logo1.png" alt="Falcão Barbearia" fill className="object-contain object-left" />
           </div>
           <div className="flex items-center gap-1.5">
             <span className="font-mono text-xs font-bold" style={{ color: "#c59d6e" }}>{itemNumber}</span>
