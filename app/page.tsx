@@ -1,22 +1,23 @@
 import type { Metadata } from "next";
 
+import Header      from "./components/Header";
 import Hero        from "./components/Hero";
 import Sobre       from "./components/Sobre";
+import Experiencia   from "./components/Experiencia";
 import Valores     from "./components/Valores";
 import Cortes      from "./components/Cortes";
 import Avaliacoes  from "./components/Avaliacoes";
 import Localizacao from "./components/Localizacao";
 import Footer      from "./components/Footer";
 import WhatsFloating from "./components/WhatsFloating";
-import IdleModal from "./components/IdleModal";
-
+import IdleModal   from "./components/IdleModal";
 
 const siteUrl = "https://www.falcaobarbearia.online";
 
 export const metadata: Metadata = {
   title: "Falcão Barbearia em Tapiramutá - BA | Corte Masculino & Barba",
   description:
-    "Barbearia em Tapiramutá - BA. Corte masculino moderno, degradê, barba alinhada e acabamento profissional. Agende pelo WhatsApp!",
+    "Barbearia premium em Tapiramutá - BA. Corte masculino moderno, degradê, barba alinhada e acabamento profissional. Agende pelo WhatsApp!",
   alternates: { canonical: siteUrl },
   openGraph: {
     title: "Falcão Barbearia | Tapiramutá - BA",
@@ -32,9 +33,12 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
+      <Header />
+
       <main className="w-full">
         <Hero />
         <Sobre />
+        <Experiencia />
         <Valores />
         <Cortes />
         <Avaliacoes />

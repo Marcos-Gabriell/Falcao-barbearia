@@ -1,381 +1,214 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
-import { WHATSAPP_LINK } from "../utils/links";
+import { motion, type Variants } from "framer-motion";
+import { FaInstagram, FaWhatsapp } from "react-icons/fa";
+import { MapPin, Clock, Smartphone } from "lucide-react";
+import { WHATSAPP_LINK, INSTAGRAM_URL } from "../utils/links";
 
-const INSTAGRAM_URL = "https://instagram.com/barbeariafalcao_";
+// Animações extraídas para fora do componente
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+};
 
-// ── Paleta alinhada ao tema navy-blue + dourado ──────────────────────────────
-const BG_DEEP    = "#03060d";
-const BG_CARD    = "rgba(10,25,47,0.85)";
-const BORDER     = "rgba(79,142,247,0.10)";
-const GOLD       = "#c59d6e";
-const GOLD_DIM   = "rgba(197,157,110,0.70)";
-const GOLD_FAINT = "rgba(197,157,110,0.10)";
-const TEXT_DIM   = "rgba(148,163,194,0.55)";
-const TEXT_MID   = "rgba(176,188,220,0.72)";
-const TEXT_BRIGHT= "#dce6f5";
+const staggerContainer: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15 }
+  }
+};
 
-const horarios = [
-  { dia: "Seg – Sex", hora: "09:00 – 19:00", aberto: true  },
-  { dia: "Sábado",    hora: "08:00 – 20:00", aberto: true  },
-  { dia: "Domingo",   hora: "Fechado",        aberto: false },
-];
-
-const navLinks = [
-  { label: "Início",      href: "#inicio"     },
-  { label: "Sobre",       href: "#sobre"      },
-  { label: "Serviços",    href: "#valores"    },
-  { label: "Galeria",     href: "#cortes"     },
-  { label: "Avaliações",  href: "#avaliacoes" },
-  { label: "Localização", href: "#localizacao"},
-];
-
-const servicos = [
-  "Corte na máquina",
-  "Corte tesoura",
-  "Barba completa",
-  "Pezinho",
-  "Pigmentação",
-  "Sobrancelha",
-];
-
-const TABS = ["Links"] as const;
-type Tab = typeof TABS[number];
-
-function IGIcon() {
-  return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
-      <rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" strokeWidth="1.6" />
-      <circle cx="12" cy="12" r="4.4" stroke="currentColor" strokeWidth="1.6" />
-      <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" />
-    </svg>
-  );
-}
-
-function WAIcon({ size = 17 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 256 258" fill="currentColor">
-      <path d="M128.1 0C57.3 0 .7 56.5.7 126.3c0 22.1 5.8 43.7 16.8 62.7L0 256l69.9-17.9c18.3 10 39 15.3 60.3 15.3h.1c70.8 0 127.4-56.5 127.4-126.3C257.7 56.5 199 0 128.1 0zm75.2 180.4c-3.2 9-18.4 17.2-25.3 18.3-6.5 1-14.8 1.4-23.9-1.5-5.5-1.8-12.6-4.1-21.7-8.1-38.1-16.6-62.8-55.3-64.8-57.9-1.9-2.6-15.4-20.5-15.4-39.1 0-18.6 9.7-27.7 13.1-31.5 3.3-3.8 7.2-4.7 9.6-4.7 2.4 0 4.8 0 6.8.1 2.2.1 5.1-.8 8 6.1 3.2 7.5 10.8 26.2 11.7 28.1.9 1.9 1.5 4.1.3 6.6-1.2 2.6-1.8 4.1-3.5 6.3-1.8 2.1-3.8 4.7-5.3 6.3-1.8 1.9-3.7 3.9-1.6 7.4 2.1 3.6 9.3 15.4 20 24.8 13.8 12.4 24.9 16.3 28.4 18.1 3.5 1.9 5.5 1.6 7.5-.9 2.1-2.6 8.7-10.1 11-13.6 2.3-3.4 4.6-2.9 7.6-1.7 3.2 1.3 20.4 9.8 23.9 11.6 3.5 1.9 5.8 2.8 6.6 4.4.8 1.6.8 9.3-2.4 18.3z" />
-    </svg>
-  );
-}
-
-function MapPinIcon() {
-  return (
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
-      <circle cx="12" cy="9" r="2.5" />
-    </svg>
-  );
-}
-
-// ── Mobile Tab Footer ──────────────────────────────────────────────────────────
-function MobileFooter({ inView }: { inView: boolean }) {
-  const [activeTab, setActiveTab] = useState<Tab>("Links");
+const Footer = () => {
+  const year = new Date().getFullYear();
 
   return (
-    <div className="lg:hidden">
-      {/* Brand */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6 }}
-        className="flex flex-col items-center mb-8"
-      >
-        <Image src="/logo1.png" alt="Falcão Barbearia" width={120} height={48} className="h-12 w-auto object-contain brightness-110 mb-3" />
-        <div className="flex items-center gap-2 text-[10px] font-mono tracking-[0.26em] uppercase" style={{ color: GOLD_DIM }}>
-          <MapPinIcon />
-          <span>R. Olavo Bilac, Tapiramutá — BA</span>
-        </div>
-      </motion.div>
+    <footer className="relative w-full bg-[#050505] pt-32 pb-10 overflow-hidden antialiased z-10">
+      
+      {/* ── Background Effects & Grain ── */}
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_bottom,rgba(184,133,58,0.04)_0%,transparent_60%)]" />
+      <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
 
+      {/* ── Linha Dourada de Topo ── */}
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#b8853a]/40 to-transparent opacity-70" />
 
-
-
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={inView ? { opacity: 1 } : {}}
-        transition={{ delay: 0.4 }}
-        className="text-center text-[11px]"
-        style={{ color: "rgba(100,120,160,0.28)" }}
-      >
-        © 2021–{new Date().getFullYear()} Falcão Barbearia · Todos os direitos reservados
-      </motion.div>
-    </div>
-  );
-}
-
-// ── Desktop Footer ─────────────────────────────────────────────────────────────
-export default function Footer() {
-  const ref    = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-50px" });
-  const year   = new Date().getFullYear();
-
-  return (
-    <footer
-      ref={ref}
-      className="relative w-full overflow-hidden"
-      style={{ background: BG_DEEP }}
-    >
-      {/* Top accent line — dourado sobre navy */}
-      <div className="relative h-px">
-        <motion.div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(90deg, transparent 0%, rgba(197,157,110,0.18) 15%, rgba(197,157,110,0.58) 50%, rgba(197,157,110,0.18) 85%, transparent 100%)",
-          }}
-          animate={{ opacity: [0.6, 1, 0.6] }}
-          transition={{ duration: 3.5, repeat: Infinity }}
-        />
-        <div
-          className="absolute top-0 left-1/2 -translate-x-1/2 pointer-events-none"
-          style={{
-            width: "600px", height: "70px",
-            background: "radial-gradient(ellipse at top, rgba(197,157,110,0.07) 0%, transparent 72%)",
-          }}
-        />
+      {/* ── WATERMARK "FALCÃO" INTEGRADO ── */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none w-full flex justify-center z-0 [mask-image:linear-gradient(to_bottom,transparent,black_40%,black_60%,transparent)]">
+        <h3 className="text-[28vw] font-serif font-black leading-none tracking-tighter text-white opacity-[0.015] mix-blend-screen">
+          FALCÃO
+        </h3>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-16 pb-8">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        
+        {/* SECTION 1 — CTA PREMIUM */}
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "0px 0px -100px 0px" }}
+          variants={fadeUp}
+          className="relative w-full max-w-5xl mx-auto mb-32 rounded-3xl p-10 md:p-16 flex flex-col items-center text-center overflow-hidden group"
+        >
+          {/* Glass background */}
+          <div className="absolute inset-0 bg-white/[0.02] backdrop-blur-md border border-white/5 rounded-3xl transition-colors duration-700 group-hover:border-[#b8853a]/20 group-hover:bg-white/[0.03]" />
+          <div className="absolute -inset-1 bg-gradient-to-r from-transparent via-[#b8853a]/10 to-transparent opacity-0 group-hover:opacity-100 blur-2xl transition-opacity duration-1000" />
 
-        {/* Mobile */}
-        <MobileFooter inView={inView} />
-
-        {/* Desktop 4-col */}
-        <div className="hidden lg:grid lg:grid-cols-4 gap-x-10 gap-y-14 mb-16">
-
-          {/* Col 1 — Brand */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7 }}
-          >
-            <motion.div
-              className="relative inline-block mb-5"
-              whileHover={{ scale: 1.03 }}
-              transition={{ type: "spring", stiffness: 400, damping: 28 }}
-            >
-              <Image src="/logo1.png" alt="Falcão Barbearia" width={160} height={64} className="h-16 w-auto object-contain brightness-110" />
-              <div className="absolute inset-0 -z-10 scale-150 blur-3xl opacity-20" style={{ background: GOLD }} />
-            </motion.div>
-
-            <p className="text-[13px] leading-relaxed mb-5" style={{ color: TEXT_DIM, maxWidth: "210px" }}>
-              Tradição e estilo desde 2021. Cortes precisos e atendimento premium no coração de Tapiramutá.
+          <div className="relative z-10">
+            <h2 className="text-3xl md:text-5xl font-serif text-[#f5f1eb] mb-4 tracking-tight">
+              Seu visual <span className="italic text-[#b8853a] font-normal">merece presença.</span>
+            </h2>
+            <p className="text-white/50 max-w-xl mx-auto text-sm md:text-base font-light tracking-wide mb-10 leading-relaxed">
+              Agende seu horário e viva uma experiência de barbearia feita nos detalhes. Onde técnica e estilo se encontram.
             </p>
 
-            <div className="flex items-start gap-2 mb-5" style={{ color: TEXT_DIM }}>
-              <span className="mt-0.5 shrink-0" style={{ color: GOLD_DIM }}><MapPinIcon /></span>
-              <span className="text-[12px] leading-relaxed">R. Olavo Bilac — Tapiramutá, BA</span>
+            <div className="flex flex-col sm:flex-row gap-5 justify-center items-center">
+              <a 
+                href={WHATSAPP_LINK}
+                target="_blank"
+                rel="noreferrer"
+                className="relative overflow-hidden group/btn px-8 py-4 bg-[#b8853a] text-[#050505] font-semibold tracking-widest uppercase text-xs rounded-sm hover:scale-[1.02] transition-all duration-500 flex items-center gap-3 w-full sm:w-auto justify-center shadow-[0_0_20px_rgba(184,133,58,0.2)] hover:shadow-[0_0_30px_rgba(184,133,58,0.4)]"
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  <FaWhatsapp size={16} /> Agendar Agora
+                </span>
+                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500 ease-out" />
+              </a>
+
+              <a 
+                href={INSTAGRAM_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="px-8 py-4 bg-transparent border border-white/10 text-white/70 font-semibold tracking-widest uppercase text-xs rounded-sm hover:border-[#b8853a]/50 hover:text-[#b8853a] hover:bg-white/[0.02] transition-all duration-500 flex items-center gap-3 w-full sm:w-auto justify-center"
+              >
+                <FaInstagram size={16} /> Ver Instagram
+              </a>
             </div>
-
-            <div className="flex gap-2.5">
-              {[
-                { href: INSTAGRAM_URL, icon: <IGIcon />, label: "Instagram" },
-                { href: WHATSAPP_LINK, icon: <WAIcon />, label: "WhatsApp"  },
-              ].map((s, i) => (
-                <motion.a
-                  key={s.label}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={s.label}
-                  className="flex items-center justify-center w-10 h-10 rounded-full"
-                  style={{ background: GOLD_FAINT, border: `1px solid ${BORDER}`, color: GOLD_DIM }}
-                  whileHover={{ scale: 1.12, color: GOLD, boxShadow: "0 0 18px rgba(197,157,110,0.28)", borderColor: "rgba(197,157,110,0.40)" }}
-                  whileTap={{ scale: 0.94 }}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={inView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ duration: 0.4, delay: 0.35 + i * 0.10 }}
-                >
-                  {s.icon}
-                </motion.a>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Col 2 — Navegação */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.08 }}
-          >
-            <h4 className="text-[9px] font-mono tracking-[0.38em] uppercase mb-6" style={{ color: GOLD_DIM }}>
-              Navegação
-            </h4>
-            <ul className="space-y-3">
-              {navLinks.map((link, i) => (
-                <motion.li
-                  key={link.label}
-                  initial={{ opacity: 0, x: -8 }}
-                  animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.4, delay: 0.22 + i * 0.05 }}
-                >
-                  <a
-                    href={link.href}
-                    className="group flex items-center gap-2.5 text-[13px] transition-colors duration-200"
-                    style={{ color: TEXT_DIM }}
-                  >
-                    <span className="block h-px w-0 group-hover:w-5 transition-all duration-300" style={{ background: GOLD }} />
-                    <span className="group-hover:text-[#dce6f5] transition-colors duration-200">{link.label}</span>
-                  </a>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Col 3 — Serviços */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.14 }}
-          >
-            <h4 className="text-[9px] font-mono tracking-[0.38em] uppercase mb-6" style={{ color: GOLD_DIM }}>
-              Serviços
-            </h4>
-            <ul className="space-y-3">
-              {servicos.map((s, i) => (
-                <motion.li
-                  key={s}
-                  initial={{ opacity: 0, x: -8 }}
-                  animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.4, delay: 0.28 + i * 0.05 }}
-                  className="flex items-center gap-2 text-[13px]"
-                  style={{ color: TEXT_DIM }}
-                >
-                  <span className="w-1 h-1 rounded-full shrink-0" style={{ background: "rgba(197,157,110,0.40)" }} />
-                  {s}
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Col 4 — Horários + CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.20 }}
-          >
-            <h4 className="text-[9px] font-mono tracking-[0.38em] uppercase mb-6" style={{ color: GOLD_DIM }}>
-              Horários
-            </h4>
-            <div className="space-y-3 mb-8">
-              {horarios.map((h, i) => (
-                <motion.div
-                  key={h.dia}
-                  initial={{ opacity: 0 }}
-                  animate={inView ? { opacity: 1 } : {}}
-                  transition={{ duration: 0.4, delay: 0.32 + i * 0.08 }}
-                  className="flex items-center justify-between"
-                >
-                  <div className="flex items-center gap-2">
-                    <motion.span
-                      className="w-1.5 h-1.5 rounded-full shrink-0"
-                      style={{ background: h.aberto ? "#34d399" : "rgba(148,163,194,0.22)" }}
-                      animate={h.aberto ? { opacity: [1, 0.4, 1] } : {}}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    />
-                    <span className="text-[12px]" style={{ color: TEXT_DIM }}>{h.dia}</span>
-                  </div>
-                  <span className="text-[11px] font-medium ml-2" style={{ color: h.aberto ? TEXT_BRIGHT : "rgba(148,163,194,0.28)" }}>
-                    {h.hora}
-                  </span>
-                </motion.div>
-              ))}
-            </div>
-
-            <motion.a
-              href={WHATSAPP_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-[13px] font-bold text-black rounded-full px-5 py-2.5 w-full justify-center"
-              style={{
-                background: `linear-gradient(135deg, ${GOLD} 0%, #e8c589 55%, #9b7540 100%)`,
-                boxShadow: "0 4px 20px rgba(197,157,110,0.22)",
-              }}
-              whileHover={{ scale: 1.03, boxShadow: "0 6px 32px rgba(197,157,110,0.44)" }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ type: "spring", stiffness: 400, damping: 22 }}
-            >
-              <WAIcon />
-              Agendar agora
-            </motion.a>
-          </motion.div>
-        </div>
-
-        {/* Divider */}
-        <motion.div
-          className="hidden lg:flex items-center gap-5 mb-7"
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.48 }}
-        >
-          <div className="flex-1 h-px" style={{ background: `linear-gradient(to right, transparent, ${BORDER})` }} />
-          <div className="flex items-center gap-3">
-            <span className="w-1 h-1 rotate-45 inline-block" style={{ background: "rgba(197,157,110,0.38)" }} />
-            <motion.span
-              className="text-[9px] font-mono tracking-[0.40em] uppercase"
-              style={{ color: "rgba(197,157,110,0.35)" }}
-              animate={{ opacity: [0.35, 0.60, 0.35] }}
-              transition={{ duration: 4, repeat: Infinity }}
-            >
-              Est. 2021
-            </motion.span>
-            <span className="w-1 h-1 rotate-45 inline-block" style={{ background: "rgba(197,157,110,0.38)" }} />
-          </div>
-          <div className="flex-1 h-px" style={{ background: `linear-gradient(to left, transparent, ${BORDER})` }} />
-        </motion.div>
-
-        {/* Bottom bar */}
-        <motion.div
-          className="hidden lg:flex items-center justify-between gap-3"
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.56 }}
-        >
-          <div className="flex items-center gap-4 text-[11px]" style={{ color: "rgba(100,120,160,0.30)" }}>
-            <span>© 2021–{year} Falcão Barbearia</span>
-            <span>·</span>
-            <span>Todos os direitos reservados</span>
           </div>
         </motion.div>
-      </div>
 
-      {/* Background decorativos — azul navy */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <motion.div
-          className="absolute rounded-full"
-          style={{
-            bottom: "-80px", right: "-80px",
-            width: "420px", height: "420px",
-            background: "radial-gradient(circle, rgba(37,99,235,0.07) 0%, transparent 70%)",
-          }}
-          animate={{ scale: [1, 1.18, 1] }}
-          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute rounded-full"
-          style={{
-            top: "-60px", left: "-60px",
-            width: "320px", height: "320px",
-            background: "radial-gradient(circle, rgba(197,157,110,0.04) 0%, transparent 70%)",
-          }}
-          animate={{ scale: [1, 1.14, 1] }}
-          transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        />
-        {/* Hatch sutil — azul */}
-        <div
-          className="absolute inset-0 opacity-[0.014]"
-          style={{
-            backgroundImage:
-              "repeating-linear-gradient(-52deg, transparent 0px, transparent 28px, rgba(79,142,247,0.9) 28px, rgba(79,142,247,0.9) 29px)",
-          }}
-        />
+        {/* SECTION 2 — FOOTER PRINCIPAL (GRID) */}
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={staggerContainer}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 lg:gap-8 mb-24"
+        >
+          {/* COLUNA 1 — Marca */}
+          <motion.div variants={fadeUp} className="flex flex-col items-start">
+            <Image
+              src="/logo1.png"
+              alt="Falcão Barbearia"
+              width={180}
+              height={60}
+              className="h-16 w-auto object-contain brightness-[1.2] mb-8"
+            />
+            <p className="text-white/50 text-sm font-light leading-relaxed mb-6 pe-4">
+              Precisão, estilo e experiência em cada detalhe. Elevando a experiência da barbearia com um padrão de excelência inegociável.
+            </p>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 border border-white/10 rounded-full bg-white/[0.02]">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#b8853a] animate-pulse" />
+              <span className="text-[10px] uppercase tracking-widest text-white/40">Desde 2021 • Tapiramutá, BA</span>
+            </div>
+          </motion.div>
+
+          {/* COLUNA 2 — Navegação */}
+          <motion.div variants={fadeUp} className="flex flex-col items-start lg:items-center">
+            <div className="flex flex-col gap-5">
+              <h4 className="text-white text-xs uppercase tracking-[0.2em] font-semibold mb-2">Navegação</h4>
+              {["Início", "Sobre", "Valores", "Trabalhos", "Avaliações", "Localização"].map((item, i) => (
+                <a 
+                  key={i} 
+                  href={`#${item.toLowerCase()}`}
+                  className="group relative text-sm font-light text-white/50 hover:text-white transition-colors duration-300 w-fit"
+                >
+                  <span className="relative z-10">{item}</span>
+                  <span className="absolute -bottom-1 left-0 w-0 h-px bg-[#b8853a] transition-all duration-500 ease-out group-hover:w-full" />
+                </a>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* COLUNA 3 — Contato */}
+          <motion.div variants={fadeUp} className="flex flex-col gap-6">
+            <h4 className="text-white text-xs uppercase tracking-[0.2em] font-semibold mb-2">Contato</h4>
+            
+            <div className="flex gap-4 items-start group">
+              <MapPin size={18} className="text-[#b8853a] mt-1 shrink-0 group-hover:scale-110 transition-transform duration-500" />
+              <p className="text-sm text-white/50 font-light leading-relaxed">
+                R. Olavo Bilac, Centro<br />Tapiramutá, BA
+              </p>
+            </div>
+
+            <div className="flex gap-4 items-start group">
+              <Clock size={18} className="text-[#b8853a] mt-1 shrink-0 group-hover:scale-110 transition-transform duration-500" />
+              <p className="text-sm text-white/50 font-light leading-relaxed">
+                Seg a Sáb<br />09:00 às 19:00
+              </p>
+            </div>
+
+            <div className="flex gap-4 items-start group">
+              <Smartphone size={18} className="text-[#b8853a] mt-1 shrink-0 group-hover:scale-110 transition-transform duration-500" />
+              <p className="text-sm text-white/50 font-light leading-relaxed">
+                Agendamentos via<br />WhatsApp
+              </p>
+            </div>
+          </motion.div>
+
+          {/* COLUNA 4 — Social / Presença */}
+          <motion.div variants={fadeUp} className="flex flex-col items-start lg:items-end text-left lg:text-right">
+            <h4 className="text-white text-xs uppercase tracking-[0.2em] font-semibold mb-6">Presença</h4>
+            <p className="text-2xl font-serif text-[#f5f1eb] italic mb-8">
+              Conecte-se com a <span className="text-[#b8853a]">Falcão.</span>
+            </p>
+            
+            <div className="flex gap-4">
+              <a 
+                href={INSTAGRAM_URL} 
+                target="_blank" 
+                rel="noreferrer"
+                className="w-14 h-14 rounded-full border border-white/10 bg-white/[0.02] flex items-center justify-center text-white/50 hover:bg-[#b8853a] hover:border-[#b8853a] hover:text-[#050505] hover:scale-110 hover:shadow-[0_0_20px_rgba(184,133,58,0.3)] transition-all duration-500"
+              >
+                <FaInstagram size={20} />
+              </a>
+              <a 
+                href={WHATSAPP_LINK} 
+                target="_blank" 
+                rel="noreferrer"
+                className="w-14 h-14 rounded-full border border-white/10 bg-white/[0.02] flex items-center justify-center text-white/50 hover:bg-[#b8853a] hover:border-[#b8853a] hover:text-[#050505] hover:scale-110 hover:shadow-[0_0_20px_rgba(184,133,58,0.3)] transition-all duration-500"
+              >
+                <FaWhatsapp size={20} />
+              </a>
+            </div>
+          </motion.div>
+
+        </motion.div>
+
+        {/* BOTTOM BAR */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5, duration: 1 }}
+          className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-0"
+        >
+          <div className="text-[10px] uppercase tracking-[0.2em] text-white/30 font-medium">
+            © {year} Falcão Barbearia
+          </div>
+
+          <div className="text-[#b8853a] text-xs font-serif italic tracking-widest">
+            Mais que corte. Presença.
+          </div>
+
+          <div className="text-[10px] uppercase tracking-[0.2em] text-white/30 font-medium flex items-center gap-2">
+            Desenvolvido com excelência
+          </div>
+        </motion.div>
+
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;

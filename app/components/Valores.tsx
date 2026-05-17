@@ -1,234 +1,268 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion, type Variants } from "framer-motion";
+import { 
+  Zap, 
+  Flame, 
+  Smile, 
+  CheckCircle,
+  Scissors, 
+  Crown, 
+  Droplet 
+} from "lucide-react";
+import { WHATSAPP_LINK } from "../utils/links";
 
-const timeline = [
+const GOLD = "#b8853a";
+const DARK_CARD = "rgba(12, 12, 12, 0.7)";
+
+// ─── ANIMAÇÕES PREMIUM (Framer Motion) ─────────────────────────────────────────
+const staggerContainer: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15 }
+  }
+};
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.7, ease: "easeOut" } 
+  }
+};
+
+// ─── DADOS: EXPERIÊNCIA ────────────────────────────────────────────────────────
+const diferenciais = [
   {
-    ano: "2020",
-    titulo: "O começo",
-    texto: "Thaylle inicia os primeiros cortes, aprendendo na prática e ganhando confiança dos primeiros clientes.",
+    icon: <Zap size={24} strokeWidth={1.5} />,
+    title: "Corte no detalhe",
+    desc: "Acabamento limpo, degradê alinhado e atenção até no último fio."
   },
   {
-    ano: "Evolução",
-    titulo: "Técnica e detalhe",
-    texto: "Aperfeiçoamento constante em degradê, acabamento e barba completa.",
+    icon: <Smile size={24} strokeWidth={1.5} />,
+    title: "Ambiente diferenciado",
+    desc: "Lugar confortável, resenha boa e experiência completa."
   },
   {
-    ano: "Hoje",
-    titulo: "Experiência Falcão",
-    texto: "Atendimento mais profissional, ambiente mais estruturado e identidade forte.",
+    icon: <Flame size={24} strokeWidth={1.5} />,
+    title: "Visual atualizado",
+    desc: "Fade, social, americano, low fade, freestyle e muito mais."
   },
   {
-    ano: "Futuro",
-    titulo: "Sempre em avanço",
-    texto: "Prontos para evoluir com novas ideias, tendências e melhorias para quem senta na cadeira.",
-  },
+    icon: <CheckCircle size={24} strokeWidth={1.5} />,
+    title: "Resultado de respeito",
+    desc: "Você sai pronto pra foto, pro rolê ou pra qualquer ocasião."
+  }
 ];
 
-const pilares = [
-  { titulo: "Precisão",     texto: "Acabamento alinhado, degradê limpo e linhas bem definidas." },
-  { titulo: "Atitude",      texto: "Estilo que acompanha sua personalidade — do clássico ao ousado." },
-  { titulo: "Confiança",    texto: "Transparência, escuta atenta e compromisso com o resultado." },
-  { titulo: "Pontualidade", texto: "Horário marcado é compromisso sério com o seu tempo." },
+// ─── DADOS: SERVIÇOS ───────────────────────────────────────────────────────────
+const categorias = [
+  {
+    titulo: "Cortes & Estilo",
+    icon: <Scissors size={20} strokeWidth={1.5} />,
+    itens: [
+      { nome: "Corte Tradicional", desc: "Na régua e no estilo que você já conhece.", preco: "30" },
+      { nome: "Corte na Tesoura", desc: "Design exclusivo feito 100% na tesoura.", preco: "40", maisPedido: true },
+      { nome: "Pezinho", desc: "Alinhamento rápido de contorno e nuca.", preco: "15" },
+    ]
+  },
+  {
+    titulo: "Barba & Rosto",
+    icon: <Crown size={20} strokeWidth={1.5} />,
+    itens: [
+      { nome: "Barba Premium", desc: "Terapia de toalha quente e acabamento navalhado.", preco: "15", maisPedido: true },
+      { nome: "Sobrancelha", desc: "Limpeza de contorno prática e bem alinhada.", preco: "10" },
+      { nome: "Pigmentação", desc: "Correção de imperfeições com aspecto natural.", preco: "20" },
+    ]
+  },
+  {
+    titulo: "Química & Cor",
+    icon: <Droplet size={20} strokeWidth={1.5} />,
+    itens: [
+      { nome: "Nevou", desc: "Descoloração global platinada pura, sem quebrar o fio.", preco: "100", maisPedido: true },
+      { nome: "Luzes", desc: "Mechas e reflexos de alto contraste pra iluminar.", preco: "80" },
+      { nome: "Desondulação", desc: "Redução extrema de volume e alinhamento do fio.", preco: "100" },
+    ]
+  }
 ];
 
-const servicos = [
-  { nome: "Corte na máquina",   preco: "R$ 30"  },
-  { nome: "Corte na tesoura",   preco: "R$ 40"  },
-  { nome: "Barba completa",     preco: "R$ 15"  },
-  { nome: "Pezinho",            preco: "R$ 15"  },
-  { nome: "Pigmentação",        preco: "R$ 20"  },
-  { nome: "Sobrancelha",        preco: "R$ 10"  },
-  { nome: "Nevou",              preco: "R$ 100" },
-  { nome: "Luzes",              preco: "R$ 80"  },
-  { nome: "Desondulação",       preco: "R$ 100" },
-];
-
-export default function Valores() {
-  const titleRef       = useRef(null);
-  const titleInView    = useInView(titleRef,    { once: true, margin: "-80px" });
-  const timelineRef    = useRef(null);
-  const timelineInView = useInView(timelineRef, { once: true, margin: "-60px" });
-  const pilaresRef     = useRef(null);
-  const pilaresInView  = useInView(pilaresRef,  { once: true, margin: "-60px" });
-  const precosRef      = useRef(null);
-  const precosInView   = useInView(precosRef,   { once: true, margin: "-60px" });
-
+// ─── COMPONENTE 1: EXPERIÊNCIA (DIFERENCIAIS) ──────────────────────────────────
+export function Experiencia() {
   return (
-    <section
-      id="valores"
-      className="relative w-full py-32 overflow-hidden"
-      style={{ background: "transparent" }}
-    >
-      <div className="pointer-events-none absolute inset-0">
-        <motion.div className="absolute rounded-full"
-          style={{ right: "-8%", top: "20%", width: "480px", height: "480px",
-            background: "radial-gradient(circle, rgba(197,157,110,0.04) 0%, transparent 70%)" }}
-          animate={{ scale: [1, 1.18, 1] }} transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }} />
-        <motion.div className="absolute rounded-full"
-          style={{ left: "-8%", bottom: "10%", width: "380px", height: "380px",
-            background: "radial-gradient(circle, rgba(197,157,110,0.03) 0%, transparent 70%)" }}
-          animate={{ scale: [1, 1.14, 1] }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }} />
-      </div>
+    <section id="diferenciais" className="relative py-24 md:py-32 bg-[#050505] overflow-hidden select-none">
+      <div className="absolute top-1/2 left-1/4 w-[500px] h-[500px] bg-[#b8853a]/3 blur-[130px] rounded-full pointer-events-none -translate-y-1/2" />
+      <div 
+        className="absolute inset-0 opacity-[0.02] pointer-events-none" 
+        style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
+      />
 
-      <motion.div className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: "linear-gradient(90deg, transparent, rgba(197,157,110,0.38), transparent)" }}
-        animate={{ opacity: [0.4, 0.85, 0.4] }} transition={{ duration: 4, repeat: Infinity }} />
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        
+        {/* Header Animado */}
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+          className="mb-16 md:mb-20"
+        >
+          <motion.div variants={fadeUp} className="flex items-center gap-3 mb-4">
+            <div className="h-[2px] w-6 bg-[#b8853a] rounded-full" />
+            <span className="text-[#b8853a] font-bold text-[10px] tracking-[0.3em] uppercase block">
+              Sem Enrolação
+            </span>
+          </motion.div>
+          <motion.h2 variants={fadeUp} className="text-4xl md:text-6xl font-serif font-black text-[#f5f1eb] tracking-tight">
+            Por que geral corta <br className="hidden sm:block" />
+            na <span className="italic text-[#d4aa7a]">Falcão?</span>
+          </motion.h2>
+        </motion.div>
 
-      <div className="relative z-10 mx-auto max-w-7xl px-6">
+        {/* Grid de Diferenciais Animado */}
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={staggerContainer}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
+        >
+          {diferenciais.map((item, i) => (
+            <motion.div
+              key={i}
+              variants={fadeUp}
+              whileHover={{ y: -6, borderColor: "rgba(184,133,58,0.4)" }}
+              className="group relative p-6 rounded-xl border border-white/5 transition-all duration-300 overflow-hidden flex flex-col justify-between min-h-[190px]"
+              style={{ background: DARK_CARD, backdropFilter: "blur(12px)" }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-[#b8853a]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
 
-        {/* ── Header ── */}
-        <div className="mb-20" ref={titleRef}>
-          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
-            <div className="max-w-2xl">
-              <motion.div initial={{ opacity: 0, x: -18 }} animate={titleInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.6 }} className="flex items-center gap-4 mb-6">
-                <span className="font-mono text-[10px] tracking-[0.42em] uppercase"
-                  style={{ color: "rgba(197,157,110,0.80)" }}>Filosofia</span>
-                <motion.div className="h-px flex-1 max-w-[90px]"
-                  style={{ background: "linear-gradient(to right, rgba(197,157,110,0.60), transparent)" }}
-                  initial={{ scaleX: 0, originX: 0 }}
-                  animate={titleInView ? { scaleX: 1 } : {}}
-                  transition={{ duration: 0.8, delay: 0.2 }} />
-              </motion.div>
-              <motion.h2 initial={{ opacity: 0, y: 28 }} animate={titleInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.8, delay: 0.08 }}
-                className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[0.93] tracking-tight"
-                style={{ color: "#e6dfd5" }}>
-                Nossos<br /><span style={{ color: "#c59d6e" }}>Pilares</span>
-              </motion.h2>
-            </div>
-            <motion.p initial={{ opacity: 0, y: 16 }} animate={titleInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.28 }}
-              className="max-w-xs text-sm leading-relaxed lg:text-right"
-              style={{ color: "rgba(160,156,174,0.55)" }}>
-              Desde 2021, crescendo junto com nossos clientes.
-              Técnica, atendimento e essência de barbearia de verdade.
-            </motion.p>
-          </div>
-        </div>
-
-        {/* ── Timeline ── */}
-        <div ref={timelineRef} className="mb-24">
-          <motion.div className="hidden md:block h-px mb-12"
-            style={{ background: "linear-gradient(to right, transparent, rgba(197,157,110,0.35), transparent)" }}
-            initial={{ scaleX: 0 }}
-            animate={timelineInView ? { scaleX: 1 } : {}}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }} />
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-6">
-            {timeline.map((item, i) => (
-              <motion.div key={item.ano}
-                initial={{ opacity: 0, y: 28 }}
-                animate={timelineInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.7, delay: i * 0.10, ease: [0.22, 1, 0.36, 1] }}
-                className="relative group cursor-default" whileHover={{ y: -3 }}>
-                <div className="flex items-center gap-3 mb-4">
-                  <motion.div className="w-2 h-2 rounded-full" style={{ background: "#c59d6e" }}
-                    animate={{ scale: [1, 1.35, 1], opacity: [0.55, 1, 0.55] }}
-                    transition={{ duration: 2.2, repeat: Infinity, delay: i * 0.28 }} />
-                  <span className="text-[11px] font-mono tracking-[0.32em] uppercase" style={{ color: "#c59d6e" }}>
-                    {item.ano}
-                  </span>
+              <div>
+                <div className="text-[#b8853a] mb-5 w-10 h-10 rounded-lg bg-white/[0.02] border border-white/5 flex items-center justify-center transition-transform duration-500 group-hover:scale-105 group-hover:bg-[#b8853a]/10 group-hover:border-[#b8853a]/20">
+                  {item.icon}
                 </div>
-                <motion.h3 className="text-lg font-semibold mb-2" style={{ color: "#e6dfd5" }}
-                  whileHover={{ color: "#c59d6e" }} transition={{ duration: 0.28 }}>
-                  {item.titulo}
-                </motion.h3>
-                <p className="text-sm leading-relaxed" style={{ color: "rgba(160,156,174,0.58)" }}>{item.texto}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        {/* ── Pilares + Preços ── */}
-        <div className="grid gap-16 lg:grid-cols-2">
-
-          {/* Pilares */}
-          <div ref={pilaresRef}>
-            <motion.div initial={{ opacity: 0, y: 16 }} animate={pilaresInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6 }} className="flex items-center gap-3 mb-8">
-              <span className="text-[11px] font-mono tracking-[0.32em] uppercase"
-                style={{ color: "rgba(197,157,110,0.75)" }}>4 Pilares</span>
-              <div className="h-px flex-1"
-                style={{ background: "linear-gradient(to right, rgba(197,157,110,0.28), transparent)" }} />
-            </motion.div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {pilares.map((pilar, i) => (
-                <motion.div key={pilar.titulo}
-                  initial={{ opacity: 0, y: 18 }}
-                  animate={pilaresInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, delay: 0.10 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                  className="group p-5 rounded-2xl"
-                  style={{ background: "#0d0d18", border: "1px solid rgba(197,157,110,0.09)" }}
-                  whileHover={{ y: -4, borderColor: "rgba(197,157,110,0.30)", backgroundColor: "#111128" }}>
-                  <motion.div className="w-8 h-0.5 mb-4 origin-left" style={{ background: "#c59d6e" }}
-                    initial={{ scaleX: 0 }}
-                    animate={pilaresInView ? { scaleX: 1 } : {}}
-                    transition={{ duration: 0.6, delay: 0.28 + i * 0.10 }} />
-                  <motion.h4 className="text-base font-semibold mb-2" style={{ color: "#e6dfd5" }}
-                    whileHover={{ color: "#c59d6e" }} transition={{ duration: 0.28 }}>
-                    {pilar.titulo}
-                  </motion.h4>
-                  <p className="text-sm leading-relaxed" style={{ color: "rgba(160,156,174,0.55)" }}>{pilar.texto}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          {/* Tabela de preços */}
-          <div ref={precosRef}>
-            <motion.div initial={{ opacity: 0, y: 16 }} animate={precosInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6 }} className="flex items-center gap-3 mb-8">
-              <span className="text-[11px] font-mono tracking-[0.32em] uppercase"
-                style={{ color: "rgba(197,157,110,0.75)" }}>Valores</span>
-              <div className="h-px flex-1"
-                style={{ background: "linear-gradient(to right, rgba(197,157,110,0.28), transparent)" }} />
-            </motion.div>
-
-            <motion.div initial={{ opacity: 0, y: 18 }} animate={precosInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.10 }}
-              className="p-6 rounded-2xl"
-              style={{ background: "#0d0d18", border: "1px solid rgba(197,157,110,0.09)" }}>
-              <div className="space-y-0">
-                {servicos.map((item, i) => (
-                  <motion.div key={item.nome}
-                    initial={{ opacity: 0, x: -16 }}
-                    animate={precosInView ? { opacity: 1, x: 0 } : {}}
-                    transition={{ duration: 0.45, delay: 0.14 + i * 0.045, ease: [0.22, 1, 0.36, 1] }}
-                    className="group flex items-center gap-3 py-3"
-                    style={{ borderBottom: i < servicos.length - 1 ? "1px solid rgba(197,157,110,0.07)" : "none" }}
-                    whileHover={{ x: 4 }}>
-                    <motion.span className="text-sm" style={{ color: "rgba(184,180,192,0.72)" }}
-                      whileHover={{ color: "#e6dfd5" }} transition={{ duration: 0.28 }}>
-                      {item.nome}
-                    </motion.span>
-                    <span className="flex-1 border-b border-dotted" style={{ borderColor: "rgba(197,157,110,0.10)" }} />
-                    <motion.span className="text-sm font-bold" style={{ color: "#c59d6e" }}
-                      whileHover={{ scale: 1.07, color: "#e8c589" }} transition={{ duration: 0.28 }}>
-                      {item.preco}
-                    </motion.span>
-                  </motion.div>
-                ))}
+                <h3 className="text-[#f5f1eb] text-base font-bold mb-2 tracking-tight group-hover:text-[#d4aa7a] transition-colors">
+                  {item.title}
+                </h3>
+                <p className="text-white/40 text-xs leading-relaxed font-medium">
+                  {item.desc}
+                </p>
               </div>
 
-              <motion.div initial={{ opacity: 0 }} animate={precosInView ? { opacity: 1 } : {}}
-                transition={{ duration: 0.6, delay: 0.52 }}
-                className="mt-5 pt-4" style={{ borderTop: "1px solid rgba(197,157,110,0.08)" }}>
-                <p className="text-[11px] leading-relaxed" style={{ color: "rgba(160,156,174,0.38)" }}>
-                  Valores referentes ao trabalho anunciado. Pagamento no ato do
-                  atendimento. Serviços extras são combinados antes.
-                </p>
-              </motion.div>
+              <div className="absolute bottom-3 right-4 opacity-[0.02] group-hover:opacity-10 transition-opacity duration-300">
+                <span className="text-[36px] font-black tracking-tighter text-[#b8853a]">//0{i + 1}</span>
+              </div>
             </motion.div>
-          </div>
-        </div>
+          ))}
+        </motion.div>
       </div>
+    </section>
+  );
+}
 
-      <motion.div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-px h-20"
-        style={{ background: "linear-gradient(to top, rgba(197,157,110,0.20), transparent)" }}
-        animate={{ opacity: [0.3, 0.65, 0.3] }} transition={{ duration: 3, repeat: Infinity }} />
+// ─── COMPONENTE 2: SERVIÇOS (TABELA DE VALORES) ────────────────────────────────
+export default function Valores() {
+  return (
+    <section id="valores" className="relative w-full py-24 md:py-32 bg-[#050505] overflow-hidden antialiased select-none">
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_bottom,rgba(184,133,58,0.04)_0%,transparent_60%)]" />
+      <div 
+        className="absolute inset-0 opacity-[0.02] pointer-events-none" 
+        style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
+      />
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        
+        {/* Header Animado */}
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+          className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-6"
+        >
+          <motion.div variants={fadeUp} className="max-w-xl">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="h-[2px] w-6 bg-[#b8853a] rounded-full" />
+              <span className="text-[#b8853a] font-bold text-[10px] tracking-[0.3em] uppercase block">
+                Menu de Experiências
+              </span>
+            </div>
+            <h2 className="text-4xl md:text-6xl font-serif text-[#f5f1eb] font-black leading-tight tracking-tight">
+              Tabela de <span className="italic text-[#b8853a] font-normal">Estilo.</span>
+            </h2>
+          </motion.div>
+          <motion.p variants={fadeUp} className="text-white/40 text-xs sm:text-sm max-w-xs font-medium leading-relaxed">
+            Escolha o trato ideal. Sem complicação, focado no que você precisa.
+          </motion.p>
+        </motion.div>
+
+        {/* Grid de Serviços Animado */}
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={staggerContainer}
+          className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6"
+        >
+          {categorias.map((cat, idx) => (
+            <motion.div 
+              key={idx} 
+              variants={fadeUp}
+              className="bg-white/[0.01] border border-white/5 rounded-2xl p-6 md:p-8 flex flex-col justify-between shadow-xl"
+            >
+              <div className="space-y-8">
+                <div className="flex items-center gap-3.5 border-b border-white/5 pb-4">
+                  <div className="w-8 h-8 rounded-lg bg-[#b8853a]/10 border border-[#b8853a]/20 flex items-center justify-center text-[#b8853a]">
+                    {cat.icon}
+                  </div>
+                  <h3 className="text-[#f5f1eb] font-serif text-lg font-bold tracking-wide">{cat.titulo}</h3>
+                </div>
+
+                <div className="space-y-4">
+                  {cat.itens.map((item, i) => (
+                    <div 
+                      key={i} 
+                      className="group relative p-4 rounded-xl border border-white/[0.03] bg-black/40 hover:bg-[#b8853a]/[0.02] hover:border-[#b8853a]/20 transition-all duration-300"
+                    >
+                      {item.maisPedido && (
+                        <span className="absolute -top-2 right-4 bg-gradient-to-r from-[#b8853a] to-[#8f6425] text-black text-[8px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full shadow-md flex items-center gap-1 z-10">
+                          <Zap size={8} fill="black" /> Mais Pedido 🔥
+                        </span>
+                      )}
+
+                      <div className="flex justify-between items-baseline mb-1">
+                        <h4 className="text-[14px] font-bold text-white group-hover:text-[#d4aa7a] transition-colors">
+                          {item.nome}
+                        </h4>
+                        <span className="text-[#b8853a] font-black text-sm whitespace-nowrap ml-2">
+                          R$ {item.preco}
+                        </span>
+                      </div>
+                      
+                      <p className="text-[11px] text-white/40 font-medium leading-relaxed">
+                        {item.desc}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-8 pt-4 border-t border-white/5">
+                <a 
+                  href={WHATSAPP_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-3 bg-white/[0.03] border border-white/5 hover:border-[#b8853a]/40 hover:bg-[#b8853a] hover:text-black rounded-xl text-center text-[10px] font-black uppercase tracking-widest text-white/80 block transition-all active:scale-[0.98]"
+                >
+                  Agendar desta lista
+                </a>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+      </div>
     </section>
   );
 }

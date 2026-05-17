@@ -2,76 +2,67 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
+import { FaWhatsapp } from "react-icons/fa";
 import { WHATSAPP_LINK } from "../utils/links";
 
 export default function WhatsFloating() {
   const [visible, setVisible] = useState(false);
-  const [pulse,   setPulse]   = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 200);
-    window.addEventListener("scroll", onScroll);
-    const t = setTimeout(() => setPulse(true), 3500);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      clearTimeout(t);
-    };
+    // Mostra o botão após o usuário rolar um pouco a página (evita poluição no Hero)
+    const onScroll = () => setVisible(window.scrollY > 300);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
     <AnimatePresence>
       {visible && (
-        <motion.a
-          href={WHATSAPP_LINK}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Agendar pelo WhatsApp"
-          className="fixed bottom-6 right-6 z-50 flex h-16 w-16 items-center justify-center rounded-full"
-          style={{ background: "#25d366" }}
-          initial={{ opacity: 0, scale: 0.5, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.5, y: 20 }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          whileHover={{ scale: 1.15 }}
-          whileTap={{ scale: 0.92 }}
+        <motion.div
+          className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 flex items-center justify-end"
+          initial={{ opacity: 0, y: 40, scale: 0.8 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 40, scale: 0.8 }}
+          transition={{ type: "spring", stiffness: 260, damping: 20 }}
         >
-          {/* Pulse rings */}
-          <motion.div
-            className="absolute inset-0 rounded-full"
-            style={{ background: "#25d366" }}
-            animate={pulse ? { scale: [1, 1.55, 1], opacity: [0.55, 0, 0.55] } : {}}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
-          />
-          <motion.div
-            className="absolute inset-0 rounded-full"
-            style={{ background: "#25d366" }}
-            animate={pulse ? { scale: [1, 1.95, 1], opacity: [0.30, 0, 0.30] } : {}}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeOut", delay: 0.3 }}
-          />
-
-          {/* Glow */}
-          <motion.div
-            className="absolute inset-0 rounded-full"
-            animate={{
-              boxShadow: [
-                "0 0 16px rgba(37,211,102,0.45)",
-                "0 0 36px rgba(37,211,102,0.80)",
-                "0 0 16px rgba(37,211,102,0.45)",
-              ],
-            }}
-            transition={{ duration: 2.2, repeat: Infinity }}
-          />
-
-          <svg
-            width="30" height="30"
-            viewBox="0 0 256 258"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="white"
-            className="relative z-10 drop-shadow-[0_0_6px_rgba(0,0,0,0.4)]"
+          {/* O Grupo permite expandir no desktop (opcional) ou manter o luxo do botão */}
+          <motion.a
+            href={WHATSAPP_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Agendar pelo WhatsApp"
+            className="group relative flex items-center justify-center rounded-full p-4 backdrop-blur-xl bg-[#070707]/80 border border-[#b8853a]/30 shadow-[0_8px_32px_rgba(0,0,0,0.8)] overflow-hidden"
+            whileHover={{ scale: 1.05, borderColor: "rgba(184,133,58,0.8)" }}
+            whileTap={{ scale: 0.95 }}
           >
-            <path d="M128.1 0C57.3 0 .7 56.5.7 126.3c0 22.1 5.8 43.7 16.8 62.7L0 256l69.9-17.9c18.3 10 39 15.3 60.3 15.3h.1c70.8 0 127.4-56.5 127.4-126.3C257.7 56.5 199 0 128.1 0zm75.2 180.4c-3.2 9-18.4 17.2-25.3 18.3-6.5 1-14.8 1.4-23.9-1.5-5.5-1.8-12.6-4.1-21.7-8.1-38.1-16.6-62.8-55.3-64.8-57.9-1.9-2.6-15.4-20.5-15.4-39.1 0-18.6 9.7-27.7 13.1-31.5 3.3-3.8 7.2-4.7 9.6-4.7 2.4 0 4.8 0 6.8.1 2.2.1 5.1-.8 8 6.1 3.2 7.5 10.8 26.2 11.7 28.1.9 1.9 1.5 4.1.3 6.6-1.2 2.6-1.8 4.1-3.5 6.3-1.8 2.1-3.8 4.7-5.3 6.3-1.8 1.9-3.7 3.9-1.6 7.4 2.1 3.6 9.3 15.4 20 24.8 13.8 12.4 24.9 16.3 28.4 18.1 3.5 1.9 5.5 1.6 7.5-.9 2.1-2.6 8.7-10.1 11-13.6 2.3-3.4 4.6-2.9 7.6-1.7 3.2 1.3 20.4 9.8 23.9 11.6 3.5 1.9 5.8 2.8 6.6 4.4.8 1.6.8 9.3-2.4 18.3z" />
-          </svg>
-        </motion.a>
+            {/* Efeito Glow Interno */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-[#b8853a]/20 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
+            
+            {/* Efeito Pulso Cinemático (borda sutil) */}
+            <motion.div
+              className="absolute inset-0 rounded-full border border-[#b8853a]"
+              animate={{ scale: [1, 1.4], opacity: [0.5, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
+              aria-hidden
+            />
+            
+            {/* Glow Drop Shadow Dourado */}
+            <motion.div
+              className="absolute inset-0 rounded-full"
+              animate={{ boxShadow: ["0 0 10px rgba(184,133,58,0.2)", "0 0 25px rgba(184,133,58,0.5)", "0 0 10px rgba(184,133,58,0.2)"] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              aria-hidden
+            />
+
+            {/* Ícone */}
+            <FaWhatsapp size={26} className="text-[#d4aa7a] relative z-10 drop-shadow-md group-hover:text-white transition-colors duration-300" />
+            
+            {/* Tooltip Premium Escondido (Aparece no Hover no Desktop) */}
+            <span className="absolute right-full mr-4 whitespace-nowrap bg-[#070707]/90 border border-white/10 text-white/90 text-[10px] font-bold uppercase tracking-widest px-4 py-2 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 hidden md:block backdrop-blur-md">
+              Agendar Horário
+            </span>
+          </motion.a>
+        </motion.div>
       )}
     </AnimatePresence>
   );

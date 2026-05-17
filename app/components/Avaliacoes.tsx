@@ -1,367 +1,240 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion, type Variants } from "framer-motion";
+import { Star, CheckCircle2, Quote, ArrowUpRight } from "lucide-react";
 
-const GOOGLE_ALL_REVIEWS_URL =
-  "https://www.google.com/search?client=opera&sca_esv=7c6910cd552a3b71&cs=1&output=search&kgmid=/g/11ybt_kkr2&q=Barbearia+Falc%C3%A3o&shndl=30&shem=damc,shrtsdl&source=sh/x/kp/local/m1/1&kgs=bf51a9cd0e34bf61&utm_source=damc,shrtsdl,sh/x/kp/local/m1/1#lrd=0x76ba32c243da499:0x6b4f599dbbf227ec,1,,,,";
-const GOOGLE_NEW_REVIEW_URL = "https://g.page/r/Cewn8rudWU9rEBM/review";
+const GOLD = "#b8853a";
 
-const reviews = [
+const REVIEWS = [
   {
     nome: "Jayllon Gabriel Oliveira",
     tempo: "2 meses atrás",
-    texto: "Exatamente, ainda ganhei um abraço",
-    servico: "Corte de cabelo",
-    stars: 5,
-  },
-  {
-    nome: "João Souza",
-    tempo: "1 mês atrás",
-    texto: "Muito boa",
-    servico: null,
-    stars: 5,
-  },
-  {
-    nome: "Kauã Agiar",
-    tempo: "10 meses atrás",
-    texto: "Ótimo corte!!",
-    servico: "Corte de cabelo, Aparar a barba",
+    texto: "Atendimento impecável e o ambiente é diferenciado. O Thaylle entende do assunto, saí com o corte exatamente como pedi. A melhor experiência de barbearia que já tive.",
+    servico: "Corte & Barba",
     stars: 5,
   },
   {
     nome: "Keirisson Silva",
     tempo: "2 meses atrás",
-    texto: "Corte de cabelo perfeito, recomendo demais.",
-    servico: null,
+    texto: "Corte de cabelo perfeito, recomendo demais. O melhor da região sem dúvidas. Profissionalismo puro.",
+    servico: "Corte na Tesoura",
+    stars: 5,
+  },
+  {
+    nome: "Kauã Agiar",
+    tempo: "10 meses atrás",
+    texto: "Ótimo corte! A atenção aos detalhes no acabamento é o que faz a diferença.",
+    servico: "Aparar a barba",
     stars: 5,
   },
 ];
 
+// Ícone Oficial do Google
 function GoogleIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-      <path d="M21.8 12.2c0-.7-.1-1.4-.2-2H12v3.8h5.5c-.2 1.2-1 2.2-2 2.9v2.4h3.3c1.9-1.7 3-4.3 3-7.1z" fill="#4285F4" />
-      <path d="M12 22c2.7 0 5-0.9 6.7-2.4l-3.3-2.5c-.9.6-2 1-3.4 1-2.6 0-4.8-1.8-5.6-4.1H3v2.6C4.7 19.9 8.1 22 12 22z" fill="#34A853" />
-      <path d="M6.4 14c-.2-.6-.3-1.3-.3-2s.1-1.4.3-2V7.4H3C2.4 8.7 2 10.3 2 12s.4 3.3 1 4.6L6.4 14z" fill="#FBBC05" />
-      <path d="M12 5.9c1.5 0 2.8.5 3.8 1.5l2.8-2.8C16.9 2.9 14.6 2 12 2 8.1 2 4.7 4.1 3 7.4l3.4 2.6C7.2 7.7 9.4 5.9 12 5.9z" fill="#EA4335" />
+    <svg width="22" height="22" viewBox="0 0 24 24" className="drop-shadow-md">
+      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
     </svg>
   );
 }
 
-function Stars({ count = 5, size = 13 }: { count?: number; size?: number }) {
-  return (
-    <span className="flex gap-0.5">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <svg key={i} width={size} height={size} viewBox="0 0 24 24">
-          <polygon
-            points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"
-            fill={i < count ? "#c59d6e" : "transparent"}
-            stroke="#c59d6e"
-            strokeWidth="1.5"
-          />
-        </svg>
-      ))}
-    </span>
-  );
-}
+// Animações
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 1, ease: "easeOut" } }
+};
 
-function SectionHeader({ label, titleA, titleB, sub, inView }: any) {
+const staggerContainer: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15 }
+  }
+};
+
+const Avaliacoes = () => {
   return (
-    <div className="mb-20">
-      <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
-        <div className="max-w-2xl">
-          <motion.div
-            initial={{ opacity: 0, x: -18 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="flex items-center gap-4 mb-6"
-          >
-            <span className="font-mono text-[10px] tracking-[0.42em] uppercase" style={{ color: "rgba(197,157,110,0.75)" }}>
-              {label}
-            </span>
-            <motion.div
-              className="h-px flex-1 max-w-[90px]"
-              style={{ background: "linear-gradient(to right, rgba(197,157,110,0.55), transparent)" }}
-              initial={{ scaleX: 0, originX: 0 }}
-              animate={inView ? { scaleX: 1 } : {}}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            />
+    <section id="avaliacoes" className="relative w-full py-32 bg-[#050505] overflow-hidden antialiased">
+      
+      {/* ── Background Effects & Grain Cinematográfico ── */}
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_top_right,rgba(184,133,58,0.05)_0%,transparent_50%)]" />
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_bottom_left,rgba(184,133,58,0.03)_0%,transparent_40%)]" />
+      <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        
+        {/* ═══════════════════════════════════════
+            TOPO — HEADLINE EDITORIAL
+            ═══════════════════════════════════════ */}
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "0px 0px -100px 0px" }}
+          variants={staggerContainer}
+          className="flex flex-col lg:flex-row lg:items-end justify-between mb-24 gap-10"
+        >
+          <motion.div variants={fadeUp} className="max-w-2xl">
+            <div className="flex items-center gap-4 mb-8">
+              <div className="w-10 h-px bg-gradient-to-r from-[#b8853a] to-transparent" />
+              <span className="text-[#b8853a] font-mono text-[10px] tracking-[0.4em] uppercase font-semibold">
+                Vozes da nossa cadeira
+              </span>
+            </div>
+            <h2 className="text-5xl md:text-7xl font-serif text-[#f5f1eb] leading-[1.05] tracking-tight">
+              Honra e <br className="md:hidden" />
+              <span className="italic text-[#b8853a] font-normal">Satisfação.</span>
+            </h2>
           </motion.div>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 28 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.08 }}
-            className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[0.93] tracking-tight"
-            style={{ color: "#e6dfd5" }}
+          <motion.div variants={fadeUp} className="lg:max-w-sm">
+            <p className="text-white/50 text-sm md:text-base font-light leading-relaxed lg:text-right border-l border-white/10 lg:border-l-0 lg:border-r pl-6 lg:pl-0 lg:pr-6">
+              A maior métrica da Falcão sempre foi a confiança depositada em cada atendimento. Cada corte carrega experiência, atenção e respeito aos detalhes.
+            </p>
+          </motion.div>
+        </motion.div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          {/* ═══════════════════════════════════════
+              ESQUERDA — GOOGLE HERO CARD
+              ═══════════════════════════════════════ */}
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "0px 0px -100px 0px" }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="lg:col-span-4 lg:sticky lg:top-32 group"
           >
-            {titleA}<br />
-            <span style={{ color: "#c59d6e" }}>{titleB}</span>
-          </motion.h2>
-        </div>
+            <div className="relative p-10 md:p-12 rounded-[2.5rem] bg-white/[0.02] border border-white/5 backdrop-blur-2xl overflow-hidden hover:border-[#b8853a]/20 transition-colors duration-700">
+              
+              {/* Inner Glows */}
+              <div className="absolute inset-0 bg-gradient-to-b from-white/[0.04] to-transparent pointer-events-none" />
+              <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#b8853a]/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
 
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.28 }}
-          className="max-w-xs text-sm leading-relaxed lg:text-right"
-          style={{ color: "rgba(160,156,174,0.50)" }}
-        >
-          {sub}
-        </motion.p>
-      </div>
-    </div>
-  );
-}
-
-export default function Avaliacoes() {
-  const titleRef      = useRef(null);
-  const titleInView   = useInView(titleRef,    { once: true, margin: "-80px" });
-  const scoreRef      = useRef(null);
-  const scoreInView   = useInView(scoreRef,    { once: true, margin: "-60px" });
-  const reviewsRef    = useRef(null);
-  const reviewsInView = useInView(reviewsRef,  { once: true, margin: "-60px" });
-
-  return (
-    <section
-      id="avaliacoes"
-      className="relative w-full py-32 overflow-hidden"
-      style={{ background: "transparent" }}
-    >
-      <motion.div
-        className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: "linear-gradient(90deg, transparent, rgba(197,157,110,0.35), transparent)" }}
-        animate={{ opacity: [0.4, 0.8, 0.4] }}
-        transition={{ duration: 4, repeat: Infinity }}
-      />
-
-      <div className="pointer-events-none absolute inset-0">
-        <motion.div
-          className="absolute rounded-full"
-          style={{
-            right: "-8%", top: "15%", width: "450px", height: "450px",
-            background: "radial-gradient(circle, rgba(197,157,110,0.04) 0%, transparent 70%)",
-          }}
-          animate={{ scale: [1, 1.14, 1] }}
-          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </div>
-
-      <div className="relative z-10 mx-auto max-w-7xl px-6">
-        <div ref={titleRef}>
-          <SectionHeader
-            label="Avaliações"
-            titleA="O que dizem"
-            titleB="sobre nós"
-            sub="A melhor forma de conhecer é ouvindo quem já passou pela cadeira."
-            inView={titleInView}
-          />
-        </div>
-
-        <div className="grid gap-12 lg:grid-cols-[280px_1fr] items-start">
-          <motion.div
-            ref={scoreRef}
-            initial={{ opacity: 0, x: -28 }}
-            animate={scoreInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="lg:sticky lg:top-8"
-          >
-            <div
-              className="rounded-2xl p-5 mb-6"
-              style={{
-                background: "#0d0d18",
-                border: "1px solid rgba(197,157,110,0.12)",
-              }}
-            >
-              <div className="flex items-center gap-2 mb-4">
+              <div className="relative z-10 flex items-center justify-between mb-12">
                 <GoogleIcon />
-                <span className="text-sm font-semibold" style={{ color: "#e6dfd5" }}>
-                  Google Reviews
-                </span>
-              </div>
-
-              <div className="flex items-end gap-4 mb-3">
-                <motion.span
-                  className="font-black leading-none tracking-tighter"
-                  style={{
-                    fontSize: "4.5rem",
-                    background: "linear-gradient(135deg, #e6dfd5 0%, #c59d6e 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  }}
-                  initial={{ opacity: 0, scale: 0.82 }}
-                  animate={scoreInView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ duration: 0.6, delay: 0.18, type: "spring" }}
-                >
-                  4,9
-                </motion.span>
-                <div className="pb-2">
-                  <Stars count={5} size={17} />
-                  <p className="text-[10px] mt-1" style={{ color: "rgba(160,156,174,0.45)" }}>
-                    Média de avaliações
-                  </p>
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/10 text-[9px] font-bold text-white/70 uppercase tracking-widest shadow-inner">
+                  <CheckCircle2 size={12} className="text-[#34A853]" /> Verificado
                 </div>
               </div>
-
-              <div
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-semibold"
-                style={{
-                  background: "rgba(197,157,110,0.08)",
-                  border: "1px solid rgba(197,157,110,0.20)",
-                  color: "rgba(197,157,110,0.80)",
-                }}
-              >
-                <svg width="9" height="9" viewBox="0 0 24 24" fill="#c59d6e">
-                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-                </svg>
-                Verificado no Google
-              </div>
-            </div>
-
-            {/* Barras de rating */}
-            <div className="space-y-2 mb-6">
-              {[5, 4, 3, 2, 1].map((star, i) => (
-                <div key={star} className="flex items-center gap-3">
-                  <span className="w-3 text-[10px]" style={{ color: "rgba(160,156,174,0.40)" }}>
-                    {star}
+              
+              <div className="mb-12 relative z-10">
+                <div className="flex items-start gap-4">
+                  <span className="text-[6rem] md:text-[7rem] leading-none font-serif font-black text-[#f5f1eb] tracking-tighter drop-shadow-2xl">
+                    4.9
                   </span>
-                  <svg width="9" height="9" viewBox="0 0 24 24">
-                    <polygon
-                      points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"
-                      fill="#c59d6e"
-                    />
-                  </svg>
-                  <div
-                    className="flex-1 h-1 rounded-full overflow-hidden"
-                    style={{ background: "rgba(197,157,110,0.08)" }}
-                  >
-                    <motion.div
-                      className="h-full rounded-full"
-                      style={{
-                        background:
-                          star === 5
-                            ? "linear-gradient(to right, #c59d6e, #e8c589)"
-                            : "rgba(197,157,110,0.25)",
-                      }}
-                      initial={{ width: 0 }}
-                      animate={scoreInView ? { width: star === 5 ? "90%" : star === 4 ? "7%" : "2%" } : {}}
-                      transition={{ duration: 1, delay: 0.3 + i * 0.1 }}
-                    />
+                  <div className="flex flex-col pt-4">
+                    <div className="flex gap-1 text-[#b8853a] mb-2 drop-shadow-[0_0_8px_rgba(184,133,58,0.4)]">
+                      {[...Array(5)].map((_, i) => <Star key={i} size={18} fill={GOLD} stroke={GOLD} />)}
+                    </div>
+                    <span className="text-[10px] text-white/40 uppercase tracking-[0.2em] font-medium">+100 Avaliações</span>
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
 
-            {/* CTAs */}
-            <div className="space-y-3">
-              <motion.a
-                href={GOOGLE_ALL_REVIEWS_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 w-full py-3 rounded-full text-sm font-bold"
-                style={{
-                  background: "linear-gradient(135deg, #c59d6e 0%, #e8c589 55%, #9b7540 100%)",
-                  color: "#000",
-                  boxShadow: "0 4px 20px rgba(197,157,110,0.22)",
-                }}
-                whileHover={{ scale: 1.02, boxShadow: "0 4px 32px rgba(197,157,110,0.42)" }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ duration: 0.28 }}
-              >
-                <GoogleIcon />
-                Ver todas as avaliações
-              </motion.a>
+              {/* Progress Bars Cinematográficas */}
+              <div className="space-y-5 mb-12 relative z-10">
+                {[5, 4, 3].map((num) => (
+                  <div key={num} className="space-y-2">
+                    <div className="flex justify-between text-[9px] uppercase tracking-widest text-white/40 font-semibold">
+                      <span>{num} Estrelas</span>
+                      <span>{num === 5 ? "96%" : num === 4 ? "3%" : "1%"}</span>
+                    </div>
+                    <div className="h-1 bg-white/5 w-full rounded-full overflow-hidden shadow-inner">
+                      <motion.div 
+                        initial={{ width: 0 }}
+                        whileInView={{ width: num === 5 ? "96%" : num === 4 ? "3%" : "1%" }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
+                        className="h-full bg-gradient-to-r from-[#b8853a]/80 to-[#d4aa7a] shadow-[0_0_10px_rgba(184,133,58,0.5)] rounded-full" 
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
 
-              <motion.a
-                href={GOOGLE_NEW_REVIEW_URL}
+              <a 
+                href="https://g.page/r/Cewn8rudWU9rEBM/review"
                 target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 w-full py-3 rounded-full text-sm font-semibold"
-                style={{
-                  border: "1px solid rgba(197,157,110,0.22)",
-                  color: "rgba(197,157,110,0.80)",
-                }}
-                whileHover={{ borderColor: "rgba(197,157,110,0.50)", backgroundColor: "rgba(197,157,110,0.05)" }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ duration: 0.28 }}
+                rel="noreferrer"
+                className="relative overflow-hidden group/btn w-full py-5 rounded-xl bg-[#b8853a] text-[#050505] text-[11px] font-black uppercase tracking-[0.2em] flex items-center justify-center gap-3 hover:scale-[1.02] transition-all duration-500 shadow-[0_0_20px_rgba(184,133,58,0.15)] hover:shadow-[0_0_30px_rgba(184,133,58,0.3)] z-10"
               >
-                Deixar avaliação
-              </motion.a>
+                <span className="relative z-10 flex items-center gap-2">
+                  Escrever Avaliação
+                  <ArrowUpRight size={16} className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                </span>
+                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500 ease-out" />
+              </a>
             </div>
           </motion.div>
 
-          <div ref={reviewsRef} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {reviews.map((r, i) => (
+          {/* ═══════════════════════════════════════
+              DIREITA — CARDS DE AVALIAÇÃO PREMIUM
+              ═══════════════════════════════════════ */}
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "0px 0px -100px 0px" }}
+            variants={staggerContainer}
+            className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6"
+          >
+            {REVIEWS.map((review, i) => (
               <motion.article
-                key={r.nome}
-                initial={{ opacity: 0, y: 28 }}
-                animate={reviewsInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: i * 0.10, ease: [0.22, 1, 0.36, 1] }}
-                className={`group p-5 rounded-2xl ${i === 0 ? "sm:col-span-2" : ""}`}
-                style={{
-                  background: "#0d0d18",
-                  border: "1px solid rgba(197,157,110,0.09)",
-                }}
-                whileHover={{
-                  y: -4,
-                  borderColor: "rgba(197,157,110,0.28)",
-                  backgroundColor: "#111128",
-                }}
-                whileTap={{ scale: 0.99 }}
+                key={i}
+                variants={fadeUp}
+                // O primeiro card ganha destaque (ocupa 2 colunas no tablet/desktop) para quebrar o grid e parecer mais editorial.
+                className={`group relative p-8 md:p-10 rounded-[2rem] border border-white/5 bg-white/[0.015] hover:bg-white/[0.03] hover:border-[#b8853a]/20 transition-all duration-700 overflow-hidden ${i === 0 ? 'md:col-span-2' : ''}`}
               >
-                <div className="flex items-start justify-between gap-3 mb-4">
-                  <div className="flex items-center gap-3">
-                    <div
-                      className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
-                      style={{
-                        background: "rgba(197,157,110,0.08)",
-                        border: "1px solid rgba(197,157,110,0.18)",
-                      }}
-                    >
-                      <span className="text-sm font-bold" style={{ color: "#c59d6e" }}>
-                        {r.nome.charAt(0)}
-                      </span>
-                    </div>
-                    <div>
-                      <h3 className="text-sm font-semibold" style={{ color: "#e6dfd5" }}>
-                        {r.nome}
-                      </h3>
-                      <div className="flex items-center gap-2 mt-0.5">
-                        <p className="text-[10px]" style={{ color: "rgba(160,156,174,0.45)" }}>
-                          {r.tempo}
-                        </p>
-                        <span style={{ color: "rgba(160,156,174,0.25)", fontSize: "10px" }}>·</span>
-                        <GoogleIcon />
+                {/* Background Decorativo Sutil */}
+                <Quote className="absolute -top-6 -right-6 text-white/[0.02] group-hover:text-[#b8853a]/5 transition-colors duration-700 rotate-12 scale-150" size={140} />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#b8853a]/0 via-[#b8853a]/0 to-[#b8853a]/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                
+                <div className="relative z-10 flex flex-col h-full justify-between">
+                  <div>
+                    {/* Header do Card */}
+                    <div className="flex items-center gap-5 mb-8">
+                      <div className="relative group-hover:scale-105 transition-transform duration-500">
+                        <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#2a2a2a] to-[#111] border border-white/10 flex items-center justify-center text-[#f5f1eb] font-serif italic font-black text-xl shadow-lg">
+                          {review.nome.charAt(0)}
+                        </div>
+                        <div className="absolute -bottom-1 -right-1 bg-[#050505] p-1 rounded-full">
+                          <div className="bg-[#34A853] w-3 h-3 rounded-full border border-white/10" />
+                        </div>
+                      </div>
+                      <div>
+                        <h4 className="text-[#f5f1eb] font-semibold text-base tracking-tight mb-1">{review.nome}</h4>
+                        <p className="text-white/40 text-[10px] uppercase tracking-widest font-medium">{review.tempo}</p>
                       </div>
                     </div>
-                  </div>
-                  <Stars count={r.stars} size={12} />
-                </div>
-                <p className="text-sm leading-relaxed mb-4" style={{ color: "rgba(184,180,192,0.75)" }}>
-                  "{r.texto}"
-                </p>
 
-                {r.servico && (
-                  <div className="flex items-center gap-2">
-                    <span className="w-1 h-1 rounded-full" style={{ background: "#c59d6e" }} />
-                    <span className="text-[10px] uppercase tracking-wider" style={{ color: "rgba(160,156,174,0.40)" }}>
-                      {r.servico}
-                    </span>
+                    {/* Corpo do Review */}
+                    <p className={`text-white/60 font-light leading-relaxed mb-10 ${i === 0 ? 'text-lg md:text-xl md:leading-loose' : 'text-base'}`}>
+                      "{review.texto}"
+                    </p>
                   </div>
-                )}
+
+                  {/* Footer do Card */}
+                  <div className="flex items-center justify-between border-t border-white/5 pt-6 mt-auto">
+                    <div className="flex items-center gap-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#b8853a] opacity-60" />
+                      <span className="text-[10px] text-white/40 uppercase tracking-[0.15em] font-medium">{review.servico}</span>
+                    </div>
+                    <div className="flex gap-1 text-[#b8853a]">
+                      {[...Array(review.stars)].map((_, s) => <Star key={s} size={12} fill={GOLD} stroke="transparent" className="opacity-90 group-hover:opacity-100" />)}
+                    </div>
+                  </div>
+                </div>
               </motion.article>
             ))}
-          </div>
+          </motion.div>
+          
         </div>
       </div>
-      <motion.div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-px h-20"
-        style={{ background: "linear-gradient(to top, rgba(197,157,110,0.18), transparent)" }}
-        animate={{ opacity: [0.3, 0.6, 0.3] }}
-        transition={{ duration: 3, repeat: Infinity }}
-      />
     </section>
   );
-}
+};
+
+export default Avaliacoes;
