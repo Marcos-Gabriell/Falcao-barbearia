@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { motion, useInView, AnimatePresence, useMotionTemplate, useMotionValue } from "framer-motion";
 import { useRef, useState } from "react";
 import { Play, ArrowRight, Scissors, Maximize2, X, ChevronLeft, ChevronRight, Star, Calendar } from "lucide-react";
 import { FaInstagram } from "react-icons/fa";
@@ -69,21 +69,27 @@ const StatsBanner = () => {
   );
 };
 
-// ─── BEFORE / AFTER SLIDER PREMIUM (Atualizado com suas fotos!) ────────────────
+// ─── BEFORE / AFTER SLIDER PREMIUM (Corrigido o alinhamento) ───────────────────
 const BeforeAfterSlider = () => {
-  const [sliderPosition, setSliderPosition] = useState(50);
+  const sliderPosition = useMotionValue(50);
+  const sliderLeft = useMotionTemplate`${sliderPosition}%`;
+  const clipPath = useMotionTemplate`inset(0 calc(100% - ${sliderLeft}) 0 0)`;
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleDrag = (event: React.MouseEvent | React.TouchEvent | MouseEvent | TouchEvent | PointerEvent, info: any) => {
+  const updateSliderByX = (clientX: number) => {
     if (!containerRef.current) return;
     const containerRect = containerRef.current.getBoundingClientRect();
-    const x = info.point.x - containerRect.left;
+    const x = clientX - containerRect.left;
     const percentage = Math.max(0, Math.min(100, (x / containerRect.width) * 100));
-    setSliderPosition(percentage);
+    sliderPosition.set(percentage);
+  };
+
+  const handleDrag = (_event: React.MouseEvent | React.TouchEvent | MouseEvent | TouchEvent | PointerEvent, info: any) => {
+    updateSliderByX(info.point.x);
   };
 
   return (
-    <div className="mb-24 mt-12">
+    <div className="mx-auto max-w-5xl px-6 mt-24 mb-16">
       <div className="flex flex-col md:flex-row items-end justify-between mb-10 gap-6">
         <div>
           <span className="text-[#b8853a] font-mono text-[10px] tracking-[0.4em] uppercase block mb-4">A Mágica Acontece</span>
@@ -94,31 +100,44 @@ const BeforeAfterSlider = () => {
 
       <div 
         ref={containerRef}
-        className="relative w-full h-[500px] md:h-[600px] rounded-3xl overflow-hidden cursor-ew-resize border border-white/10 group bg-[#0a0a0a]"
+        className="relative w-full aspect-[4/5] md:aspect-video rounded-3xl overflow-hidden cursor-ew-resize border border-white/10 shadow-2xl bg-[#0a0a0a]"
+        onClick={(e) => updateSliderByX(e.clientX)}
       >
-        {/* Imagem "Depois" (Fundo) -> Puxando a sua foto "depois.jpg" */}
-        <div className="absolute inset-0">
-          <Image src="/cortes/depois.png" alt="Depois" fill className="object-contain md:object-cover" />
+        {/* IMAGEM DEPOIS (FUNDO) */}
+        <div className="absolute inset-0 pointer-events-none">
+          <Image 
+            src="/cortes/depois.png" 
+            alt="Depois" 
+            fill 
+            className="object-cover object-center" 
+            quality={100}
+          />
           <div className="absolute top-6 left-6 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 text-xs font-bold text-[#b8853a] uppercase tracking-widest z-20">
             Depois
           </div>
         </div>
 
-        {/* Imagem "Antes" (Sobreposta com Clip-Path) -> Puxando a sua foto "antes.jpg" */}
-        <div 
-          className="absolute inset-0 z-10 bg-[#0a0a0a]"
-          style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
+        {/* IMAGEM ANTES (SOBREPOSTA COM CLIP-PATH) */}
+        <motion.div
+          className="absolute inset-0 z-10 pointer-events-none bg-[#0a0a0a]"
+          style={{ clipPath, willChange: "clip-path" }}
         >
-          <Image src="/cortes/antes.png" alt="Antes" fill className="object-contain md:object-cover grayscale brightness-75" />
+          <Image 
+            src="/cortes/antes.png" 
+            alt="Antes" 
+            fill 
+            className="object-cover object-center grayscale brightness-75" 
+            quality={100}
+          />
           <div className="absolute top-6 right-6 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 text-xs font-bold text-white/80 uppercase tracking-widest z-20">
             Antes
           </div>
-        </div>
+        </motion.div>
 
-        {/* Slider Handle */}
+        {/* SLIDER HANDLE */}
         <motion.div 
           className="absolute top-0 bottom-0 z-20 w-1 bg-[#b8853a] shadow-[0_0_20px_rgba(184,133,58,0.8)] flex items-center justify-center cursor-grab active:cursor-grabbing"
-          style={{ left: `${sliderPosition}%`, x: "-50%" }}
+          style={{ left: sliderLeft, x: "-50%", willChange: "left" }}
           drag="x"
           dragConstraints={containerRef}
           dragElastic={0}
@@ -259,10 +278,10 @@ export default function TrabalhosEditorial() {
   };
 
   return (
-    <>
+    <div id="cortes" className="w-full bg-[#050505]">
       <MobileCarousel onOpenLightbox={setLightboxIndex} />
 
-      <section id="cortes" className="hidden lg:block relative w-full py-32 bg-[#050505] overflow-hidden antialiased">
+      <section className="hidden lg:block relative w-full pt-32 bg-[#050505] overflow-hidden antialiased">
         
         {/* Grain & Glow Background */}
         <div className="absolute inset-0 pointer-events-none opacity-[0.02] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
@@ -289,7 +308,7 @@ export default function TrabalhosEditorial() {
 
           <StatsBanner />
           
-          {/* Asymmetric Editorial Grid (Exibe os 11 primeiros de forma estlizada) */}
+          {/* Asymmetric Editorial Grid */}
           <div className="grid grid-cols-12 gap-6 mb-32">
             {ITEMS.slice(0, 11).map((item, index) => (
               <GalleryCard 
@@ -302,10 +321,14 @@ export default function TrabalhosEditorial() {
             ))}
           </div>
 
-          <BeforeAfterSlider />
+        </div>
 
+        {/* ── O SLIDER AGORA ESTÁ PERFEITAMENTE ALINHADO AQUI ── */}
+        <BeforeAfterSlider />
+
+        <div className="mx-auto max-w-7xl px-6">
           {/* Premium Footer CTA */}
-          <div className="mt-32 flex flex-col items-center justify-center text-center space-y-8 border-t border-white/5 pt-20">
+          <div className="mb-32 flex flex-col items-center justify-center text-center space-y-8 border-t border-white/5 pt-20">
             <h3 className="text-3xl font-serif text-white italic">Eleve seu estilo ao próximo nível.</h3>
             <div className="flex flex-col sm:flex-row items-center gap-4">
               <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="px-8 py-4 bg-[#b8853a] text-black font-bold uppercase tracking-widest text-[11px] rounded-lg hover:scale-105 hover:shadow-[0_0_30px_rgba(184,133,58,0.4)] transition-all flex items-center gap-2">
@@ -316,11 +339,10 @@ export default function TrabalhosEditorial() {
               </a>
             </div>
           </div>
-
         </div>
       </section>
 
-      {/* Lightbox Modal (Simplificado e Robusto) */}
+      {/* Lightbox Modal */}
       <AnimatePresence>
         {lightboxIndex !== null && (
           <motion.div 
@@ -340,7 +362,6 @@ export default function TrabalhosEditorial() {
               )}
             </div>
 
-            {/* Lightbox Controls */}
             <button 
               className="absolute left-4 md:left-10 top-1/2 -translate-y-1/2 z-50 text-white/50 hover:text-[#b8853a] bg-white/5 p-4 rounded-full backdrop-blur-md border border-white/10 hover:border-[#b8853a]/50 transition-all"
               onClick={(e) => { e.stopPropagation(); setLightboxIndex((prev) => prev! === 0 ? ITEMS.length - 1 : prev! - 1); }}
@@ -356,6 +377,6 @@ export default function TrabalhosEditorial() {
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </div>
   );
 }

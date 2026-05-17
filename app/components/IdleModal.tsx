@@ -7,7 +7,7 @@ import { WHATSAPP_LINK } from "../utils/links";
 
 const GOLD       = "#b8853a";
 const GOLD_LIGHT = "#d4aa7a";
-const IDLE_SECONDS = 10;
+const IDLE_SECONDS = 25;
 const STORAGE_KEY  = "fb_idle_modal_dismissed";
 
 function WAIcon() {

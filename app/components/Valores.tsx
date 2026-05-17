@@ -81,9 +81,9 @@ const categorias = [
     titulo: "Química & Cor",
     icon: <Droplet size={20} strokeWidth={1.5} />,
     itens: [
-      { nome: "Nevou", desc: "Descoloração global platinada pura, sem quebrar o fio.", preco: "100", maisPedido: true },
+      { nome: "Nevou", desc: "Descoloração global platinada pura, sem quebrar o fio.", preco: "100"},
       { nome: "Luzes", desc: "Mechas e reflexos de alto contraste pra iluminar.", preco: "80" },
-      { nome: "Desondulação", desc: "Redução extrema de volume e alinhamento do fio.", preco: "100" },
+      { nome: "Desondulação", desc: "Redução extrema de volume e alinhamento do fio.", preco: "100", maisPedido: true },
     ]
   }
 ];
@@ -91,7 +91,7 @@ const categorias = [
 // ─── COMPONENTE 1: EXPERIÊNCIA (DIFERENCIAIS) ──────────────────────────────────
 export function Experiencia() {
   return (
-    <section id="diferenciais" className="relative py-24 md:py-32 bg-[#050505] overflow-hidden select-none">
+    <section id="sobre" className="relative py-24 md:py-32 bg-[#050505] overflow-hidden select-none">
       <div className="absolute top-1/2 left-1/4 w-[500px] h-[500px] bg-[#b8853a]/3 blur-[130px] rounded-full pointer-events-none -translate-y-1/2" />
       <div 
         className="absolute inset-0 opacity-[0.02] pointer-events-none" 
@@ -164,7 +164,7 @@ export function Experiencia() {
 // ─── COMPONENTE 2: SERVIÇOS (TABELA DE VALORES) ────────────────────────────────
 export default function Valores() {
   return (
-    <section id="valores" className="relative w-full py-24 md:py-32 bg-[#050505] overflow-hidden antialiased select-none">
+    <section id="servicos" className="relative w-full py-24 md:py-32 bg-[#050505] overflow-hidden antialiased select-none">
       <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_bottom,rgba(184,133,58,0.04)_0%,transparent_60%)]" />
       <div 
         className="absolute inset-0 opacity-[0.02] pointer-events-none" 
