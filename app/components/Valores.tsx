@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
-import { 
-  Zap, 
-  Flame, 
-  Smile, 
+import {
+  Zap,
+  Flame,
+  Smile,
   CheckCircle,
-  Scissors, 
-  Crown, 
+  Scissors,
+  Crown,
   Droplet,
   ArrowRight,
 } from "lucide-react";
@@ -211,7 +211,7 @@ export default function Valores() {
                     >
                       {item.maisPedido && (
                         <span className="absolute -top-2 right-4 bg-gradient-to-r from-[#b8853a] to-[#8f6425] text-black text-[8px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full shadow-md flex items-center gap-1 z-10">
-                          <Zap size={8} fill="black" /> <Flame size={8} fill="black" /> Mais Pedido
+                          🔥 Mais Pedido
                         </span>
                       )}
 

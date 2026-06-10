@@ -298,7 +298,6 @@ export default function Hero() {
           <div className="flex flex-col gap-3 w-full mb-8">
             <a
               href="/agendar"
-              target="_blank"
               rel="noopener noreferrer"
               className="w-full bg-gradient-to-r from-[#b8853a] to-[#8f6425] text-[#070707] text-center py-4 rounded-2xl font-black uppercase text-[11px] tracking-[0.12em] shadow-[0_8px_32px_rgba(184,133,58,0.30)] flex items-center justify-center gap-2 active:scale-[0.97] transition-transform"
             >
@@ -307,7 +306,6 @@ export default function Hero() {
             </a>
             <a
               href={INSTAGRAM_URL}
-              target="_blank"
               rel="noopener noreferrer"
               className="w-full border border-white/10 bg-white/[0.04] backdrop-blur-md text-white/75 text-center py-3.5 rounded-2xl text-[11px] font-bold uppercase tracking-[0.1em] flex items-center justify-center gap-2 active:scale-[0.97] transition-transform"
             >

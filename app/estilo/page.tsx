@@ -112,7 +112,7 @@ export default function EstiloBlogPage() {
           >
             <Link href={`/estilo/${postDestaque.id}`} className="group block relative rounded-3xl overflow-hidden border border-white/5 bg-white/[0.02] shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
-                <div className="relative aspect-video lg:aspect-auto lg:h-full overflow-hidden">
+                <div className="relative aspect-square sm:aspect-video lg:aspect-auto lg:h-full overflow-hidden">
                   <Image 
                     src={postDestaque.imagem} 
                     alt={postDestaque.titulo} 
@@ -161,7 +161,7 @@ export default function EstiloBlogPage() {
                 transition={{ delay: (index % 3) * 0.1 }}
               >
                 <Link href={`/estilo/${post.id}`} className="group block flex flex-col h-full bg-white/[0.01] border border-white/5 rounded-2xl p-4 hover:bg-white/[0.03] transition-colors">
-                  <div className="relative aspect-[4/3] rounded-xl overflow-hidden mb-6">
+                  <div className="relative aspect-square sm:aspect-[4/3] rounded-xl overflow-hidden mb-6">
                     <Image 
                       src={post.imagem} 
                       alt={post.titulo} 

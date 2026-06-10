@@ -253,7 +253,6 @@ export default function IdleModal() {
                 >
                   <motion.a
                     href={WHATSAPP_LINK}
-                    target="_blank"
                     rel="noopener noreferrer"
                     onClick={dismiss}
                     className="group relative flex items-center justify-center gap-3 w-full py-4 rounded-2xl text-base font-bold overflow-hidden"

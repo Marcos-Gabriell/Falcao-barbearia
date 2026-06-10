@@ -11,6 +11,7 @@ export interface ServiceItem {
 export interface ProfessionalSimple {
   id: number;
   name: string;
+  photoUrl?: string;
 }
 
 export interface SlotResponse {
