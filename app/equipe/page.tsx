@@ -26,7 +26,7 @@ export default function EquipePage() {
             >
               {/* CORRIGIDO PARA .JPEG MAIÚSCULO COMO ESTÁ NA PASTA */}
               <Image 
-                src="/thaylle2.JPEG" 
+                src="/thaylle2.jpeg" 
                 alt="Thaylle - Master Barber" 
                 fill 
                 className="object-cover transition-transform duration-1000 hover:scale-105"

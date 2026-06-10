@@ -129,10 +129,6 @@ const Footer = () => {
             <p className="text-white/50 text-sm font-light leading-relaxed mb-6 pe-4">
               Precisão, estilo e experiência em cada detalhe. Elevando a experiência da barbearia com um padrão de excelência inegociável.
             </p>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 border border-white/10 rounded-full bg-white/[0.02]">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#b8853a] animate-pulse" />
-              <span className="text-[10px] uppercase tracking-widest text-white/40">Desde 2021 • Tapiramutá, BA</span>
-            </div>
           </motion.div>
 
           {/* COLUNA 2 — Mapa do Site */}

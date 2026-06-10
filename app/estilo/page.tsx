@@ -13,7 +13,7 @@ export const posts = [
     titulo: "Desondulação: O Segredo para o Caimento Perfeito",
     resumo: "Cansado do volume excessivo e dos fios rebeldes? A desondulação relaxa a estrutura do cabelo, facilitando o penteado no dia a dia sem perder a naturalidade.",
     categoria: "Química & Tratamento",
-    imagem: "/cortes/corte16.jpeg", 
+    imagem: "/cortes/corte21.png", 
     data: "12 Jun, 2026",
     destaque: true,
   },

@@ -6,6 +6,7 @@ import { useRef, useState, useEffect } from "react";
 import { FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { WHATSAPP_LINK, INSTAGRAM_URL } from "../utils/links";
 
+import { Calendar } from "lucide-react";
 /* ─── FOTO PRINCIPAL ─────────────────────────────────────────────────────── */
 // thaylle2 escolhida: ele olhando pra câmera enquanto corta → conexão direta
 const HERO_IMAGE = "/thaylle2.jpeg";
@@ -144,7 +145,7 @@ export default function Hero() {
             className="flex flex-wrap items-center gap-5"
           >
             <motion.a
-              href={WHATSAPP_LINK}
+              href="/agendar"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.03, boxShadow: "0 0 36px rgba(184,133,58,0.35)" }}
@@ -158,7 +159,7 @@ export default function Hero() {
                 animate={{ x: ["-100%", "200%"] }}
                 transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 3, ease: "easeInOut" }}
               />
-              <FaWhatsapp size={18} />
+              <Calendar size={18} />
               Garantir meu horário
             </motion.a>
 
@@ -296,12 +297,12 @@ export default function Hero() {
           {/* CTAs */}
           <div className="flex flex-col gap-3 w-full mb-8">
             <a
-              href={WHATSAPP_LINK}
+              href="/agendar"
               target="_blank"
               rel="noopener noreferrer"
               className="w-full bg-gradient-to-r from-[#b8853a] to-[#8f6425] text-[#070707] text-center py-4 rounded-2xl font-black uppercase text-[11px] tracking-[0.12em] shadow-[0_8px_32px_rgba(184,133,58,0.30)] flex items-center justify-center gap-2 active:scale-[0.97] transition-transform"
             >
-              <FaWhatsapp size={17} />
+               <Calendar size={17} />
               Garantir meu horário
             </a>
             <a

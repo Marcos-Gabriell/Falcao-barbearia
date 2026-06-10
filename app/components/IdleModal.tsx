@@ -5,6 +5,8 @@ import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import { useEffect, useState, useRef, useCallback } from "react";
 import { WHATSAPP_LINK } from "../utils/links";
 
+import { Calendar } from "lucide-react";
+
 const GOLD       = "#b8853a";
 const GOLD_LIGHT = "#d4aa7a";
 const IDLE_SECONDS = 25;
@@ -271,8 +273,8 @@ export default function IdleModal() {
                       animate={shimmer}
                       aria-hidden
                     />
-                    <WAIcon />
-                    <span className="relative z-10">Marcar horário agora</span>
+                    <Calendar size={18} />
+                    <span className="relative z-10">Agendar horário agora</span>
                     <motion.svg
                       width="15" height="15" viewBox="0 0 24 24" fill="none"
                       stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"

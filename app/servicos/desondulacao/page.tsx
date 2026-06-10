@@ -8,7 +8,7 @@ import Footer from "../../components/Footer";
 
 // Colocamos as suas 2 fotos aqui
 const fotos = [
-  "/cortes/corte16.jpeg",
+  "/cortes/corte21.png",
   "/cortes/corte20.png",
 ];
 
