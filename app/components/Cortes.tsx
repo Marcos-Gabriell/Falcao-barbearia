@@ -5,7 +5,8 @@ import { motion, useInView, AnimatePresence, useMotionTemplate, useMotionValue }
 import { useRef, useState } from "react";
 import { Play, ArrowRight, Scissors, Maximize2, X, ChevronLeft, ChevronRight, Star, Calendar } from "lucide-react";
 import { FaInstagram } from "react-icons/fa";
-import { WHATSAPP_LINK, INSTAGRAM_URL } from "../utils/links";
+import { INSTAGRAM_URL } from "../utils/links";
+import Link from "next/link";
 
 const GOLD = "#b8853a";
 
@@ -92,10 +93,34 @@ const BeforeAfterSlider = () => {
     <div className="mx-auto max-w-5xl px-6 mt-24 mb-16">
       <div className="flex flex-col md:flex-row items-end justify-between mb-10 gap-6">
         <div>
-          <span className="text-[#b8853a] font-mono text-[10px] tracking-[0.4em] uppercase block mb-4">A Mágica Acontece</span>
-          <h3 className="text-4xl md:text-5xl font-serif text-[#f5f1eb]">Transformações <span className="italic text-[#b8853a]">Reais.</span></h3>
+          <motion.span
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.55 }}
+            className="text-[#b8853a] font-mono text-[10px] tracking-[0.4em] uppercase block mb-4"
+          >
+            A Mágica Acontece
+          </motion.span>
+          <motion.h3
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.7, delay: 0.12 }}
+            className="text-4xl md:text-5xl font-serif text-[#f5f1eb]"
+          >
+            Transformações <span className="italic text-[#b8853a]">Reais.</span>
+          </motion.h3>
         </div>
-        <p className="text-white/40 text-sm max-w-sm font-light">Deslize para ver o impacto que um corte feito com precisão e técnica pode causar na sua imagem pessoal.</p>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, delay: 0.25 }}
+          className="text-white/40 text-sm max-w-sm font-light"
+        >
+          Deslize para ver o impacto que um corte feito com precisão e técnica pode causar na sua imagem pessoal.
+        </motion.p>
       </div>
 
       <div 
@@ -329,15 +354,29 @@ export default function TrabalhosEditorial() {
         <div className="mx-auto max-w-7xl px-6">
           {/* Premium Footer CTA */}
           <div className="mb-32 flex flex-col items-center justify-center text-center space-y-8 border-t border-white/5 pt-20">
-            <h3 className="text-3xl font-serif text-white italic">Eleve seu estilo ao próximo nível.</h3>
-            <div className="flex flex-col sm:flex-row items-center gap-4">
-              <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="px-8 py-4 bg-[#b8853a] text-black font-bold uppercase tracking-widest text-[11px] rounded-lg hover:scale-105 hover:shadow-[0_0_30px_rgba(184,133,58,0.4)] transition-all flex items-center gap-2">
+            <motion.h3
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.7 }}
+              className="text-3xl font-serif text-white italic"
+            >
+              Eleve seu estilo ao próximo nível.
+            </motion.h3>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="flex flex-col sm:flex-row items-center gap-4"
+            >
+              <a href="/agendar" className="px-8 py-4 bg-[#b8853a] text-black font-bold uppercase tracking-widest text-[11px] rounded-lg hover:scale-105 hover:shadow-[0_0_30px_rgba(184,133,58,0.4)] transition-all flex items-center gap-2">
                 <Calendar size={16} /> Agendar Experiência
               </a>
               <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" className="px-8 py-4 bg-transparent border border-white/10 text-white/70 font-bold uppercase tracking-widest text-[11px] rounded-lg hover:border-[#b8853a]/50 hover:text-[#b8853a] transition-all flex items-center gap-2">
                 <FaInstagram size={16} /> Ver mais no Instagram
               </a>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import { 
   Zap, 
@@ -8,29 +9,22 @@ import {
   CheckCircle,
   Scissors, 
   Crown, 
-  Droplet 
+  Droplet,
+  ArrowRight,
 } from "lucide-react";
 import { WHATSAPP_LINK } from "../utils/links";
 
-const GOLD = "#b8853a";
 const DARK_CARD = "rgba(12, 12, 12, 0.7)";
 
-// ─── ANIMAÇÕES PREMIUM (Framer Motion) ─────────────────────────────────────────
+// ─── ANIMAÇÕES ─────────────────────────────────────────────────────────────────
 const staggerContainer: Variants = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15 }
-  }
+  visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
 };
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { duration: 0.7, ease: "easeOut" } 
-  }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } }
 };
 
 // ─── DADOS: EXPERIÊNCIA ────────────────────────────────────────────────────────
@@ -58,37 +52,38 @@ const diferenciais = [
 ];
 
 // ─── DADOS: SERVIÇOS ───────────────────────────────────────────────────────────
+// id deve bater com os IDs reais do banco / fallback do ServiceStep
 const categorias = [
   {
     titulo: "Cortes & Estilo",
     icon: <Scissors size={20} strokeWidth={1.5} />,
     itens: [
-      { nome: "Corte Tradicional", desc: "Na régua e no estilo que você já conhece.", preco: "30" },
-      { nome: "Corte na Tesoura", desc: "Design exclusivo feito 100% na tesoura.", preco: "40", maisPedido: true },
-      { nome: "Pezinho", desc: "Alinhamento rápido de contorno e nuca.", preco: "15" },
+      { id: 1, nome: "Corte Tradicional", desc: "Na régua e no estilo que você já conhece.", preco: "30" },
+      { id: 2, nome: "Corte na Tesoura", desc: "Design exclusivo feito 100% na tesoura.", preco: "40", maisPedido: true },
+      { id: 3, nome: "Pezinho", desc: "Alinhamento rápido de contorno e nuca.", preco: "15" },
     ]
   },
   {
     titulo: "Barba & Rosto",
     icon: <Crown size={20} strokeWidth={1.5} />,
     itens: [
-      { nome: "Barba Premium", desc: "Terapia de toalha quente e acabamento navalhado.", preco: "15", maisPedido: true },
-      { nome: "Sobrancelha", desc: "Limpeza de contorno prática e bem alinhada.", preco: "10" },
-      { nome: "Pigmentação", desc: "Correção de imperfeições com aspecto natural.", preco: "20" },
+      { id: 4, nome: "Barba Premium", desc: "Terapia de toalha quente e acabamento navalhado.", preco: "15", maisPedido: true },
+      { id: 5, nome: "Sobrancelha", desc: "Limpeza de contorno prática e bem alinhada.", preco: "10" },
+      { id: 6, nome: "Pigmentação", desc: "Correção de imperfeições com aspecto natural.", preco: "20" },
     ]
   },
   {
     titulo: "Química & Cor",
     icon: <Droplet size={20} strokeWidth={1.5} />,
     itens: [
-      { nome: "Nevou", desc: "Descoloração global platinada pura, sem quebrar o fio.", preco: "100"},
-      { nome: "Luzes", desc: "Mechas e reflexos de alto contraste pra iluminar.", preco: "80" },
-      { nome: "Desondulação", desc: "Redução extrema de volume e alinhamento do fio.", preco: "100", maisPedido: true },
+      { id: 7, nome: "Nevou", desc: "Descoloração global platinada pura, sem quebrar o fio.", preco: "100" },
+      { id: 8, nome: "Luzes", desc: "Mechas e reflexos de alto contraste pra iluminar.", preco: "80" },
+      { id: 9, nome: "Desondulação", desc: "Redução extrema de volume e alinhamento do fio.", preco: "100", maisPedido: true },
     ]
   }
 ];
 
-// ─── COMPONENTE 1: EXPERIÊNCIA (DIFERENCIAIS) ──────────────────────────────────
+// ─── COMPONENTE 1: EXPERIÊNCIA ─────────────────────────────────────────────────
 export function Experiencia() {
   return (
     <section id="sobre" className="relative py-24 md:py-32 bg-[#050505] overflow-hidden select-none">
@@ -97,16 +92,11 @@ export function Experiencia() {
         className="absolute inset-0 opacity-[0.02] pointer-events-none" 
         style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
       />
-
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        
-        {/* Header Animado */}
         <motion.div 
-          initial="hidden"
-          whileInView="visible"
+          initial="hidden" whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          variants={staggerContainer}
-          className="mb-16 md:mb-20"
+          variants={staggerContainer} className="mb-16 md:mb-20"
         >
           <motion.div variants={fadeUp} className="flex items-center gap-3 mb-4">
             <div className="h-[2px] w-6 bg-[#b8853a] rounded-full" />
@@ -120,24 +110,20 @@ export function Experiencia() {
           </motion.h2>
         </motion.div>
 
-        {/* Grid de Diferenciais Animado */}
         <motion.div 
-          initial="hidden"
-          whileInView="visible"
+          initial="hidden" whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
           variants={staggerContainer}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
         >
           {diferenciais.map((item, i) => (
             <motion.div
-              key={i}
-              variants={fadeUp}
+              key={i} variants={fadeUp}
               whileHover={{ y: -6, borderColor: "rgba(184,133,58,0.4)" }}
               className="group relative p-6 rounded-xl border border-white/5 transition-all duration-300 overflow-hidden flex flex-col justify-between min-h-[190px]"
               style={{ background: DARK_CARD, backdropFilter: "blur(12px)" }}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-[#b8853a]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
-
               <div>
                 <div className="text-[#b8853a] mb-5 w-10 h-10 rounded-lg bg-white/[0.02] border border-white/5 flex items-center justify-center transition-transform duration-500 group-hover:scale-105 group-hover:bg-[#b8853a]/10 group-hover:border-[#b8853a]/20">
                   {item.icon}
@@ -145,11 +131,8 @@ export function Experiencia() {
                 <h3 className="text-[#f5f1eb] text-base font-bold mb-2 tracking-tight group-hover:text-[#d4aa7a] transition-colors">
                   {item.title}
                 </h3>
-                <p className="text-white/40 text-xs leading-relaxed font-medium">
-                  {item.desc}
-                </p>
+                <p className="text-white/40 text-xs leading-relaxed font-medium">{item.desc}</p>
               </div>
-
               <div className="absolute bottom-3 right-4 opacity-[0.02] group-hover:opacity-10 transition-opacity duration-300">
                 <span className="text-[36px] font-black tracking-tighter text-[#b8853a]">//0{i + 1}</span>
               </div>
@@ -161,7 +144,7 @@ export function Experiencia() {
   );
 }
 
-// ─── COMPONENTE 2: SERVIÇOS (TABELA DE VALORES) ────────────────────────────────
+// ─── COMPONENTE 2: SERVIÇOS ────────────────────────────────────────────────────
 export default function Valores() {
   return (
     <section id="servicos" className="relative w-full py-24 md:py-32 bg-[#050505] overflow-hidden antialiased select-none">
@@ -172,11 +155,9 @@ export default function Valores() {
       />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        
-        {/* Header Animado */}
+        {/* Header */}
         <motion.div 
-          initial="hidden"
-          whileInView="visible"
+          initial="hidden" whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={staggerContainer}
           className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-6"
@@ -193,25 +174,24 @@ export default function Valores() {
             </h2>
           </motion.div>
           <motion.p variants={fadeUp} className="text-white/40 text-xs sm:text-sm max-w-xs font-medium leading-relaxed">
-            Escolha o trato ideal. Sem complicação, focado no que você precisa.
+            Clique no serviço pra agendar direto. Sem enrolação.
           </motion.p>
         </motion.div>
 
-        {/* Grid de Serviços Animado */}
+        {/* Grid de Serviços */}
         <motion.div 
-          initial="hidden"
-          whileInView="visible"
+          initial="hidden" whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
           variants={staggerContainer}
           className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6"
         >
           {categorias.map((cat, idx) => (
             <motion.div 
-              key={idx} 
-              variants={fadeUp}
+              key={idx} variants={fadeUp}
               className="bg-white/[0.01] border border-white/5 rounded-2xl p-6 md:p-8 flex flex-col justify-between shadow-xl"
             >
               <div className="space-y-8">
+                {/* Categoria header */}
                 <div className="flex items-center gap-3.5 border-b border-white/5 pb-4">
                   <div className="w-8 h-8 rounded-lg bg-[#b8853a]/10 border border-[#b8853a]/20 flex items-center justify-center text-[#b8853a]">
                     {cat.icon}
@@ -219,49 +199,63 @@ export default function Valores() {
                   <h3 className="text-[#f5f1eb] font-serif text-lg font-bold tracking-wide">{cat.titulo}</h3>
                 </div>
 
-                <div className="space-y-4">
-                  {cat.itens.map((item, i) => (
-                    <div 
-                      key={i} 
-                      className="group relative p-4 rounded-xl border border-white/[0.03] bg-black/40 hover:bg-[#b8853a]/[0.02] hover:border-[#b8853a]/20 transition-all duration-300"
+                {/* Itens — cada um é um Link */}
+                <div className="space-y-3">
+                  {cat.itens.map((item) => (
+                    <Link
+                      key={item.id}
+                      href={`/agendar?servico=${item.id}`}
+                      className="group relative p-4 rounded-xl border border-white/[0.03] bg-black/40
+                        hover:bg-[#b8853a]/[0.04] hover:border-[#b8853a]/30
+                        active:scale-[0.98] transition-all duration-200 cursor-pointer block"
                     >
                       {item.maisPedido && (
                         <span className="absolute -top-2 right-4 bg-gradient-to-r from-[#b8853a] to-[#8f6425] text-black text-[8px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full shadow-md flex items-center gap-1 z-10">
-                          <Zap size={8} fill="black" /> Mais Pedido 🔥
+                          <Zap size={8} fill="black" /> <Flame size={8} fill="black" /> Mais Pedido
                         </span>
                       )}
 
-                      <div className="flex justify-between items-baseline mb-1">
-                        <h4 className="text-[14px] font-bold text-white group-hover:text-[#d4aa7a] transition-colors">
-                          {item.nome}
-                        </h4>
-                        <span className="text-[#b8853a] font-black text-sm whitespace-nowrap ml-2">
-                          R$ {item.preco}
-                        </span>
+                      <div className="flex justify-between items-center">
+                        <div className="flex-1 min-w-0 pr-3">
+                          <h4 className="text-[14px] font-bold text-white group-hover:text-[#d4aa7a] transition-colors leading-tight">
+                            {item.nome}
+                          </h4>
+                          <p className="text-[11px] text-white/40 font-medium leading-relaxed mt-0.5">
+                            {item.desc}
+                          </p>
+                        </div>
+
+                        <div className="flex items-center gap-2.5 shrink-0">
+                          <span className="text-[#b8853a] font-black text-sm">
+                            R$ {item.preco}
+                          </span>
+                          <div className="w-6 h-6 rounded-full bg-white/[0.03] border border-white/[0.06]
+                            group-hover:bg-[#b8853a] group-hover:border-[#b8853a] 
+                            flex items-center justify-center transition-all duration-200">
+                            <ArrowRight size={11} className="text-white/30 group-hover:text-black transition-colors" />
+                          </div>
+                        </div>
                       </div>
-                      
-                      <p className="text-[11px] text-white/40 font-medium leading-relaxed">
-                        {item.desc}
-                      </p>
-                    </div>
+                    </Link>
                   ))}
                 </div>
               </div>
 
+              {/* Botão da categoria — vai pra /agendar sem pré-seleção */}
               <div className="mt-8 pt-4 border-t border-white/5">
-                <a 
-                  href={WHATSAPP_LINK}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-3 bg-white/[0.03] border border-white/5 hover:border-[#b8853a]/40 hover:bg-[#b8853a] hover:text-black rounded-xl text-center text-[10px] font-black uppercase tracking-widest text-white/80 block transition-all active:scale-[0.98]"
+                <Link
+                  href="/agendar"
+                  className="w-full py-3 bg-white/[0.03] border border-white/5
+                    hover:border-[#b8853a]/40 hover:bg-[#b8853a] hover:text-black
+                    rounded-xl text-center text-[10px] font-black uppercase tracking-widest
+                    text-white/80 block transition-all active:scale-[0.98]"
                 >
                   Agendar desta lista
-                </a>
+                </Link>
               </div>
             </motion.div>
           ))}
         </motion.div>
-
       </div>
     </section>
   );

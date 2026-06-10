@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Falcão Barbearia",
     short_name: "Falcão",
     description:
-      "Barbearia em Tapiramutá - BA. Corte masculino moderno, degradê e barba alinhada.",
+      "Barbearia premium em Tapiramutá - BA. Corte masculino moderno, degradê e barba alinhada.",
     start_url: "/",
     display: "standalone",
     background_color: "#000000",

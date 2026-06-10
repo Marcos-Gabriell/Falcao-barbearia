@@ -4,25 +4,23 @@ import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
-const GOLD = "#b8853a";
-const GOLD_LIGHT = "#d4aa7a";
-
+// Títulos alterados para focar nos "Pilares" e não apenas nos "Serviços/Benefícios"
 const destaques = [
   {
-    titulo: "Na Régua",
-    texto: "Fade limpo, acabamento impecável e atenção aos mínimos detalhes.",
+    titulo: "Precisão",
+    texto: "Fade limpo e atenção aos mínimos detalhes na régua.",
   },
   {
-    titulo: "Seu Estilo",
-    texto: "Cada visual combina com sua personalidade e presença.",
+    titulo: "Autenticidade",
+    texto: "Construímos um visual que combina com a sua presença.",
   },
   {
-    titulo: "Resenha & Ambiente",
-    texto: "Música, conversa boa e um espaço feito pra você se sentir em casa.",
+    titulo: "Experiência",
+    texto: "Música, conversa boa e um espaço para você relaxar.",
   },
   {
-    titulo: "Atendimento Diferenciado",
-    texto: "Aqui você não é só mais um corte. Sua experiência importa.",
+    titulo: "Exclusividade",
+    texto: "Aqui você não é só mais um corte. O seu momento importa.",
   },
 ];
 
@@ -36,14 +34,12 @@ export default function Sobre() {
       className="relative w-full py-32 md:py-48 overflow-hidden bg-[#070707] select-none"
       ref={containerRef}
     >
-      {/* ── Background: Cinematic Noise & Typography ── */}
+      {/* ── Background ── */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden>
-        {/* Noise overlay */}
         <div 
           className="absolute inset-0 opacity-[0.03] mix-blend-screen" 
           style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
         />
-        {/* Glow dourado sutil */}
         <motion.div
           className="absolute right-[-10%] top-[20%] rounded-full"
           style={{
@@ -54,7 +50,6 @@ export default function Sobre() {
           animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0.8, 0.5] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />
-        {/* Texto Gigante Marca D'água */}
         <div className="absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.015] w-full text-center">
           <h2 className="text-[18vw] font-serif font-black leading-none tracking-tighter">PRESENÇA</h2>
         </div>
@@ -63,7 +58,7 @@ export default function Sobre() {
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 xl:gap-24 items-center">
           
-          {/* ── LADO ESQUERDO: LOOKBOOK GRID (CORTES) ── */}
+          {/* ── LADO ESQUERDO: LOOKBOOK GRID ── */}
           <div className="lg:col-span-5 relative mt-10 lg:mt-0 order-2 lg:order-1">
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 30 }}
@@ -71,7 +66,6 @@ export default function Sobre() {
               transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
               className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden grid grid-cols-2 grid-rows-2 gap-2 md:gap-3"
             >
-              {/* Foto Principal - Metade Esquerda inteira */}
               <div className="relative row-span-2 h-full w-full group overflow-hidden rounded-l-xl">
                 <Image
                   src="/cortes/corte16.jpeg" 
@@ -81,17 +75,15 @@ export default function Sobre() {
                 />
               </div>
 
-              {/* Foto Menor - Topo Direito */}
               <div className="relative h-full w-full group overflow-hidden rounded-tr-xl">
                 <Image
-                  src="/cortes/corte2.jpg" 
+                  src="/cortes/corte19.png" 
                   alt="Detalhe Corte Falcão"
                   fill
                   className="object-cover object-top transition-transform duration-[3s] ease-out group-hover:scale-110 grayscale hover:grayscale-0"
                 />
               </div>
 
-              {/* Foto Menor - Base Direita */}
               <div className="relative h-full w-full group overflow-hidden rounded-br-xl">
                 <Image
                   src="/cortes/corte4.jpg" 
@@ -101,12 +93,10 @@ export default function Sobre() {
                 />
               </div>
 
-              {/* Overlays para manter a integração com o fundo dark */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#070707] via-transparent to-transparent opacity-80 pointer-events-none" />
               <div className="absolute inset-0 border border-white/5 rounded-2xl pointer-events-none z-10" />
             </motion.div>
             
-            {/* Premium Badge: Experiência */}
             <motion.div 
               initial={{ opacity: 0, x: -30 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -133,7 +123,7 @@ export default function Sobre() {
               <div className="flex items-center gap-3 mb-6">
                 <div className="h-[2px] w-8 bg-[#b8853a] rounded-full" />
                 <span className="text-[#b8853a] font-bold text-[9px] tracking-[0.3em] uppercase">
-                  A Essência
+                  Nossa Essência
                 </span>
               </div>
               <h2 className="text-5xl md:text-6xl xl:text-7xl font-serif font-black text-[#f5f1eb] leading-[1.1] mb-8 tracking-tight">
@@ -154,22 +144,25 @@ export default function Sobre() {
               </p>
             </motion.div>
 
-            {/* Feature Cards Modernos */}
-            <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+            {/* Pilares da Marca */}
+            <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
               {destaques.map((item, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ delay: 0.5 + i * 0.1, duration: 0.6 }}
-                  className="group relative bg-white/[0.02] border border-white/5 hover:border-[#b8853a]/40 p-6 rounded-2xl transition-all duration-300 hover:bg-[#b8853a]/[0.02] overflow-hidden"
+                  className="group relative bg-white/[0.02] border border-white/5 hover:border-[#b8853a]/30 p-5 rounded-2xl transition-all duration-300 hover:bg-[#b8853a]/[0.02] overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-[#b8853a]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   <div className="relative z-10">
-                    <h3 className="text-[#f5f1eb] font-bold text-xs md:text-sm uppercase tracking-[0.15em] mb-3 group-hover:text-[#d4aa7a] transition-colors">
-                      {item.titulo}
-                    </h3>
-                    <p className="text-white/40 text-[11px] md:text-xs leading-relaxed font-medium">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#b8853a] opacity-50 group-hover:opacity-100 transition-opacity" />
+                      <h3 className="text-[#f5f1eb] font-bold text-xs md:text-sm uppercase tracking-[0.15em] group-hover:text-[#d4aa7a] transition-colors">
+                        {item.titulo}
+                      </h3>
+                    </div>
+                    <p className="text-white/40 text-[11px] md:text-xs leading-relaxed font-medium pl-3.5 border-l border-white/5 group-hover:border-[#b8853a]/30 transition-colors">
                       {item.texto}
                     </p>
                   </div>

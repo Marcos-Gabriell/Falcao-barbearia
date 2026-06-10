@@ -11,10 +11,11 @@ const site = {
   postalCode: "44840-027",
   phoneE164: "+5574988732790",
   phoneDisplay: "(74) 98873-2790",
-  url: "https://www.falcaobarbearia.online",
-  logo: "https://www.falcaobarbearia.online/logo1.png",
-  image1: "https://www.falcaobarbearia.online/cortes/corte1.jpg",
-  whatsapp: "https://wa.me/5574988732790?text=Ol%C3%A1!%20Quero%20agendar%20um%20hor%C3%A1rio%20na%20Falc%C3%A3o%20Barbearia.",
+  url: "https://www.falcaobarbearia.com.br",
+  logo: "https://www.falcaobarbearia.com.br/logo2.png",
+  image1: "https://www.falcaobarbearia.com.br/cortes/corte1.jpg",
+  whatsapp:
+    "https://wa.me/5574988732790?text=Ol%C3%A1!%20Quero%20agendar%20um%20hor%C3%A1rio%20na%20Falc%C3%A3o%20Barbearia.",
   mapsQuery:
     "https://www.google.com/maps/search/?api=1&query=R.%20Olavo%20Bilac%2C%20Tapiramut%C3%A1%20-%20BA",
 };
@@ -23,31 +24,36 @@ export const metadata: Metadata = {
   metadataBase: new URL(site.url),
 
   title: {
-    default: `${site.name} ${site.city} | Corte Masculino & Barba`,
-    template: `%s | ${site.name}`,
+    default: `Falcão Barbearia em Tapiramutá - BA | Corte Masculino, Degradê e Barba`,
+    template: `%s | Falcão Barbearia – Tapiramutá`,
   },
 
   description:
-    `Barbearia em ${site.city} - ${site.region}. Corte masculino moderno, degradê, barba alinhada e acabamento profissional. Agende pelo WhatsApp!`,
+    "Barbearia premium em Tapiramutá - BA. Corte masculino moderno, degradê profissional, barba alinhada e acabamento com navalha. Atendimento com hora marcada via WhatsApp.",
 
   keywords: [
-    `Barbearia ${site.city}`,
-    site.name,
-    `Corte masculino ${site.city}`,
-    `Barbeiro em ${site.city} ${site.region}`,
-    `Degradê ${site.city}`,
-    `Barba alinhada ${site.city}`,
-    "Barbearia Bahia",
+    "Falcão Barbearia",
+    "Barbearia Tapiramutá",
+    "Barbeiro Tapiramutá BA",
+    "Corte masculino Tapiramutá",
+    "Degradê Tapiramutá",
+    "Barba alinhada Tapiramutá",
+    "Corte navalhado Bahia",
+    "Barbearia premium Bahia",
     "Corte social masculino",
-    "Corte navalhado",
-    "Agendar barbearia WhatsApp",
+    "Agendamento barbearia WhatsApp",
+    "Barbearia R. Olavo Bilac Tapiramutá",
+    "Falcão barbeiro",
   ],
 
-  authors: [{ name: site.name }],
+  authors: [{ name: site.name, url: site.url }],
   creator: site.name,
   publisher: site.name,
 
-  alternates: { canonical: site.url },
+  alternates: {
+    canonical: site.url,
+    languages: { "pt-BR": site.url },
+  },
 
   robots: {
     index: true,
@@ -66,24 +72,30 @@ export const metadata: Metadata = {
     locale: "pt_BR",
     url: site.url,
     siteName: site.name,
-    title: `${site.name} | Barbearia em ${site.city} - ${site.region}`,
+    title: "Falcão Barbearia | Corte Masculino em Tapiramutá - BA",
     description:
-      `Corte masculino moderno, degradê profissional e barba alinhada em ${site.city} - ${site.region}. Agende agora!`,
+      "Corte masculino moderno, degradê profissional e barba alinhada em Tapiramutá - BA. Agende agora pelo WhatsApp!",
     images: [
       {
         url: site.logo,
         width: 1200,
         height: 1200,
-        alt: `${site.name} - Logo`,
+        alt: "Falcão Barbearia – Logo",
+      },
+      {
+        url: site.image1,
+        width: 1200,
+        height: 800,
+        alt: "Falcão Barbearia – Corte masculino em Tapiramutá",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} ${site.city} | Corte & Barba`,
+    title: "Falcão Barbearia | Tapiramutá - BA",
     description:
-      `Corte masculino moderno, degradê e barba alinhada. Atendimento com hora marcada em ${site.city} - ${site.region}.`,
+      "Corte masculino moderno, degradê e barba alinhada. Atendimento com hora marcada em Tapiramutá - BA.",
     images: [site.logo],
   },
 
@@ -92,25 +104,38 @@ export const metadata: Metadata = {
     shortcut: "/favicon.ico",
     apple: "/apple-touch-icon.png",
   },
+
+  verification: {
+    // google: "SEU_CÓDIGO_AQUI", // ← descomente e cole o código do Google Search Console
+  },
 };
 
 export const viewport: Viewport = { themeColor: "#000000" };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Barbershop",
-    "@id": site.url,
+    "@id": `${site.url}/#barbershop`,
     name: site.name,
     url: site.url,
     image: [site.logo, site.image1],
-    logo: site.logo,
+    logo: {
+      "@type": "ImageObject",
+      url: site.logo,
+      width: 1200,
+      height: 1200,
+    },
     description:
-      `Barbearia em ${site.city} - ${site.region}. Corte masculino moderno, degradê, barba alinhada e acabamento profissional.`,
+      "Barbearia premium em Tapiramutá - BA. Corte masculino moderno, degradê, barba alinhada e acabamento profissional.",
     telephone: site.phoneE164,
     priceRange: "$$",
     currenciesAccepted: "BRL",
-    paymentAccepted: ["Cash", "Pix", "Credit Card"],
+    paymentAccepted: ["Cash", "Pix", "Cartão de Crédito", "Cartão de Débito"],
     address: {
       "@type": "PostalAddress",
       streetAddress: site.street,
@@ -129,8 +154,26 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       name: site.city,
       containedInPlace: { "@type": "State", name: "Bahia" },
     },
-    openingHours: ["Mo-Fr 09:00-19:00", "Sa 08:00-20:00"],
-    sameAs: [],
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        opens: "09:00",
+        closes: "19:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Saturday"],
+        opens: "08:00",
+        closes: "20:00",
+      },
+    ],
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: site.phoneE164,
+      contactType: "reservations",
+      availableLanguage: "Portuguese",
+    },
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Serviços de Barbearia",
@@ -138,7 +181,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {
           "@type": "Offer",
           priceCurrency: "BRL",
-          price: "0",
           itemOffered: {
             "@type": "Service",
             name: "Corte Masculino",
@@ -148,7 +190,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {
           "@type": "Offer",
           priceCurrency: "BRL",
-          price: "0",
           itemOffered: {
             "@type": "Service",
             name: "Degradê",
@@ -158,15 +199,26 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {
           "@type": "Offer",
           priceCurrency: "BRL",
-          price: "0",
           itemOffered: {
             "@type": "Service",
             name: "Barba Completa",
-            description: "Barba alinhada e acabamento premium",
+            description: "Barba alinhada com navalha e acabamento premium",
+          },
+        },
+        {
+          "@type": "Offer",
+          priceCurrency: "BRL",
+          itemOffered: {
+            "@type": "Service",
+            name: "Corte + Barba",
+            description: "Combo corte masculino e barba alinhada",
           },
         },
       ],
     },
+    sameAs: [
+      site.whatsapp,
+    ],
   };
 
   return (
