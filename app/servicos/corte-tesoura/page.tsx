@@ -69,7 +69,7 @@ export default function CorteTesouraPage() {
               </div>
             </div>
             
-            <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="w-full md:w-auto inline-flex items-center justify-center bg-gradient-to-r from-[#b8853a] to-[#8f6425] text-[#070707] px-12 py-5 rounded-2xl font-black uppercase text-[11px] tracking-[0.2em] hover:scale-[1.02] transition-transform shadow-[0_8px_32px_rgba(184,133,58,0.25)]">
+            <a href='/agendar?servico=2' rel="noopener noreferrer" className="w-full md:w-auto inline-flex items-center justify-center bg-gradient-to-r from-[#b8853a] to-[#8f6425] text-[#070707] px-12 py-5 rounded-2xl font-black uppercase text-[11px] tracking-[0.2em] hover:scale-[1.02] transition-transform shadow-[0_8px_32px_rgba(184,133,58,0.25)]">
               Agendar Corte
             </a>
           </motion.div>

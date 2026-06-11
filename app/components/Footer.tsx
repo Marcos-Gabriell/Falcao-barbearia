@@ -26,15 +26,14 @@ const linksPrincipais = [
   { nome: "Localização",       url: "/#localizacao" },
 ];
 
-const linksServicos = [
-  { nome: "Corte Tradicional", url: "/agendar?servico=1" },
-  { nome: "Corte na Tesoura",  url: "/agendar?servico=2" },
-  { nome: "Barba Premium",     url: "/agendar?servico=4" },
-  { nome: "Desondulação",      url: "/agendar?servico=9" },
-  { nome: "Luzes",             url: "/agendar?servico=8" },
-  { nome: "Pezinho",           url: "/agendar?servico=3" },
-];
-
+  const linksServicos = [
+    { nome: "Tabela Completa", url: "/servicos" },
+    { nome: "Corte Degradê", url: "/servicos/corte-degrade" },
+    { nome: "Barba Premium", url: "/servicos/barba" },
+    { nome: "Desondulação", url: "/servicos/desondulacao" },
+    { nome: "Corte na Tesoura", url: "/servicos/corte-tesoura" },
+    { nome: "Corte Infantil", url: "/servicos/corte-infantil" },
+  ];
 const Footer = () => {
   const year = new Date().getFullYear();
   const pathname = usePathname();
