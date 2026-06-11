@@ -7,7 +7,7 @@ import { Scissors, User, Calendar, Clock, AlertTriangle, CheckCircle, Loader2 } 
 import Navbar from "../components/Header";
 import Footer from "../components/Footer";
 
-const API_BASE = "http://localhost:8080";
+const API_BASE = "https://api.falcaobarbearia.com.br";
 
 const MONTHS_PT = ["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
 
