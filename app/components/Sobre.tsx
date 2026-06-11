@@ -68,7 +68,7 @@ export default function Sobre() {
             >
               <div className="relative row-span-2 h-full w-full group overflow-hidden rounded-l-xl">
                 <Image
-                  src="/cortes/corte16.jpeg" 
+                  src="/cortes/corte21.png" 
                   alt="Corte Falcão Principal"
                   fill
                   className="object-cover transition-transform duration-[3s] ease-out group-hover:scale-110 grayscale hover:grayscale-0"
@@ -77,7 +77,7 @@ export default function Sobre() {
 
               <div className="relative h-full w-full group overflow-hidden rounded-tr-xl">
                 <Image
-                  src="/cortes/corte19.png" 
+                  src="/cortes/corte22.png" 
                   alt="Detalhe Corte Falcão"
                   fill
                   className="object-cover object-top transition-transform duration-[3s] ease-out group-hover:scale-110 grayscale hover:grayscale-0"
@@ -86,7 +86,7 @@ export default function Sobre() {
 
               <div className="relative h-full w-full group overflow-hidden rounded-br-xl">
                 <Image
-                  src="/cortes/corte4.jpg" 
+                  src="/cortes/corte23.png" 
                   alt="Fade Falcão"
                   fill
                   className="object-cover object-center transition-transform duration-[3s] ease-out group-hover:scale-110 grayscale hover:grayscale-0"

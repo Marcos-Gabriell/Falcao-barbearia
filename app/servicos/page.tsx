@@ -22,6 +22,10 @@ const galeriaCortes = [
   "/cortes/corte19.png",
   "/cortes/corte20.png",
   "/cortes/Barba.png",
+  "/cortes/corte21.png",
+  "/cortes/corte22.png",
+  "/cortes/corte23.png",
+    "/cortes/corte5.png",
 ];
 
 /* ─── DADOS DOS SERVIÇOS ────────────────────────────────────────────────── */

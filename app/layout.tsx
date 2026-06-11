@@ -13,9 +13,9 @@ const site = {
   phoneDisplay: "(74) 98873-2790",
   url: "https://www.falcaobarbearia.com.br",
   logo: "https://www.falcaobarbearia.com.br/logo2.png",
-  image1: "https://www.falcaobarbearia.com.br/cortes/corte1.jpg",
+  image1: "https://www.falcaobarbearia.com.br/cortes/corte21.png",
   whatsapp:
-    "https://wa.me/5574988732790?text=Ol%C3%A1!%20Quero%20agendar%20um%20hor%C3%A1rio%20na%20Falc%C3%A3o%20Barbearia.",
+    "https://wa.me/5574988732790?text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20meu%20agendamento.",
   mapsQuery:
     "https://www.google.com/maps/search/?api=1&query=R.%20Olavo%20Bilac%2C%20Tapiramut%C3%A1%20-%20BA",
 };
@@ -24,25 +24,21 @@ export const metadata: Metadata = {
   metadataBase: new URL(site.url),
 
   title: {
-    default: `Falcão Barbearia em Tapiramutá - BA | Corte Masculino, Degradê e Barba`,
-    template: `%s | Falcão Barbearia – Tapiramutá`,
+    default: `Falcão Barbearia | O Melhor Corte em Tapiramutá - BA`,
+    template: `%s | Falcão Barbearia`,
   },
 
   description:
-    "Barbearia premium em Tapiramutá - BA. Corte masculino moderno, degradê profissional, barba alinhada e acabamento com navalha. Atendimento com hora marcada via WhatsApp.",
+    "Barbearia premium em Tapiramutá - BA. Corte masculino, degradê profissional e barba com navalha. Faça seu agendamento 100% online através do nosso site.",
 
   keywords: [
     "Falcão Barbearia",
-    "Barbearia Tapiramutá",
-    "Barbeiro Tapiramutá BA",
+    "Barbearia Tapiramutá online",
+    "Agendamento barbearia Tapiramutá",
+    "Marcar barbeiro online",
     "Corte masculino Tapiramutá",
     "Degradê Tapiramutá",
-    "Barba alinhada Tapiramutá",
-    "Corte navalhado Bahia",
     "Barbearia premium Bahia",
-    "Corte social masculino",
-    "Agendamento barbearia WhatsApp",
-    "Barbearia R. Olavo Bilac Tapiramutá",
     "Falcão barbeiro",
   ],
 
@@ -72,9 +68,9 @@ export const metadata: Metadata = {
     locale: "pt_BR",
     url: site.url,
     siteName: site.name,
-    title: "Falcão Barbearia | Corte Masculino em Tapiramutá - BA",
+    title: "Falcão Barbearia | Agendamento Online em Tapiramutá - BA",
     description:
-      "Corte masculino moderno, degradê profissional e barba alinhada em Tapiramutá - BA. Agende agora pelo WhatsApp!",
+      "Transforme seu visual com os melhores barbeiros de Tapiramutá. Agende seu horário diretamente no site de forma rápida e fácil.",
     images: [
       {
         url: site.logo,
@@ -86,16 +82,16 @@ export const metadata: Metadata = {
         url: site.image1,
         width: 1200,
         height: 800,
-        alt: "Falcão Barbearia – Corte masculino em Tapiramutá",
+        alt: "Falcão Barbearia – Corte masculino",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "Falcão Barbearia | Tapiramutá - BA",
+    title: "Falcão Barbearia | Agendamento Online",
     description:
-      "Corte masculino moderno, degradê e barba alinhada. Atendimento com hora marcada em Tapiramutá - BA.",
+      "Corte masculino moderno, degradê e barba. Agende agora online!",
     images: [site.logo],
   },
 
@@ -104,13 +100,9 @@ export const metadata: Metadata = {
     shortcut: "/favicon.ico",
     apple: "/apple-touch-icon.png",
   },
-
-  verification: {
-    // google: "SEU_CÓDIGO_AQUI", // ← descomente e cole o código do Google Search Console
-  },
 };
 
-export const viewport: Viewport = { themeColor: "#000000" };
+export const viewport: Viewport = { themeColor: "#050505" };
 
 export default function RootLayout({
   children,
@@ -131,7 +123,7 @@ export default function RootLayout({
       height: 1200,
     },
     description:
-      "Barbearia premium em Tapiramutá - BA. Corte masculino moderno, degradê, barba alinhada e acabamento profissional.",
+      "Barbearia premium em Tapiramutá - BA. Corte masculino moderno, degradê, barba alinhada. Sistema de agendamento 100% online integrado.",
     telephone: site.phoneE164,
     priceRange: "$$",
     currenciesAccepted: "BRL",
@@ -168,10 +160,27 @@ export default function RootLayout({
         closes: "20:00",
       },
     ],
+    /* A MÁGICA DO AGENDAMENTO ONLINE ESTÁ AQUI: */
+    potentialAction: {
+      "@type": "ReserveAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${site.url}/agendar`,
+        inLanguage: "pt-BR",
+        actionPlatform: [
+          "http://schema.org/DesktopWebPlatform",
+          "http://schema.org/MobileWebPlatform"
+        ]
+      },
+      result: {
+        "@type": "Reservation",
+        name: "Agendamento de Horário"
+      }
+    },
     contactPoint: {
       "@type": "ContactPoint",
       telephone: site.phoneE164,
-      contactType: "reservations",
+      contactType: "customer support",
       availableLanguage: "Portuguese",
     },
     hasOfferCatalog: {
@@ -196,28 +205,10 @@ export default function RootLayout({
             description: "Degradê profissional em diferentes estilos",
           },
         },
-        {
-          "@type": "Offer",
-          priceCurrency: "BRL",
-          itemOffered: {
-            "@type": "Service",
-            name: "Barba Completa",
-            description: "Barba alinhada com navalha e acabamento premium",
-          },
-        },
-        {
-          "@type": "Offer",
-          priceCurrency: "BRL",
-          itemOffered: {
-            "@type": "Service",
-            name: "Corte + Barba",
-            description: "Combo corte masculino e barba alinhada",
-          },
-        },
       ],
     },
     sameAs: [
-      site.whatsapp,
+      "https://instagram.com/barbeariafalcao_",
     ],
   };
 

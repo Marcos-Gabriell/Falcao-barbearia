@@ -20,7 +20,6 @@ const FALLBACK_SERVICES: ServiceItem[] = [
   { id: 4, name: "Barba Premium",      description: "Terapia de toalha quente e acabamento navalhado.",       price: 15  },
   { id: 5, name: "Sobrancelha",        description: "Limpeza de contorno prática e bem alinhada.",            price: 10  },
   { id: 6, name: "Pigmentação",        description: "Correção de imperfeições com aspecto natural.",          price: 20  },
-  { id: 7, name: "Nevou",              description: "Descoloração global platinada pura, sem quebrar o fio.", price: 100 },
   { id: 8, name: "Luzes",             description: "Mechas e reflexos de alto contraste pra iluminar.",      price: 80  },
   { id: 9, name: "Desondulação",       description: "Redução extrema de volume e alinhamento do fio.",       price: 100 },
 ];

@@ -52,25 +52,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // ── PÁGINAS DE SERVIÇOS ESPECÍFICOS (Funil de Vendas) ──
     {
-      url: `${baseUrl}/corte-degrade`,
+      url: `${baseUrl}/servicos/corte-degrade`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/servicos/barba`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/servicos/desondulacao`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.6,
     },
     {
-      url: `${baseUrl}/desondulacao`,
+      url: `${baseUrl}/servicos/corte-tesoura`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.6,
     },
     {
-      url: `${baseUrl}/corte-tesoura`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/corte-infantil`,
+      url: `${baseUrl}/servicos/corte-infantil`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.6,

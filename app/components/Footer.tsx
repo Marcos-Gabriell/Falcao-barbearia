@@ -8,227 +8,235 @@ import { MapPin, Clock, Calendar } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { WHATSAPP_LINK, INSTAGRAM_URL } from "../utils/links";
 
-// Animações extraídas para fora do componente
 const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } }
 };
 
-const staggerContainer: Variants = {
+const stagger: Variants = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15 }
-  }
+  visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
 };
+
+const linksPrincipais = [
+  { nome: "Início",            url: "/" },
+  { nome: "Sobre",             url: "/#sobre" },
+  { nome: "Serviços",          url: "/#servicos" },
+  { nome: "Avaliações",        url: "/#avaliacoes" },
+  { nome: "Localização",       url: "/#localizacao" },
+];
+
+const linksServicos = [
+  { nome: "Corte Tradicional", url: "/agendar?servico=1" },
+  { nome: "Corte na Tesoura",  url: "/agendar?servico=2" },
+  { nome: "Barba Premium",     url: "/agendar?servico=4" },
+  { nome: "Desondulação",      url: "/agendar?servico=9" },
+  { nome: "Luzes",             url: "/agendar?servico=8" },
+  { nome: "Pezinho",           url: "/agendar?servico=3" },
+];
 
 const Footer = () => {
   const year = new Date().getFullYear();
   const pathname = usePathname();
   const isHome = pathname === "/";
 
-  // Links do Mapa do Site
-  const linksPrincipais = [
-    { nome: "Início", url: "/" },
-    { nome: "Nossa História", url: "/sobre" },
-    { nome: "A Equipe", url: "/equipe" },
-    { nome: "Revista & Estilo", url: "/estilo" },
-    { nome: "Contato & Local", url: "/contato" },
-  ];
-
-  // Links de Serviços (SEO Internal Linking)
-  const linksServicos = [
-    { nome: "Tabela Completa", url: "/servicos" },
-    { nome: "Corte Degradê", url: "/servicos/corte-degrade" },
-    { nome: "Desondulação", url: "/servicos/desondulacao" },
-    { nome: "Corte na Tesoura", url: "/servicos/corte-tesoura" },
-    { nome: "Corte Infantil", url: "/servicos/corte-infantil" },
-  ];
-
   return (
-    <footer className="relative w-full bg-[#050505] pt-32 pb-10 overflow-hidden antialiased z-10">
-      
-      {/* ── Background Effects & Grain ── */}
-      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_bottom,rgba(184,133,58,0.04)_0%,transparent_60%)]" />
-      <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+    <footer className="relative w-full bg-[#050505] pt-28 pb-10 overflow-hidden antialiased">
 
-      {/* ── Linha Dourada de Topo ── */}
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#b8853a]/40 to-transparent opacity-70" />
+      {/* Linha dourada topo */}
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#b8853a]/30 to-transparent" />
 
-      {/* ── WATERMARK "FALCÃO" INTEGRADO ── */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none w-full flex justify-center z-0 [mask-image:linear-gradient(to_bottom,transparent,black_40%,black_60%,transparent)]">
-        <h3 className="text-[28vw] font-serif font-black leading-none tracking-tighter text-white opacity-[0.015] mix-blend-screen">
+      {/* Watermark */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none w-full flex justify-center z-0">
+        <span className="text-[28vw] font-serif font-black leading-none tracking-tighter text-white opacity-[0.013]">
           FALCÃO
-        </h3>
+        </span>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        
-        {/* SECTION 1 — CTA PREMIUM (só na home) */}
+
+        {/* CTA — só na home */}
         {isHome && (
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "0px 0px -100px 0px" }}
+            viewport={{ once: true, margin: "-80px" }}
             variants={fadeUp}
-            className="relative w-full max-w-5xl mx-auto mb-32 rounded-3xl p-10 md:p-16 flex flex-col items-center text-center overflow-hidden group"
+            className="mb-28"
           >
-            <div className="absolute inset-0 bg-white/[0.02] backdrop-blur-md border border-white/5 rounded-3xl transition-colors duration-700 group-hover:border-[#b8853a]/20 group-hover:bg-white/[0.03]" />
-            <div className="absolute -inset-1 bg-gradient-to-r from-transparent via-[#b8853a]/10 to-transparent opacity-0 group-hover:opacity-100 blur-2xl transition-opacity duration-1000" />
+            <div className="relative max-w-5xl mx-auto rounded-2xl border border-white/[0.07] bg-white/[0.02] p-10 md:p-14 text-center overflow-hidden group hover:border-[#b8853a]/20 transition-colors duration-700">
 
-            <div className="relative z-10">
-              <h2 className="text-3xl md:text-5xl font-serif text-[#f5f1eb] mb-4 tracking-tight">
-                Seu visual <span className="italic text-[#b8853a] font-normal">merece presença.</span>
-              </h2>
-              <p className="text-white/50 max-w-xl mx-auto text-sm md:text-base font-light tracking-wide mb-10 leading-relaxed">
-                Agende seu horário e viva uma experiência de barbearia feita nos detalhes. Onde técnica e estilo se encontram.
-              </p>
+              {/* Glow sutil no hover */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 bg-[radial-gradient(ellipse_at_center,rgba(184,133,58,0.06)_0%,transparent_70%)]" />
 
-              <div className="flex flex-col sm:flex-row gap-5 justify-center items-center">
-                <a
-                  href="/agendar"
-                  rel="noreferrer"
-                  className="relative overflow-hidden group/btn px-8 py-4 bg-[#b8853a] text-[#050505] font-semibold tracking-widest uppercase text-xs rounded-sm hover:scale-[1.02] transition-all duration-500 flex items-center gap-3 w-full sm:w-auto justify-center shadow-[0_0_20px_rgba(184,133,58,0.2)] hover:shadow-[0_0_30px_rgba(184,133,58,0.4)]"
-                >
-                  <span className="relative z-10 flex items-center gap-2">
-                    <Calendar size={16} /> Agendar Agora
-                  </span>
-                  <div className="absolute inset-0 bg-white/20 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500 ease-out" />
-                </a>
+              <div className="relative z-10">
+                <p className="text-[#b8853a] text-[10px] font-bold tracking-[0.35em] uppercase mb-4">
+                  Reserva Online
+                </p>
+                <h2 className="text-3xl md:text-[2.75rem] font-serif text-[#f5f1eb] leading-tight tracking-tight mb-4">
+                  Seu visual{" "}
+                  <span className="italic text-[#b8853a] font-normal">merece presença.</span>
+                </h2>
+                <p className="text-white/40 max-w-lg mx-auto text-sm leading-relaxed mb-10">
+                  Agende seu horário online. Técnica, estilo e experiência em cada detalhe.
+                </p>
 
-                <a
-                  href={INSTAGRAM_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="px-8 py-4 bg-transparent border border-white/10 text-white/70 font-semibold tracking-widest uppercase text-xs rounded-sm hover:border-[#b8853a]/50 hover:text-[#b8853a] hover:bg-white/[0.02] transition-all duration-500 flex items-center gap-3 w-full sm:w-auto justify-center"
-                >
-                  <FaInstagram size={16} /> Ver Instagram
-                </a>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                  <Link
+                    href="/agendar"
+                    className="flex items-center gap-2.5 px-8 py-3.5 bg-[#b8853a] text-black text-[11px] font-black tracking-widest uppercase rounded-xl hover:bg-[#d4aa7a] active:scale-[0.97] transition-all duration-200 w-full sm:w-auto justify-center"
+                  >
+                    <Calendar size={15} />
+                    Agendar Horário
+                  </Link>
+                  <a
+                    href={INSTAGRAM_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-2.5 px-8 py-3.5 border border-white/10 text-white/50 text-[11px] font-black tracking-widest uppercase rounded-xl hover:border-[#b8853a]/40 hover:text-white/70 active:scale-[0.97] transition-all duration-200 w-full sm:w-auto justify-center"
+                  >
+                    <FaInstagram size={15} />
+                    Ver Instagram
+                  </a>
+                </div>
               </div>
             </div>
           </motion.div>
         )}
 
-        {/* SECTION 2 — FOOTER PRINCIPAL (GRID) */}
-        <motion.div 
+        {/* Grid principal */}
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          variants={staggerContainer}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 lg:gap-8 mb-24"
+          variants={stagger}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-20"
         >
-          {/* COLUNA 1 — Marca */}
-          <motion.div variants={fadeUp} className="flex flex-col items-start">
+          {/* Marca */}
+          <motion.div variants={fadeUp} className="flex flex-col">
             <Image
               src="/logo1.png"
               alt="Falcão Barbearia"
-              width={180}
-              height={60}
-              className="h-16 w-auto object-contain brightness-[1.2] mb-8"
+              width={160}
+              height={55}
+              className="h-20 w-auto object-contain mb-6"
             />
-            <p className="text-white/50 text-sm font-light leading-relaxed mb-6 pe-4">
-              Precisão, estilo e experiência em cada detalhe. Elevando a experiência da barbearia com um padrão de excelência inegociável.
+            <p className="text-white/40 text-sm leading-relaxed mb-6 pr-4">
+              Estilo e precisão em cada corte. Barbearia premium em Tapiramutá, BA, desde 2021.
             </p>
-          </motion.div>
-
-          {/* COLUNA 2 — Mapa do Site */}
-          <motion.div variants={fadeUp} className="flex flex-col items-start lg:items-center">
-            <div className="flex flex-col gap-5">
-              <h4 className="text-white text-xs uppercase tracking-[0.2em] font-semibold mb-2">Mapa do Site</h4>
-              {linksPrincipais.map((item, i) => (
-                <Link 
-                  key={i} 
-                  href={item.url}
-                  className="group relative text-sm font-light text-white/50 hover:text-white transition-colors duration-300 w-fit"
-                >
-                  <span className="relative z-10">{item.nome}</span>
-                  <span className="absolute -bottom-1 left-0 w-0 h-px bg-[#b8853a] transition-all duration-500 ease-out group-hover:w-full" />
-                </Link>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* COLUNA 3 — Nossos Serviços */}
-          <motion.div variants={fadeUp} className="flex flex-col items-start lg:items-center">
-            <div className="flex flex-col gap-5">
-              <h4 className="text-white text-xs uppercase tracking-[0.2em] font-semibold mb-2">Serviços</h4>
-              {linksServicos.map((item, i) => (
-                <Link 
-                  key={i} 
-                  href={item.url}
-                  className="group relative text-sm font-light text-white/50 hover:text-[#d4aa7a] transition-colors duration-300 w-fit"
-                >
-                  <span className="relative z-10">{item.nome}</span>
-                  <span className="absolute -bottom-1 left-0 w-0 h-px bg-[#b8853a] transition-all duration-500 ease-out group-hover:w-full" />
-                </Link>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* COLUNA 4 — Contato & Social */}
-          <motion.div variants={fadeUp} className="flex flex-col gap-6">
-            <h4 className="text-white text-xs uppercase tracking-[0.2em] font-semibold mb-2">Conecte-se</h4>
-            
-            <div className="flex gap-4 items-start group">
-              <MapPin size={18} className="text-[#b8853a] mt-1 shrink-0 group-hover:scale-110 transition-transform duration-500" />
-              <p className="text-sm text-white/50 font-light leading-relaxed">
-                R. Olavo Bilac, Centro<br />Tapiramutá, BA
-              </p>
-            </div>
-
-            <div className="flex gap-4 items-start group">
-              <Clock size={18} className="text-[#b8853a] mt-1 shrink-0 group-hover:scale-110 transition-transform duration-500" />
-              <p className="text-sm text-white/50 font-light leading-relaxed">
-                Seg a Sáb<br />09:00 às 19:00
-              </p>
-            </div>
-
-            <div className="flex gap-4 mt-2">
-              <a 
-                href={INSTAGRAM_URL} 
-                target="_blank" 
+            <div className="flex gap-3">
+              <a
+                href={INSTAGRAM_URL}
+                target="_blank"
                 rel="noreferrer"
-                className="w-12 h-12 rounded-full border border-white/10 bg-white/[0.02] flex items-center justify-center text-white/50 hover:bg-[#b8853a] hover:border-[#b8853a] hover:text-[#050505] hover:scale-110 hover:shadow-[0_0_20px_rgba(184,133,58,0.3)] transition-all duration-500"
+                aria-label="Instagram"
+                className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:bg-[#b8853a] hover:border-[#b8853a] hover:text-black transition-all duration-300"
               >
-                <FaInstagram size={18} />
+                <FaInstagram size={16} />
               </a>
-              <a 
-                href={WHATSAPP_LINK} 
-                target="_blank" 
+              <a
+                href={WHATSAPP_LINK}
+                target="_blank"
                 rel="noreferrer"
-                className="w-12 h-12 rounded-full border border-white/10 bg-white/[0.02] flex items-center justify-center text-white/50 hover:bg-[#b8853a] hover:border-[#b8853a] hover:text-[#050505] hover:scale-110 hover:shadow-[0_0_20px_rgba(184,133,58,0.3)] transition-all duration-500"
+                aria-label="WhatsApp"
+                className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:bg-[#b8853a] hover:border-[#b8853a] hover:text-black transition-all duration-300"
               >
-                <FaWhatsapp size={18} />
+                <FaWhatsapp size={16} />
               </a>
             </div>
           </motion.div>
 
+          {/* Navegação */}
+          <motion.div variants={fadeUp}>
+            <h4 className="text-white/60 text-[10px] font-bold tracking-[0.25em] uppercase mb-5">
+              Navegação
+            </h4>
+            <ul className="flex flex-col gap-3">
+              {linksPrincipais.map((item) => (
+                <li key={item.url}>
+                  <Link
+                    href={item.url}
+                    className="group text-sm text-white/40 hover:text-[#d4aa7a] transition-colors duration-300 flex items-center gap-2"
+                  >
+                    <span className="w-0 h-px bg-[#b8853a] group-hover:w-4 transition-all duration-400 inline-block" />
+                    {item.nome}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+
+          {/* Serviços */}
+          <motion.div variants={fadeUp}>
+            <h4 className="text-white/60 text-[10px] font-bold tracking-[0.25em] uppercase mb-5">
+              Serviços
+            </h4>
+            <ul className="flex flex-col gap-3">
+              {linksServicos.map((item) => (
+                <li key={item.url}>
+                  <Link
+                    href={item.url}
+                    className="group text-sm text-white/40 hover:text-[#d4aa7a] transition-colors duration-300 flex items-center gap-2"
+                  >
+                    <span className="w-0 h-px bg-[#b8853a] group-hover:w-4 transition-all duration-400 inline-block" />
+                    {item.nome}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+
+          {/* Contato */}
+          <motion.div variants={fadeUp}>
+            <h4 className="text-white/60 text-[10px] font-bold tracking-[0.25em] uppercase mb-5">
+              Encontre-nos
+            </h4>
+            <div className="flex flex-col gap-4">
+              <div className="flex items-start gap-3">
+                <MapPin size={15} className="text-[#b8853a] mt-0.5 shrink-0" />
+                <p className="text-sm text-white/40 leading-relaxed">
+                  R. Olavo Bilac, Centro<br />
+                  Tapiramutá — BA
+                </p>
+              </div>
+              <div className="flex items-start gap-3">
+                <Clock size={15} className="text-[#b8853a] mt-0.5 shrink-0" />
+                <p className="text-sm text-white/40 leading-relaxed">
+                  Seg a Sex: 09h–19h<br />
+                  Sábado: 08h–20h
+                </p>
+              </div>
+              <Link
+                href="/agendar"
+                className="mt-1 flex items-center gap-2 text-[11px] font-black tracking-widest uppercase text-[#b8853a] hover:text-[#d4aa7a] transition-colors"
+              >
+                <Calendar size={13} />
+                Agendar online
+              </Link>
+            </div>
+          </motion.div>
         </motion.div>
 
-        {/* BOTTOM BAR (Páginas Legais) */}
-        <motion.div 
+        {/* Bottom bar */}
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.5, duration: 1 }}
-          className="border-t border-white/10 pt-8 flex flex-col lg:flex-row justify-between items-center gap-6 lg:gap-0"
+          transition={{ duration: 0.8 }}
+          className="border-t border-white/[0.07] pt-7 flex flex-col items-center gap-3 md:flex-row md:justify-between"
         >
-          <div className="text-[10px] uppercase tracking-[0.2em] text-white/30 font-medium">
-            © {year} Falcão Barbearia
-          </div>
+          <p className="text-[10px] text-white/25 tracking-[0.2em] uppercase order-2 md:order-1">
+            © {year} Falcão Barbearia · Todos os direitos reservados
+          </p>
 
-          <div className="flex flex-col lg:flex-row items-center gap-3 lg:gap-5 text-[10px] uppercase tracking-[0.2em] font-medium">
-            <Link href="/termos-de-uso" className="text-white/30 hover:text-[#d4aa7a] transition-colors">
+          <div className="flex items-center gap-5 order-1 md:order-2">
+            <Link href="/termos-de-uso" className="text-[10px] text-white/25 hover:text-white/50 tracking-[0.15em] uppercase transition-colors">
               Termos de Uso
             </Link>
-            <span className="hidden lg:inline text-white/10">|</span>
-            <Link href="/politica-de-privacidade" className="text-white/30 hover:text-[#d4aa7a] transition-colors">
-              Política de Privacidade
+            <span className="text-white/10 text-xs">|</span>
+            <Link href="/politica-de-privacidade" className="text-[10px] text-white/25 hover:text-white/50 tracking-[0.15em] uppercase transition-colors">
+              Privacidade
             </Link>
-          </div>
-
-          <div className="text-[#b8853a] text-xs font-serif italic tracking-widest">
-            Mais que corte. Presença.
           </div>
         </motion.div>
 
