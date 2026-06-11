@@ -19,12 +19,12 @@ const stagger: Variants = {
 };
 
 const linksPrincipais = [
-  { nome: "Início",            url: "/" },
-  { nome: "Sobre",             url: "/#sobre" },
-  { nome: "Serviços",          url: "/#servicos" },
-  { nome: "Avaliações",        url: "/#avaliacoes" },
-  { nome: "Localização",       url: "/#localizacao" },
-];
+    { nome: "Início", url: "/" },
+    { nome: "Nossa História", url: "/sobre" },
+    { nome: "A Equipe", url: "/equipe" },
+    { nome: "Revista & Estilo", url: "/estilo" },
+    { nome: "Contato & Local", url: "/contato" },
+  ];
 
   const linksServicos = [
     { nome: "Tabela Completa", url: "/servicos" },
