@@ -8,8 +8,7 @@ import { ArrowLeft } from "lucide-react";
 import Navbar from "../../components/Header";
 import Footer from "../../components/Footer";
 
-// Importando os posts da página principal
-import { posts } from "../page";
+import { posts } from "../data";
 
 export default function BlogPost() {
   const params = useParams();

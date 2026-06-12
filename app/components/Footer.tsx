@@ -224,9 +224,17 @@ const Footer = () => {
           transition={{ duration: 0.8 }}
           className="border-t border-white/[0.07] pt-7 flex flex-col items-center gap-3 md:flex-row md:justify-between"
         >
-          <p className="text-[10px] text-white/25 tracking-[0.2em] uppercase order-2 md:order-1">
-            © {year} Falcão Barbearia · Todos os direitos reservados
-          </p>
+          <div className="flex flex-col items-center md:items-start order-2 md:order-1">
+            <p className="text-[10px] text-white/25 tracking-[0.2em] uppercase md:hidden">
+              © {year} Falcão Barbearia ·
+            </p>
+            <p className="text-[10px] text-white/25 tracking-[0.2em] uppercase md:hidden">
+              Todos os direitos reservados
+            </p>
+            <p className="text-[10px] text-white/25 tracking-[0.2em] uppercase hidden md:block">
+              © {year} Falcão Barbearia · Todos os direitos reservados
+            </p>
+          </div>
 
           <div className="flex items-center gap-5 order-1 md:order-2">
             <Link href="/termos-de-uso" className="text-[10px] text-white/25 hover:text-white/50 tracking-[0.15em] uppercase transition-colors">

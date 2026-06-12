@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { posts } from "./estilo/PageClient";
+import { posts } from "./estilo/data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://www.falcaobarbearia.com.br";
@@ -108,10 +108,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // ── BLOG POSTS (dinâmicos) ──
+// ── BLOG POSTS (dinâmicos) ──
+  const mesesPt: Record<string, string> = {
+    Jan: "01", Fev: "02", Mar: "03", Abr: "04", Mai: "05", Jun: "06",
+    Jul: "07", Ago: "08", Set: "09", Out: "10", Nov: "11", Dez: "12",
+  };
+
+  function parseDataPost(data: string): Date {
+    // formato esperado: "12 Jun, 2026"
+    const match = data.match(/(\d{1,2})\s+(\w{3}),?\s+(\d{4})/);
+    if (!match) return new Date();
+    const [, dia, mesAbrev, ano] = match;
+    const mes = mesesPt[mesAbrev] ?? "01";
+    return new Date(`${ano}-${mes}-${dia.padStart(2, "0")}`);
+  }
+
   const blogRoutes: MetadataRoute.Sitemap = posts.map((post) => ({
     url: `${baseUrl}/estilo/${post.id}`,
-    lastModified: new Date(post.data),
+    lastModified: parseDataPost(post.data),
     changeFrequency: "monthly" as const,
     priority: post.destaque ? 0.8 : 0.6,
   }));

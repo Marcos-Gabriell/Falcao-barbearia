@@ -24,14 +24,10 @@ export default function CorteSocialPage() {
             </Link>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="w-full mb-16">
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4">
-              {galeriaSocial.map((imagem, index) => (
-                <motion.div key={index} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: index * 0.1, duration: 0.5 }} className="relative group overflow-hidden rounded-xl bg-white/5 aspect-[4/5] border border-white/5">
-                  <Image src={imagem} alt={`Exemplo de Corte Social ${index + 1}`} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#070707]/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </motion.div>
-              ))}
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }} className="w-full max-w-sm mb-16">
+            <div className="relative aspect-[4/5] rounded-3xl overflow-hidden bg-white/5 border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+              <Image src={galeriaSocial[0]} alt="Corte Social" fill className="object-cover" />
+              <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-3xl" />
             </div>
           </motion.div>
 

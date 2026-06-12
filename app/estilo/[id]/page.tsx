@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import BlogPostClient from "./PageClient";
-import { posts } from "../PageClient";
+import { posts } from "../data";
 
 const siteUrl = "https://www.falcaobarbearia.com.br";
 
