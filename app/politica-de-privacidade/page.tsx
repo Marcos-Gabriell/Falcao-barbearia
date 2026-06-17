@@ -30,6 +30,12 @@ export const metadata: Metadata = {
       },
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Política de Privacidade | Falcão Barbearia",
+    description: "Como tratamos seus dados pessoais conforme a LGPD.",
+    images: [`${siteUrl}/og-home.png`],
+  },
 };
 
 export default function PoliticaPrivacidadePage() {
