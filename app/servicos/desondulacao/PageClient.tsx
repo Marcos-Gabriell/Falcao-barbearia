@@ -3,8 +3,8 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import Navbar from "../../../components/Header"; 
-import Footer from "../../../components/Footer";
+import Navbar from "../../components/Header"; 
+import Footer from "../../components/Footer";
 
 // Colocamos as suas 2 fotos aqui
 const fotos = [
