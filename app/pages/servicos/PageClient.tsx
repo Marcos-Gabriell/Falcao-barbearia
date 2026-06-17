@@ -2,11 +2,11 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { WHATSAPP_LINK } from "../utils/links"; 
+import { WHATSAPP_LINK } from "../../utils/links"; 
 
 // IMPORTAÇÃO DA NAVBAR E FOOTER (Ajuste o caminho conforme sua estrutura)
-import Navbar from "../../app/components/Header"; 
-import Footer from "../../app/components/Footer";
+import Navbar from "../../components/Header"; 
+import Footer from "../../components/Footer";
 
 /* ─── DADOS DA GALERIA ──────────────────────────────────────────────────── */
 const galeriaCortes = [

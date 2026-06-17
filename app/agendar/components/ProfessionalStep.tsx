@@ -9,10 +9,12 @@ import { WHATSAPP_LINK } from "../../utils/links";
 interface ProfessionalStepProps {
   professionals: ProfessionalSimple[];
   loading: boolean;
+  /** Quando há mais de 1 serviço, avisa no texto que precisa atender todos */
+  isMulti?: boolean;
   onNext: (professional: ProfessionalSimple) => void;
 }
 
-export function ProfessionalStep({ professionals, loading, onNext }: ProfessionalStepProps) {
+export function ProfessionalStep({ professionals, loading, isMulti, onNext }: ProfessionalStepProps) {
   const [selected, setSelected] = useState<number | null>(
     professionals.length === 1 ? professionals[0].id : null
   );
@@ -48,8 +50,9 @@ export function ProfessionalStep({ professionals, loading, onNext }: Professiona
           </h2>
         </div>
         <p className="text-white/40 text-sm md:text-base leading-relaxed font-medium">
-          Nenhum profissional disponível para esse serviço no momento.
-          Tente outro serviço ou entre em contato pelo WhatsApp.
+          {isMulti
+            ? "Nenhum profissional atende todos os serviços escolhidos no momento. Tente uma combinação diferente ou fale no WhatsApp."
+            : "Nenhum profissional disponível para esse serviço no momento. Tente outro serviço ou entre em contato pelo WhatsApp."}
         </p>
         <a
           href={WHATSAPP_LINK}
@@ -79,6 +82,11 @@ export function ProfessionalStep({ professionals, loading, onNext }: Professiona
             {professionals.length === 1 ? "disponível." : "cortar?"}
           </span>
         </h2>
+        {isMulti && (
+          <p className="text-white/30 text-[11px] mt-3 font-medium">
+            Mostrando apenas quem atende todos os serviços escolhidos
+          </p>
+        )}
       </div>
 
       {/* Professional list */}
@@ -96,7 +104,6 @@ export function ProfessionalStep({ professionals, loading, onNext }: Professiona
                 }
               `}
             >
-              {/* Foto ou ícone do profissional */}
               <div className={`w-12 h-12 rounded-full shrink-0 overflow-hidden transition-colors duration-300
                 ${!p.photoUrl ? (active ? "bg-[#b8853a]/20 text-[#d4aa7a]" : "bg-white/5 text-white/40 group-hover:text-[#d4aa7a]") : ""}
                 flex items-center justify-center
@@ -114,15 +121,13 @@ export function ProfessionalStep({ professionals, loading, onNext }: Professiona
                   <User size={20} strokeWidth={1.5} />
                 )}
               </div>
-              
-              {/* Nome do Profissional */}
+
               <span className={`font-bold text-[15px] transition-colors flex-1
                 ${active ? "text-[#f5f1eb]" : "text-white/70 group-hover:text-[#f5f1eb]"}
               `}>
                 {p.name}
               </span>
-              
-              {/* Indicador de Selecionado */}
+
               <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-colors duration-300
                 ${active ? "border-[#b8853a]" : "border-white/10 group-hover:border-[#b8853a]/50"}
               `}>
@@ -133,7 +138,6 @@ export function ProfessionalStep({ professionals, loading, onNext }: Professiona
         })}
       </div>
 
-      {/* CTA (Botão Continuar) */}
       <button
         disabled={!selectedPro}
         onClick={() => selectedPro && onNext(selectedPro)}
@@ -147,7 +151,7 @@ export function ProfessionalStep({ professionals, loading, onNext }: Professiona
         Continuar
         <ArrowRight size={14} className={`transition-transform duration-300 ${selectedPro ? "group-hover:translate-x-1" : ""}`} />
       </button>
-      
+
     </div>
   );
 }

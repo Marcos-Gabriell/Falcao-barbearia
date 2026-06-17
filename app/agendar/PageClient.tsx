@@ -18,12 +18,13 @@ import { ConfirmStep } from "./components/ConfirmStep";
 import {
   fetchServices,
   fetchProfessionals,
+  fetchProfessionalsMulti,
   loadSavedClient,
   type ServiceItem,
   type ProfessionalSimple,
 } from "./api";
 
-// 0: serviço | 1: nome | 2: email | 3: telefone | 4: profissional | 5: data/hora | 6: confirmar
+// 0: serviço(s) | 1: nome | 2: email | 3: telefone | 4: profissional | 5: data/hora | 6: confirmar
 const TOTAL_STEPS = 7;
 
 const slideVariants: Variants = {
@@ -50,16 +51,19 @@ function AgendarPageInner() {
   const [step,       setStep]       = useState(0);
   const [direction,  setDirection]  = useState(1);
 
-  const [services,     setServices]     = useState<ServiceItem[]>([]);
-  const [professionals,setProfessionals]= useState<ProfessionalSimple[]>([]);
-  const [loadingPros,  setLoadingPros]  = useState(false);
+  const [services,      setServices]      = useState<ServiceItem[]>([]);
+  const [professionals, setProfessionals] = useState<ProfessionalSimple[]>([]);
+  const [loadingPros,   setLoadingPros]   = useState(false);
 
-  const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
-  const [clientName,      setClientName]      = useState("");
-  const [clientEmail,     setClientEmail]     = useState("");
-  const [clientPhone,     setClientPhone]     = useState("");
-  const [selectedPro,     setSelectedPro]     = useState<ProfessionalSimple | null>(null);
-  const [startAt,         setStartAt]         = useState("");
+  // ← Agora é SEMPRE uma lista — 1 ou mais serviços
+  const [selectedServices, setSelectedServices] = useState<ServiceItem[]>([]);
+  const [clientName,       setClientName]       = useState("");
+  const [clientEmail,      setClientEmail]      = useState("");
+  const [clientPhone,      setClientPhone]      = useState("");
+  const [selectedPro,      setSelectedPro]      = useState<ProfessionalSimple | null>(null);
+  const [startAt,          setStartAt]          = useState("");
+
+  const isMulti = selectedServices.length > 1;
 
   useEffect(() => {
     const saved = loadSavedClient();
@@ -69,15 +73,22 @@ function AgendarPageInner() {
     fetchServices().then(setServices).catch(() => {});
   }, []);
 
+  // Busca profissionais — single ou multi dependendo da seleção
   useEffect(() => {
-    if (!selectedService) return;
+    if (selectedServices.length === 0) return;
     setLoadingPros(true);
     setProfessionals([]);
-    fetchProfessionals(selectedService.id)
+
+    const ids = selectedServices.map(s => s.id);
+    const promise = ids.length > 1
+      ? fetchProfessionalsMulti(ids)
+      : fetchProfessionals(ids[0]);
+
+    promise
       .then(setProfessionals)
       .catch(() => setProfessionals([]))
       .finally(() => setLoadingPros(false));
-  }, [selectedService]);
+  }, [selectedServices]);
 
   function goNext() { setDirection(1);  setStep(s => s + 1); }
   function goBack() {
@@ -85,22 +96,37 @@ function AgendarPageInner() {
     setDirection(-1); setStep(s => s - 1);
   }
 
-  const handleService  = useCallback((s: ServiceItem)        => { setSelectedService(s); goNext(); }, []);
-  const handleName     = useCallback((v: string)             => { setClientName(v);      goNext(); }, []);
-  const handleEmail    = useCallback((v: string)             => { setClientEmail(v);     goNext(); }, []);
-  const handlePhone    = useCallback((v: string)             => { setClientPhone(v);     goNext(); }, []);
-  const handlePro      = useCallback((p: ProfessionalSimple) => { setSelectedPro(p);     goNext(); }, []);
-  const handleDateTime = useCallback((dt: string)            => { setStartAt(dt);        goNext(); }, []);
+  const handleServices = useCallback((list: ServiceItem[])     => { setSelectedServices(list); goNext(); }, []);
+  const handleName     = useCallback((v: string)                => { setClientName(v);          goNext(); }, []);
+  const handleEmail    = useCallback((v: string)                => { setClientEmail(v);          goNext(); }, []);
+  const handlePhone    = useCallback((v: string)                => { setClientPhone(v);          goNext(); }, []);
+  const handlePro      = useCallback((p: ProfessionalSimple)    => { setSelectedPro(p);          goNext(); }, []);
+  const handleDateTime = useCallback((dt: string)               => { setStartAt(dt);             goNext(); }, []);
 
   function renderStep() {
     switch (step) {
-      case 0: return <ServiceStep services={services} preSelected={preServiceId} onNext={handleService} />;
+      case 0: return <ServiceStep services={services} preSelected={preServiceId} onNext={handleServices} />;
       case 1: return <TextStep label="Qual é o seu nome?"    sublabel="Passo 2" placeholder="Ex: João Silva"       defaultValue={clientName}  validate={validators.name}  onNext={handleName}  />;
       case 2: return <TextStep label="Seu e-mail"            sublabel="Passo 3" placeholder="voce@email.com"       type="email" defaultValue={clientEmail} validate={validators.email} onNext={handleEmail} />;
       case 3: return <TextStep label="WhatsApp / Telefone"   sublabel="Passo 4" placeholder="(71) 99999-9999"      type="tel"   defaultValue={clientPhone} validate={validators.phone} onNext={handlePhone} />;
-      case 4: return <ProfessionalStep professionals={professionals} loading={loadingPros} onNext={handlePro} />;
-      case 5: return <DateTimeStep serviceId={selectedService!.id} professionalId={selectedPro!.id} onNext={handleDateTime} />;
-      case 6: return <ConfirmStep clientName={clientName} clientEmail={clientEmail} clientPhone={clientPhone} service={selectedService!} professional={selectedPro!} startAt={startAt} />;
+      case 4: return <ProfessionalStep professionals={professionals} loading={loadingPros} isMulti={isMulti} onNext={handlePro} />;
+      case 5: return (
+        <DateTimeStep
+          serviceIds={selectedServices.map(s => s.id)}
+          professionalId={selectedPro!.id}
+          onNext={handleDateTime}
+        />
+      );
+      case 6: return (
+        <ConfirmStep
+          clientName={clientName}
+          clientEmail={clientEmail}
+          clientPhone={clientPhone}
+          services={selectedServices}
+          professional={selectedPro!}
+          startAt={startAt}
+        />
+      );
       default: return null;
     }
   }
@@ -136,7 +162,7 @@ function AgendarPageInner() {
           {/* Card do fluxo de agendamento */}
           <div className="relative w-full max-w-2xl group mb-0">
             <div className="absolute -inset-0.5 bg-gradient-to-r from-[#b8853a]/0 via-[#b8853a]/10 to-[#b8853a]/0 rounded-[2rem] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-            
+
             <div className="relative bg-[#0a0a0a] border border-white/5 rounded-3xl p-6 md:p-12 shadow-[0_15px_50px_rgba(0,0,0,0.5)] z-10">
 
               <div className="flex items-center justify-between mb-8 md:mb-10">

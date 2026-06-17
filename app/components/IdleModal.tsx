@@ -252,7 +252,7 @@ export default function IdleModal() {
                   transition={{ delay: 0.46, duration: 0.50 }}
                 >
                   <motion.a
-                    href={WHATSAPP_LINK}
+                    href="/agendar"
                     rel="noopener noreferrer"
                     onClick={dismiss}
                     className="group relative flex items-center justify-center gap-3 w-full py-4 rounded-2xl text-base font-bold overflow-hidden"

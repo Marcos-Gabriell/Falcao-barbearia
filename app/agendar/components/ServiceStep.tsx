@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Scissors, Crown, Droplet, ArrowRight, Check, Clock } from "lucide-react";
+import { Scissors, Crown, Droplet, ArrowRight, Check, Clock, Plus } from "lucide-react";
 import type { ServiceItem } from "../api";
 
 function getIcon(name: string) {
@@ -27,14 +27,30 @@ const FALLBACK_SERVICES: ServiceItem[] = [
 interface ServiceStepProps {
   services: ServiceItem[];
   preSelected?: number | null;
-  onNext: (service: ServiceItem) => void;
+  /** Agora retorna uma LISTA de serviços (1 ou mais) */
+  onNext: (services: ServiceItem[]) => void;
 }
 
 export function ServiceStep({ services, preSelected, onNext }: ServiceStepProps) {
   const list = services.length > 0 ? services : FALLBACK_SERVICES;
-  const [selected, setSelected] = useState<number | null>(preSelected ?? null);
 
-  const selectedService = list.find(s => s.id === selected);
+  // Multi-seleção — guarda os IDs escolhidos em ordem
+  const [selectedIds, setSelectedIds] = useState<number[]>(
+    preSelected ? [preSelected] : []
+  );
+
+  const selectedServices = selectedIds
+    .map(id => list.find(s => s.id === id))
+    .filter((s): s is ServiceItem => !!s);
+
+  const totalPrice = selectedServices.reduce((sum, s) => sum + (s.price ?? 0), 0);
+  const totalDuration = selectedServices.reduce((sum, s) => sum + (s.durationMinutes ?? 0), 0);
+
+  function toggle(id: number) {
+    setSelectedIds(prev =>
+      prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
+    );
+  }
 
   return (
     <div className="w-full flex flex-col gap-7">
@@ -45,19 +61,23 @@ export function ServiceStep({ services, preSelected, onNext }: ServiceStepProps)
           Passo 1 de 6
         </p>
         <h2 className="text-4xl md:text-5xl font-serif font-black text-[#f5f1eb] leading-tight">
-          Qual serviço<br />
+          Quais serviços<br />
           <span className="text-[#d4aa7a] italic">você quer?</span>
         </h2>
+        <p className="text-white/30 text-[12px] mt-3 font-medium">
+          Pode escolher mais de um — ex: corte + barba
+        </p>
       </div>
 
       {/* Service grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
         {list.map(s => {
-          const active = selected === s.id;
+          const active = selectedIds.includes(s.id);
+          const order = selectedIds.indexOf(s.id);
           return (
             <button
               key={s.id}
-              onClick={() => setSelected(s.id)}
+              onClick={() => toggle(s.id)}
               className={`
                 group relative text-left p-5 rounded-xl border transition-all duration-200 cursor-pointer
                 ${active
@@ -66,13 +86,19 @@ export function ServiceStep({ services, preSelected, onNext }: ServiceStepProps)
                 }
               `}
             >
-              {/* Check indicator */}
+              {/* Check indicator com número de ordem quando há múltiplos */}
               <div className={`absolute top-3.5 right-3.5 w-5 h-5 rounded-full flex items-center justify-center border transition-all duration-200 ${
                 active
                   ? "bg-[#b8853a] border-[#b8853a] scale-100"
                   : "border-white/[0.12] bg-transparent scale-90 opacity-0 group-hover:opacity-60 group-hover:scale-100"
               }`}>
-                {active && <Check size={10} strokeWidth={3} className="text-black" />}
+                {active ? (
+                  selectedIds.length > 1
+                    ? <span className="text-black text-[10px] font-black">{order + 1}</span>
+                    : <Check size={10} strokeWidth={3} className="text-black" />
+                ) : (
+                  <Plus size={10} strokeWidth={3} className="text-white/40" />
+                )}
               </div>
 
               <div className="flex items-start gap-3 pr-8">
@@ -123,15 +149,39 @@ export function ServiceStep({ services, preSelected, onNext }: ServiceStepProps)
         })}
       </div>
 
+      {/* Resumo da seleção múltipla */}
+      {selectedServices.length > 1 && (
+        <div className="rounded-xl border border-[#b8853a]/25 bg-[#b8853a]/[0.06] p-4 flex items-center justify-between">
+          <div>
+            <p className="text-white/50 text-[10px] uppercase tracking-wider font-bold mb-1">
+              {selectedServices.length} serviços selecionados
+            </p>
+            <p className="text-[#d4aa7a] text-[13px] font-bold">
+              {selectedServices.map(s => s.name).join(" + ")}
+            </p>
+          </div>
+          <div className="text-right shrink-0">
+            <p className="text-[#f5f1eb] text-[16px] font-black">R$ {totalPrice}</p>
+            <p className="text-white/30 text-[10px] flex items-center gap-1 justify-end mt-0.5">
+              <Clock size={9} /> {totalDuration} min total
+            </p>
+          </div>
+        </div>
+      )}
+
       {/* CTA button */}
       <button
-        disabled={!selectedService}
-        onClick={() => selectedService && onNext(selectedService)}
+        disabled={selectedServices.length === 0}
+        onClick={() => selectedServices.length > 0 && onNext(selectedServices)}
         className="group w-full flex items-center justify-center gap-3 py-4 rounded-xl font-black text-[11px] tracking-[0.2em] uppercase transition-all duration-200
           disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer
           bg-[#b8853a] text-[#070707] hover:bg-[#d4aa7a] active:scale-[0.98]"
       >
-        {selectedService ? `Continuar — ${selectedService.name}` : "Selecione um serviço"}
+        {selectedServices.length === 0
+          ? "Selecione ao menos um serviço"
+          : selectedServices.length === 1
+            ? `Continuar — ${selectedServices[0].name}`
+            : `Continuar com ${selectedServices.length} serviços`}
         <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
       </button>
     </div>

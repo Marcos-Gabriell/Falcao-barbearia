@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
-import { fetchSlots, type SlotResponse } from "../api";
+import { fetchSlots, fetchSlotsMulti, type SlotResponse } from "../api";
 
 const DAYS_PT = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
 const MONTHS_PT = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
@@ -16,12 +16,15 @@ function formatTime(t: string) {
 }
 
 interface DateTimeStepProps {
-  serviceId: number;
+  /** Lista de IDs de serviços — 1 ou mais */
+  serviceIds: number[];
   professionalId: number;
   onNext: (startAt: string) => void;
 }
 
-export function DateTimeStep({ serviceId, professionalId, onNext }: DateTimeStepProps) {
+export function DateTimeStep({ serviceIds, professionalId, onNext }: DateTimeStepProps) {
+  const isMulti = serviceIds.length > 1;
+
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
@@ -38,23 +41,27 @@ export function DateTimeStep({ serviceId, professionalId, onNext }: DateTimeStep
     setSelectedSlot(null);
     setSlotsError(null);
     setLoadingSlots(true);
-    fetchSlots(serviceId, professionalId, formatDateISO(selectedDate))
+
+    const dateStr = formatDateISO(selectedDate);
+    const promise = isMulti
+      ? fetchSlotsMulti(serviceIds, professionalId, dateStr)
+      : fetchSlots(serviceIds[0], professionalId, dateStr);
+
+    promise
       .then(setSlots)
       .catch(e => setSlotsError(e.message))
       .finally(() => setLoadingSlots(false));
-  }, [selectedDate, serviceId, professionalId]);
+  }, [selectedDate, serviceIds, professionalId, isMulti]);
 
   const firstDayOfMonth = new Date(viewMonth.getFullYear(), viewMonth.getMonth(), 1).getDay();
   const daysInMonth = new Date(viewMonth.getFullYear(), viewMonth.getMonth() + 1, 0).getDate();
 
-  // Células: nulls pro offset inicial + dias do mês
   const cells: (Date | null)[] = [
     ...Array(firstDayOfMonth).fill(null),
     ...Array.from({ length: daysInMonth }, (_, i) =>
       new Date(viewMonth.getFullYear(), viewMonth.getMonth(), i + 1)
     ),
   ];
-  // Preenche até múltiplo de 7
   while (cells.length % 7 !== 0) cells.push(null);
 
   function prevMonth() {
@@ -81,12 +88,16 @@ export function DateTimeStep({ serviceId, professionalId, onNext }: DateTimeStep
         <h2 className="text-3xl md:text-4xl font-serif font-black text-[#f5f1eb] leading-tight">
           Quando você<br />quer vir?
         </h2>
+        {isMulti && (
+          <p className="text-white/30 text-[11px] mt-2 font-medium">
+            Os horários já consideram o tempo total dos {serviceIds.length} serviços escolhidos.
+          </p>
+        )}
       </div>
 
       {/* Calendário */}
       <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 16, padding: 20 }}>
-        
-        {/* Nav mês */}
+
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
           <button
             onClick={prevMonth}
@@ -105,7 +116,6 @@ export function DateTimeStep({ serviceId, professionalId, onNext }: DateTimeStep
           </button>
         </div>
 
-        {/* Header dias da semana */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", marginBottom: 8 }}>
           {DAYS_PT.map(d => (
             <div key={d} style={{ textAlign: "center", fontSize: 10, color: "rgba(255,255,255,0.25)", fontWeight: 700, paddingTop: 4, paddingBottom: 4 }}>
@@ -114,7 +124,6 @@ export function DateTimeStep({ serviceId, professionalId, onNext }: DateTimeStep
           ))}
         </div>
 
-        {/* Grid dias */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "4px 0" }}>
           {cells.map((day, i) => {
             if (!day) return <div key={`e-${i}`} style={{ height: 36 }} />;

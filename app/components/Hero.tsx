@@ -146,7 +146,6 @@ export default function Hero() {
           >
             <motion.a
               href="/agendar"
-              target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.03, boxShadow: "0 0 36px rgba(184,133,58,0.35)" }}
               whileTap={{ scale: 0.97 }}

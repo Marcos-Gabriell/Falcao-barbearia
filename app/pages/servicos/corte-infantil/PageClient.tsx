@@ -3,9 +3,9 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import Navbar from "../../components/Header"; 
-import Footer from "../../components/Footer";
-import { WHATSAPP_LINK } from "../../utils/links";
+import Navbar from "../../../components/Header"; 
+import Footer from "../../../components/Footer";
+import { WHATSAPP_LINK } from "../../../utils/links";
 
 // Adicione as 2 fotos do corte infantil aqui
 const galeriaKids = [
