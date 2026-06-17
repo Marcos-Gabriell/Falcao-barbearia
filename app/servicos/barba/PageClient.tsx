@@ -82,7 +82,7 @@ export default function BarbaPage() {
 
             {/* Preço e Tempo */}
             <div className="flex items-center justify-center gap-6 mb-12 bg-white/[0.02] border border-white/5 py-4 px-8 rounded-2xl">
-              <div className="text-3xl font-bold text-[#d4aa7a]">R$ 15</div>
+              <div className="text-3xl font-bold text-[#d4aa7a]">R$ 20</div>
               <div className="h-8 w-[1px] bg-white/10"></div>
               <div className="text-white/40 text-xs uppercase tracking-widest font-bold flex flex-col items-start text-left">
                 <span>Duração</span>
