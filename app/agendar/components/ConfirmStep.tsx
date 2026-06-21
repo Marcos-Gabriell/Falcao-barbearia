@@ -9,6 +9,7 @@ import {
   createAppointment, createAppointmentMulti, saveClient, loadSavedClient,
   type ServiceItem, type ProfessionalSimple, type AppointmentCreatedMultiItem,
 } from "../api";
+import { Turnstile } from "../../components/Turnstile";
 
 const MONTHS_PT = ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
 
@@ -43,6 +44,9 @@ export function ConfirmStep({
   const [error,   setError]   = useState<string | null>(null);
   const [codes,   setCodes]   = useState<string[] | null>(null);
 
+  // ── Turnstile ──────────────────────────────────────────────────────────
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+
   const [saveData, setSaveData] = useState(() => {
     const saved = loadSavedClient();
     return !!(saved.name || saved.email || saved.phone);
@@ -55,6 +59,11 @@ export function ConfirmStep({
   const serviceNames = services.map(s => s.name).join(" + ");
 
   async function handleConfirm() {
+    if (!turnstileToken) {
+      setError("Aguarde a verificação de segurança carregar e tente novamente.");
+      return;
+    }
+
     setLoading(true);
     setError(null);
     try {
@@ -67,6 +76,7 @@ export function ConfirmStep({
           serviceIds: services.map(s => s.id),
           professionalUserId: professional.id,
           startAt,
+          turnstileToken,
         });
         if (saveData) saveClient({ name: clientName, email: clientEmail, phone: clientPhone });
         setCodes([result.code]);
@@ -78,6 +88,7 @@ export function ConfirmStep({
           serviceId: services[0].id,
           professionalUserId: professional.id,
           startAt,
+          turnstileToken,
         });
         if (saveData) saveClient({ name: clientName, email: clientEmail, phone: clientPhone });
         setCodes([result.code ?? String(result.id)]);
@@ -233,6 +244,15 @@ export function ConfirmStep({
         </span>
       </div>
 
+      {/* Verificação de segurança — Cloudflare Turnstile */}
+      <div className="pt-2">
+        <Turnstile
+          onVerify={setTurnstileToken}
+          onExpire={() => setTurnstileToken(null)}
+          onError={() => setTurnstileToken(null)}
+        />
+      </div>
+
       {error && (
         <div className="px-5 py-4 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center gap-3">
           <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
@@ -243,10 +263,12 @@ export function ConfirmStep({
       <div className="mt-4">
         <button
           onClick={handleConfirm}
-          disabled={loading}
+          disabled={loading || !turnstileToken}
           className={`group w-full flex items-center justify-center gap-3 py-4 rounded-xl font-black text-[11px] tracking-[0.2em] uppercase transition-all duration-300 outline-none
             ${loading
               ? "opacity-70 bg-[#b8853a] text-black cursor-not-allowed"
+              : !turnstileToken
+              ? "bg-white/5 text-white/20 border border-white/5 cursor-not-allowed"
               : "bg-gradient-to-r from-[#b8853a] to-[#8f6425] text-black shadow-[0_8px_32px_rgba(184,133,58,0.25)] hover:scale-[1.02] cursor-pointer"
             }
           `}

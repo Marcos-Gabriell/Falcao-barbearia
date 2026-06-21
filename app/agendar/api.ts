@@ -27,6 +27,7 @@ export interface CreateAppointmentPayload {
   serviceId: number;
   professionalUserId: number;
   startAt: string; // "2024-06-10T09:00:00"
+  turnstileToken: string;
 }
 
 export interface CreateAppointmentMultiPayload {
@@ -36,6 +37,7 @@ export interface CreateAppointmentMultiPayload {
   serviceIds: number[];
   professionalUserId: number;
   startAt: string;
+  turnstileToken: string;
 }
 
 export interface AppointmentCreated {
