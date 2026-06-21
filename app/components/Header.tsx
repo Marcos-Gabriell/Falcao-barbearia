@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import { useState, useEffect } from "react";
+import { User } from "lucide-react";
 
 const GOLD       = "#b8853a";
 const GOLD_LIGHT = "#d4aa7a";
@@ -51,6 +52,20 @@ function CTAButton() {
         aria-hidden
       />
       <span className="relative z-10">Agendar Horário</span>
+    </motion.a>
+  );
+}
+
+function PortalButton() {
+  return (
+    <motion.a
+      href="/portal"
+      aria-label="Portal do Cliente — Minha Conta"
+      className="hidden lg:inline-flex items-center justify-center w-11 h-11 rounded-full flex-shrink-0 border border-white/10 text-white/50 hover:text-[#d4aa7a] hover:border-[#b8853a]/40 transition-colors duration-300"
+      whileHover={{ scale: 1.06 }}
+      whileTap={{ scale: 0.95 }}
+    >
+      <User size={17} strokeWidth={1.75} />
     </motion.a>
   );
 }
@@ -174,8 +189,9 @@ export default function Header() {
           })}
         </nav>
 
-        {/* CTA + HAMBÚRGUER */}
-        <div className="flex-1 flex justify-end items-center gap-4">
+        {/* PORTAL + CTA + HAMBÚRGUER */}
+        <div className="flex-1 flex justify-end items-center gap-3">
+          <PortalButton />
           <CTAButton />
 
           <button
@@ -225,10 +241,22 @@ export default function Header() {
                 </motion.a>
               ))}
 
-              <motion.div
+              <motion.a
+                href="/portal"
+                onClick={() => setMenuOpen(false)}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: navLinks.length * 0.08 }}
+                className="text-3xl font-serif italic tracking-wide flex items-center gap-3"
+                style={{ color: "#f5f1eb" }}
+              >
+                <User size={22} className="text-[#d4aa7a]" /> Minha Conta
+              </motion.a>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: (navLinks.length + 1) * 0.08 }}
                 className="mt-8"
               >
                 <a
