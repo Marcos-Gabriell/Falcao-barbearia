@@ -44,7 +44,7 @@ export function clearPortalToken() {
 
 function authHeaders(): HeadersInit {
   const token = getPortalToken();
-  return token ? { Authorization: `Bearer ${token}` } : {};
+  return token ? { 'X-Portal-Token': token } : {};
 }
 
 // ── Login ────────────────────────────────────────────────────────────────────
