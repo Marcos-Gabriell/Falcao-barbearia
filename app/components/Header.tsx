@@ -149,7 +149,7 @@ export default function Header() {
         </div>
 
         {/* LINKS DESKTOP */}
-        <nav className="hidden lg:flex items-center justify-center gap-10 shrink-0">
+        <nav className="hidden xl:flex items-center justify-center gap-8 2xl:gap-10 shrink-0">
           {navLinks.map((link) => {
             const isActive = link.href.includes("#")
               ? activeSection === "#" + link.href.split("#")[1]
@@ -185,7 +185,7 @@ export default function Header() {
           <CTAButton />
 
           <button
-            className="lg:hidden flex flex-col items-center justify-center gap-[5px] w-12 h-12 rounded-full shrink-0 transition-colors pointer-events-auto"
+            className="xl:hidden flex flex-col items-center justify-center gap-[5px] w-12 h-12 rounded-full shrink-0 transition-colors pointer-events-auto"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
             style={{

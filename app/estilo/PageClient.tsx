@@ -51,7 +51,7 @@ export default function EstiloBlogPage() {
                   <Image 
                     src={postDestaque.imagem} 
                     alt={postDestaque.titulo} 
-                    fill 
+                    fill sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw" 
                     className="object-cover transition-transform duration-1000 group-hover:scale-105 grayscale-[0.2] group-hover:grayscale-0"
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#070707] opacity-0 lg:opacity-100" />
@@ -100,7 +100,7 @@ export default function EstiloBlogPage() {
                     <Image 
                       src={post.imagem} 
                       alt={post.titulo} 
-                      fill 
+                      fill sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw" 
                       className="object-cover transition-transform duration-700 group-hover:scale-110 grayscale-[0.3] group-hover:grayscale-0"
                     />
                     <div className="absolute top-3 left-3 bg-[#070707]/80 backdrop-blur-sm text-[#d4aa7a] px-3 py-1.5 rounded-md text-[8px] uppercase tracking-widest font-bold border border-white/10">

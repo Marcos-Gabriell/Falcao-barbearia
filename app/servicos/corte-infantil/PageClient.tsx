@@ -35,7 +35,7 @@ export default function CorteInfantilPage() {
           >
             {galeriaKids.map((imagem, index) => (
               <div key={index} className="relative aspect-[4/5] rounded-2xl overflow-hidden border border-white/5 bg-white/5 shadow-xl">
-                <Image src={imagem} alt={`Corte Infantil ${index + 1}`} fill className="object-cover" />
+                <Image src={imagem} alt={`Corte Infantil ${index + 1}`} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
               </div>
             ))}
           </motion.div>

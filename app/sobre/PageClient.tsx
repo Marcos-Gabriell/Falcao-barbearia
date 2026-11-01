@@ -74,11 +74,11 @@ export default function SobrePage() {
             >
               {/* Foto Principal */}
               <div className="absolute right-0 top-0 w-3/4 h-3/4 rounded-3xl overflow-hidden border border-white/10 z-10">
-                <Image src="/thaylle.jpg" alt="Falcão Barbearia" fill className="object-cover grayscale-[0.2]" />
+                <Image src="/thaylle.jpg" alt="Falcão Barbearia" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover grayscale-[0.2]" />
               </div>
               {/* Foto Secundária sobreposta */}
               <div className="absolute left-0 bottom-0 w-3/5 h-3/5 rounded-3xl overflow-hidden border-4 border-[#070707] shadow-2xl z-20">
-                <Image src="/thaylle4.png" alt="Detalhe de Corte Falcão" fill className="object-cover" />
+                <Image src="/thaylle4.png" alt="Detalhe de Corte Falcão" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
               </div>
               {/* Elemento Decorativo */}
               <div className="absolute -z-10 right-10 top-1/2 w-64 h-64 bg-[#b8853a]/20 rounded-full blur-[80px]" />

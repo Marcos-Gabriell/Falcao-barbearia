@@ -4,6 +4,7 @@ import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import TrackClicks from "./components/TrackClicks";
+import SmoothScroll from "./components/SmoothScroll";
 import { SITE } from "@/config/site";
 
 /* Fontes servidas pelo próprio site (sem @import bloqueando a renderização) */
@@ -166,6 +167,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         {children}
         <TrackClicks />
+        <SmoothScroll />
         <Analytics />
         {GA_ID && (
           <>

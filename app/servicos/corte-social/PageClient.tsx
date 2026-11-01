@@ -26,7 +26,7 @@ export default function CorteSocialPage() {
 
           <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }} className="w-full max-w-sm mb-16">
             <div className="relative aspect-[4/5] rounded-3xl overflow-hidden bg-white/5 border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-              <Image src={galeriaSocial[0]} alt="Corte Social" fill className="object-cover" />
+              <Image src={galeriaSocial[0]} alt="Corte Social" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
               <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-3xl" />
             </div>
           </motion.div>

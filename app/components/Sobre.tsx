@@ -70,7 +70,7 @@ export default function Sobre() {
                 <Image
                   src="/cortes/corte21.png" 
                   alt="Corte Falcão Principal"
-                  fill
+                  fill sizes="(min-width: 1024px) 20vw, 50vw"
                   className="object-cover transition-transform duration-[3s] ease-out group-hover:scale-110 grayscale hover:grayscale-0"
                 />
               </div>
@@ -79,7 +79,7 @@ export default function Sobre() {
                 <Image
                   src="/cortes/corte22.png" 
                   alt="Detalhe Corte Falcão"
-                  fill
+                  fill sizes="(min-width: 1024px) 20vw, 50vw"
                   className="object-cover object-top transition-transform duration-[3s] ease-out group-hover:scale-110 grayscale hover:grayscale-0"
                 />
               </div>
@@ -88,7 +88,7 @@ export default function Sobre() {
                 <Image
                   src="/cortes/corte23.png" 
                   alt="Fade Falcão"
-                  fill
+                  fill sizes="(min-width: 1024px) 20vw, 50vw"
                   className="object-cover object-center transition-transform duration-[3s] ease-out group-hover:scale-110 grayscale hover:grayscale-0"
                 />
               </div>

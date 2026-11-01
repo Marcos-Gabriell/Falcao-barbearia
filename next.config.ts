@@ -13,7 +13,9 @@ const legacyPosts: Record<number, string> = {
 
 const nextConfig: NextConfig = {
   images: {
-    qualities: [75, 90, 100],
+    formats: ["image/avif", "image/webp"],
+    qualities: [75],
+    deviceSizes: [360, 414, 640, 768, 1024, 1280, 1600, 1920],
   },
 
   // URLs antigas do agendamento/portal e posts com ID numérico.

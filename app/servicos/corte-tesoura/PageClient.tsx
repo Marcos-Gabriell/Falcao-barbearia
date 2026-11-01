@@ -35,7 +35,7 @@ export default function CorteTesouraPage() {
               <Image 
                 src={galeriaTesoura[0]} 
                 alt="Corte na Tesoura" 
-                fill 
+                fill sizes="(min-width: 1024px) 50vw, 100vw" 
                 className="object-cover" 
               />
               <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-3xl" />

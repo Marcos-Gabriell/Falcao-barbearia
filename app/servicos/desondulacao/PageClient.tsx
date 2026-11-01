@@ -37,11 +37,11 @@ export default function DesondulacaoPage() {
           >
             {/* Foto 1 */}
             <div className="relative aspect-[4/5] rounded-2xl overflow-hidden border border-white/5 bg-white/5">
-              <Image src={fotos[0]} alt="Desondulação 1" fill className="object-cover" />
+              <Image src={fotos[0]} alt="Desondulação 1" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
             </div>
             {/* Foto 2 */}
             <div className="relative aspect-[4/5] rounded-2xl overflow-hidden border border-white/5 bg-white/5">
-              <Image src={fotos[1]} alt="Desondulação 2" fill className="object-cover" />
+              <Image src={fotos[1]} alt="Desondulação 2" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
             </div>
           </motion.div>
 

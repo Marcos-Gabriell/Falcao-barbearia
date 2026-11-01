@@ -28,7 +28,7 @@ export default function EquipePage() {
               <Image 
                 src="/thaylle2.jpeg" 
                 alt="Thaylle - Master Barber" 
-                fill 
+                fill sizes="(min-width: 1024px) 50vw, 100vw" 
                 className="object-cover transition-transform duration-1000 hover:scale-105"
                 priority
               />
@@ -105,7 +105,7 @@ export default function EquipePage() {
                 <Image 
                   src="/thaylle4.png" 
                   alt="Thaylle trabalhando na Falcão Barbearia" 
-                  fill 
+                  fill sizes="(min-width: 1024px) 50vw, 100vw" 
                   className="object-cover transition-transform duration-700 group-hover:scale-110 grayscale-[0.3] hover:grayscale-0"
                 />
               </div>
@@ -115,7 +115,7 @@ export default function EquipePage() {
                 <Image 
                   src="/cortes/corte19.png" 
                   alt="Thaylle finalizando um corte" 
-                  fill 
+                  fill sizes="(min-width: 1024px) 50vw, 100vw" 
                   className="object-cover transition-transform duration-700 group-hover:scale-110 grayscale-[0.3] hover:grayscale-0"
                 />
               </div>
@@ -125,7 +125,7 @@ export default function EquipePage() {
                 <Image 
                  src="/cortes/corte20.png" 
                   alt="Detalhe do trabalho do Thaylle" 
-                  fill 
+                  fill sizes="(min-width: 1024px) 50vw, 100vw" 
                   className="object-cover transition-transform duration-700 group-hover:scale-110 grayscale-[0.3] hover:grayscale-0"
                 />
               </div>

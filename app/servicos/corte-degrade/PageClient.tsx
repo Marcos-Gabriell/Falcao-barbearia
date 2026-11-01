@@ -54,7 +54,7 @@ export default function CorteDegradePage() {
                   <Image 
                     src={imagem} 
                     alt={`Exemplo de Corte Degradê ${index + 1}`} 
-                    fill 
+                    fill sizes="(min-width: 1024px) 50vw, 100vw" 
                     className="object-cover transition-transform duration-700 group-hover:scale-105" 
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#070707]/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
