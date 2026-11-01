@@ -309,7 +309,7 @@ export default function TrabalhosEditorial() {
       <section className="hidden lg:block relative w-full pt-32 bg-[#050505] overflow-hidden antialiased">
         
         {/* Grain & Glow Background */}
-        <div className="absolute inset-0 pointer-events-none opacity-[0.02] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+        <div className="absolute inset-0 pointer-events-none opacity-[0.02] grain" />
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#b8853a]/5 blur-[120px] rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none" />
 
         <div className="mx-auto max-w-7xl px-6">

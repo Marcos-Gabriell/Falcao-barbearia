@@ -38,13 +38,14 @@ function createStripeTexture() {
 }
 
 /* ─── COMPONENTE ─────────────────────────────────────────────────────────── */
-export default function BarberPole3D({ className = "" }: { className?: string }) {
+export default function BarberPole3D({ className = "", onReady }: { className?: string; onReady?: () => void }) {
   const mountRef = useRef<HTMLDivElement>(null);
+  const onReadyRef = useRef(onReady);
+  onReadyRef.current = onReady;
 
   useEffect(() => {
     const mount = mountRef.current;
-    // Hero tem versões desktop/mobile; só cria o WebGL na que está visível
-    if (!mount || mount.offsetParent === null) return;
+    if (!mount) return;
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isMobile = window.innerWidth < 768;
@@ -144,13 +145,19 @@ export default function BarberPole3D({ className = "" }: { className?: string })
     scene.add(rim);
     scene.add(new THREE.AmbientLight("#ffffff", 0.25));
 
-    /* interação: segue o mouse/dedo de leve */
+    /* interação: mouse no desktop, rolagem no celular */
     const target = { x: 0, y: 0 };
+    let scrollSpin = 0;
     const onPointer = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse") return;
       target.x = (e.clientX / window.innerWidth - 0.5) * 0.6;
       target.y = (e.clientY / window.innerHeight - 0.5) * 0.3;
     };
+    const onScroll = () => {
+      scrollSpin = window.scrollY * 0.004;
+    };
     window.addEventListener("pointermove", onPointer, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
 
     /* resize */
     const onResize = () => {
@@ -177,7 +184,7 @@ export default function BarberPole3D({ className = "" }: { className?: string })
       const t = clock.getElapsedTime();
 
       stripeTexture.offset.y -= 0.0035;
-      pole.rotation.y += (target.x - pole.rotation.y) * 0.04;
+      pole.rotation.y += (target.x + scrollSpin - pole.rotation.y) * 0.04;
       pole.rotation.x += (target.y - pole.rotation.x) * 0.04;
       pole.position.y = Math.sin(t * 0.9) * 0.08;
 
@@ -189,10 +196,12 @@ export default function BarberPole3D({ className = "" }: { className?: string })
     } else {
       render();
     }
+    onReadyRef.current?.();
 
     return () => {
       cancelAnimationFrame(frame);
       window.removeEventListener("pointermove", onPointer);
+      window.removeEventListener("scroll", onScroll);
       ro.disconnect();
       io.disconnect();
       scene.traverse((obj) => {

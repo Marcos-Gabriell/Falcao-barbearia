@@ -62,7 +62,7 @@ const Avaliacoes = () => {
       {/* ── Background Effects & Grain Cinematográfico ── */}
       <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_top_right,rgba(184,133,58,0.05)_0%,transparent_50%)]" />
       <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_bottom_left,rgba(184,133,58,0.03)_0%,transparent_40%)]" />
-      <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+      <div className="absolute inset-0 pointer-events-none opacity-[0.03] grain" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         

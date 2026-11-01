@@ -26,7 +26,7 @@ const Localizacao = () => {
       
       {/* ── Background Effects & Grain ── */}
       <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,rgba(184,133,58,0.03)_0%,transparent_70%)]" />
-      <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+      <div className="absolute inset-0 pointer-events-none opacity-[0.03] grain" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6">
         

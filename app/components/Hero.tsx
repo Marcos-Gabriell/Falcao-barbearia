@@ -1,378 +1,152 @@
-"use client";
-
 import Image from "next/image";
-import dynamic from "next/dynamic";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
-import { FaInstagram, FaWhatsapp } from "react-icons/fa";
-import { Navigation } from "lucide-react";
+import { FaWhatsapp, FaInstagram } from "react-icons/fa";
+import { Navigation, Star } from "lucide-react";
+import { SITE, SINCE } from "@/config/site";
 import { WHATSAPP_LINK, INSTAGRAM_URL, DIRECTIONS_LINK } from "../utils/links";
 import OpenNow from "./OpenNow";
+import HeroVisual from "./HeroVisual";
 
-// WebGL carregado só no navegador, depois do conteúdo principal (não pesa no LCP)
-const BarberPole3D = dynamic(() => import("./BarberPole3D"), { ssr: false });
-/* ─── FOTO PRINCIPAL ─────────────────────────────────────────────────────── */
-// thaylle2 escolhida: ele olhando pra câmera enquanto corta → conexão direta
-const HERO_IMAGE = "/thaylle2.jpeg";
-
-/* ─── STATS ──────────────────────────────────────────────────────────────── */
-const stats = [
-  { val: "4.9★", label: "Google" },
-  { val: "5+",   label: "Anos de cena" },
-  { val: "100%", label: "Dedicação" },
-];
-
-/* ─── VARIANTS ──────────────────────────────────────────────────────────── */
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 28 },
-  animate: { opacity: 1, y: 0 },
-  transition: { delay, duration: 0.85, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
-});
-
-const fadeIn = (delay = 0) => ({
-  initial: { opacity: 0 },
-  animate: { opacity: 1 },
-  transition: { delay, duration: 1 },
-});
-
-/* ─── COMPONENTE ─────────────────────────────────────────────────────────── */
+/* Hero único e responsivo (server component).
+   - Um só H1 com a palavra-chave local; "corte. Identidade." é visual.
+   - Uma só imagem LCP (priority), com sizes corretos.
+   - Animações de entrada em CSS (.hero-in), sem esperar JavaScript. */
 export default function Hero() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [loaded, setLoaded] = useState(false);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-
-  const contentY  = useTransform(scrollYProgress, [0, 1], ["0%", "22%"]);
-  const imageY    = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1.05, 1.12]);
-  const fadeOut   = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
-
   return (
     <section
-      ref={sectionRef}
       id="inicio"
-      className="relative min-h-[100dvh] flex overflow-hidden select-none bg-[#070707]"
+      aria-labelledby="hero-title"
+      className="relative isolate flex min-h-[100dvh] overflow-hidden bg-[#070707]"
     >
-      {/* ── Bg: noise + glow ──────────────────────────────────────────── */}
-      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden>
-        {/* noise overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.025] mix-blend-screen"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-          }}
+      {/* ── Foto: tela cheia no celular, metade direita no desktop ── */}
+      <div className="absolute inset-0 -z-10 overflow-hidden lg:left-[40%]">
+        <Image
+          src="/thaylle2.jpeg"
+          alt={`${SITE.barber}, barbeiro da Falcão Barbearia, cortando cabelo em ${SITE.city} - BA`}
+          fill
+          priority
+          fetchPriority="high"
+          sizes="(min-width: 1024px) 58vw, 100vw"
+          className="object-cover object-[center_22%] hero-photo"
         />
-        {/* gold ambient glow */}
-        <motion.div
-          className="absolute rounded-full"
-          style={{
-            bottom: "-15%", left: "0%",
-            width: "70vw", height: "55vw",
-            background: "radial-gradient(ellipse, rgba(184,133,58,0.13) 0%, transparent 65%)",
-            filter: "blur(80px)",
-          }}
-          animate={{ scale: [1, 1.06, 1], opacity: [0.55, 0.75, 0.55] }}
-          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-        />
-        {/* subtle grid */}
-        <div
-          className="absolute inset-0 opacity-[0.012]"
-          style={{
-            backgroundImage:
-              "linear-gradient(#b8853a 1px, transparent 1px), linear-gradient(90deg, #b8853a 1px, transparent 1px)",
-            backgroundSize: "100px 100px",
-          }}
-        />
+        {/* celular: escurece de baixo pra cima */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#070707]/40 via-[#070707]/70 to-[#070707] lg:hidden" />
+        {/* desktop: funde com o texto à esquerda */}
+        <div className="absolute inset-0 hidden lg:block bg-gradient-to-r from-[#070707] via-[#070707]/45 to-transparent" />
+        <div className="absolute inset-0 hidden lg:block bg-gradient-to-t from-[#070707] via-transparent to-[#070707]/40" />
       </div>
 
-      {/* ══════════════════════════ DESKTOP ══════════════════════════════ */}
-      <div className="hidden md:flex w-full relative z-10 max-w-[1920px] mx-auto">
+      {/* ── Ambiente: brilho dourado + grão ── */}
+      <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden>
+        <div className="absolute bottom-[-20%] left-[-10%] h-[60vw] w-[70vw] rounded-full bg-[radial-gradient(ellipse,rgba(184,133,58,0.14)_0%,transparent_65%)] blur-3xl" />
+        <div className="grain absolute inset-0 opacity-[0.035]" />
+      </div>
 
-        {/* ── Texto (coluna esquerda) ───────────────────────────────── */}
-        <motion.div
-          style={{ y: contentY, opacity: fadeOut }}
-          className="flex flex-col justify-center px-12 lg:px-20 xl:px-28 w-[52%] pt-32 pb-10"
-        >
-          {/* eyebrow */}
-          <motion.div {...fadeUp(0.1)} className="mb-10">
+      {/* ── Conteúdo ── */}
+      <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col justify-end px-5 pb-28 pt-28 sm:px-8 lg:grid lg:grid-cols-[minmax(0,34rem)_minmax(180px,240px)] lg:content-center lg:justify-start lg:items-center lg:gap-6 lg:px-16 lg:pb-16 xl:gap-10 xl:px-24">
+        {/* Poste 3D (desktop): coluna própria na divisa texto/foto */}
+        <HeroVisual className="hero-in [--d:700ms] pointer-events-none relative hidden lg:order-2 lg:block lg:h-[66vh] lg:w-full" />
+
+        <div className="max-w-xl lg:order-1 lg:max-w-none">
+          <div className="hero-in [--d:0ms] mb-6 lg:mb-10">
             <OpenNow />
-          </motion.div>
+          </div>
 
-          {/* headline — o h1 carrega a palavra-chave local pro Google */}
-          <h1 className="mb-10 relative">
-            <motion.span
-              {...fadeUp(0.2)}
-              className="flex items-center gap-4 mb-6 text-[10px] tracking-[0.35em] uppercase font-black text-[#b8853a] font-sans not-italic"
-            >
-              <span className="h-[2px] w-10 bg-gradient-to-r from-[#b8853a] to-transparent rounded-full" />
-              Barbearia em Tapiramutá · BA
-            </motion.span>
-
-            <motion.span
-              {...fadeUp(0.3)}
-              className="block text-xl lg:text-2xl xl:text-3xl font-light uppercase tracking-[0.22em] text-white/35 font-serif italic mb-3"
-            >
-              Seu visual merece
-            </motion.span>
-
-            <motion.span
-              {...fadeUp(0.4)}
-              className="block text-[7rem] lg:text-[9rem] xl:text-[10.5rem] font-black leading-[0.82] text-[#f5f1eb] font-serif -ml-1 drop-shadow-2xl"
-            >
-              corte.
-            </motion.span>
-
-            <motion.span
-              initial={{ opacity: 0, x: -24, filter: "blur(8px)" }}
-              animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-              transition={{ delay: 0.6, duration: 1, ease: "easeOut" }}
-              className="block text-5xl lg:text-6xl xl:text-7xl font-serif italic font-bold text-[#d4aa7a] mt-3 drop-shadow-lg"
-            >
-              Identidade.
-            </motion.span>
+          <h1
+            id="hero-title"
+            className="hero-in [--d:80ms] mb-4 flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.28em] text-[#d4aa7a] sm:text-xs"
+          >
+            <span className="h-[2px] w-8 rounded-full bg-gradient-to-r from-[#b8853a] to-transparent" aria-hidden />
+            Barbearia em {SITE.city} – Falcão
           </h1>
 
-          {/* corpo */}
-          <motion.p
-            {...fadeIn(0.8)}
-            className="text-sm lg:text-[15px] text-white/55 max-w-[420px] leading-relaxed mb-12 font-medium"
-          >
+          <div className="relative mb-6 font-serif leading-none" aria-hidden>
+            {/* Poste (celular): ao lado do "corte." */}
+            <HeroVisual className="hero-in [--d:700ms] pointer-events-none absolute -top-[18%] right-0 h-[136%] w-[84px] sm:w-[100px] lg:hidden" />
+            <span className="hero-in [--d:160ms] mb-2 hidden text-2xl font-light uppercase italic tracking-[0.22em] text-white/35 lg:block xl:text-3xl">
+              Seu visual merece
+            </span>
+            <span className="hero-in [--d:220ms] block text-[clamp(4rem,17vw,10.5rem)] font-black leading-[0.84] text-[#f5f1eb] drop-shadow-2xl">
+              corte.
+            </span>
+            <span className="hero-in [--d:320ms] mt-2 block text-[clamp(2.4rem,9vw,4.75rem)] font-bold italic text-[#d4aa7a]">
+              Identidade.
+            </span>
+          </div>
+
+          <p className="hero-in [--d:420ms] mb-8 max-w-md text-[15px] font-medium leading-relaxed text-white/65">
             Degradê, barba na navalha e corte na tesoura com{" "}
-            <strong className="text-[#d4aa7a] font-bold">técnica de nível</strong>.
-            Sem agendamento: é só chegar — ou chamar no Whats pra saber como tá o movimento.
-          </motion.p>
+            <strong className="font-bold text-[#d4aa7a]">técnica de nível</strong> no Centro de {SITE.city}.
+            Sem agendamento: chega e senta — ou chama no Whats pra saber o movimento.
+          </p>
 
           {/* CTAs */}
-          <motion.div
-            {...fadeUp(1)}
-            className="flex flex-wrap items-center gap-5"
-          >
-            <motion.a
+          <div className="hero-in [--d:520ms] flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+            <a
               href={WHATSAPP_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.03, boxShadow: "0 0 36px rgba(184,133,58,0.35)" }}
-              whileTap={{ scale: 0.97 }}
-              className="relative overflow-hidden bg-gradient-to-br from-[#b8853a] to-[#8f6425] text-[#070707] px-8 py-4 rounded-full font-black text-[11px] tracking-[0.18em] uppercase flex items-center gap-3 shadow-[0_8px_40px_rgba(184,133,58,0.25)]"
+              data-track="whatsapp"
+              data-track-label="hero"
+              className="btn-shine group relative inline-flex min-h-[52px] items-center justify-center gap-3 overflow-hidden rounded-2xl bg-gradient-to-br from-[#c99a52] to-[#8f6425] px-8 text-[12px] font-black uppercase tracking-[0.16em] text-[#070707] shadow-[0_10px_40px_rgba(184,133,58,0.3)] transition-transform hover:scale-[1.03] active:scale-[0.97] sm:rounded-full"
             >
-              {/* shine sweep */}
-              <motion.span
-                className="absolute inset-0 rounded-full"
-                style={{ background: "linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.18) 50%, transparent 60%)" }}
-                animate={{ x: ["-100%", "200%"] }}
-                transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 3, ease: "easeInOut" }}
-              />
               <FaWhatsapp size={18} />
               Chamar no WhatsApp
-            </motion.a>
-
-            <motion.a
+            </a>
+            <a
               href={DIRECTIONS_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-4 text-white/55 hover:text-[#d4aa7a] transition-colors font-bold text-[11px] tracking-[0.15em] uppercase"
+              data-track="maps"
+              data-track-label="hero"
+              className="inline-flex min-h-[52px] items-center justify-center gap-2.5 rounded-2xl border border-white/10 bg-white/[0.04] px-7 text-[12px] font-bold uppercase tracking-[0.14em] text-white/80 backdrop-blur-md transition-colors hover:border-[#d4aa7a]/40 hover:text-[#d4aa7a] sm:rounded-full"
             >
-              <span className="relative flex items-center justify-center w-11 h-11 rounded-full border border-white/10 group-hover:border-[#d4aa7a]/40 transition-colors bg-white/[0.02]">
-                <Navigation size={16} />
-                <span className="absolute inset-0 rounded-full scale-50 opacity-0 group-hover:scale-100 group-hover:opacity-100 bg-[#d4aa7a]/10 transition-all duration-500" />
-              </span>
+              <Navigation size={16} />
               Como chegar
-            </motion.a>
+            </a>
+          </div>
 
+          {/* Prova social logo abaixo do CTA */}
+          <div className="hero-in [--d:640ms] mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-white/[0.08] pt-6">
+            <a
+              href={SITE.googleMaps}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-track="google"
+              data-track-label="hero-nota"
+              className="group flex min-h-[44px] items-center gap-3"
+            >
+              <span className="flex gap-0.5 text-[#d4aa7a]" aria-hidden>
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} size={15} fill="currentColor" strokeWidth={0} />
+                ))}
+              </span>
+              <span className="text-sm text-white/70 group-hover:text-white transition-colors">
+                <strong className="font-serif text-lg italic text-[#f5f1eb]">{SITE.rating.value}</strong> no Google
+              </span>
+            </a>
+            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/45">{SINCE}</span>
+            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/45">{SITE.cortesRealizados} cortes</span>
             <a
               href={INSTAGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
+              data-track="instagram"
+              data-track-label="hero"
               aria-label="Instagram da Falcão Barbearia"
-              className="flex items-center justify-center w-11 h-11 rounded-full border border-white/10 text-white/45 hover:text-[#d4aa7a] hover:border-[#d4aa7a]/40 transition-colors bg-white/[0.02]"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-white/55 transition-colors hover:border-[#d4aa7a]/40 hover:text-[#d4aa7a]"
             >
               <FaInstagram size={17} />
             </a>
-          </motion.div>
-
-          {/* Stats */}
-          <motion.div
-            {...fadeIn(1.2)}
-            className="mt-16 flex items-center gap-12 border-t border-white/[0.06] pt-10"
-          >
-            {stats.map((s, i) => (
-              <div key={i} className="group cursor-default">
-                <div className="text-2xl font-serif italic font-bold text-[#b8853a] group-hover:text-[#d4aa7a] transition-colors leading-none mb-1">
-                  {s.val}
-                </div>
-                <div className="text-[9px] font-bold uppercase tracking-[0.18em] text-white/35 mt-1">
-                  {s.label}
-                </div>
-              </div>
-            ))}
-          </motion.div>
-        </motion.div>
-
-        {/* ── Foto (coluna direita — maior agora) ──────────────────────── */}
-        <div className="relative flex-1 h-full overflow-hidden">
-          {/* foto com parallax + scale no scroll */}
-          <motion.div style={{ y: imageY, scale: imageScale }} className="absolute inset-0">
-            <Image
-              src={HERO_IMAGE}
-              alt="Thaylle – Mestre Barbeiro Falcão Barbearia"
-              fill
-              className={`object-cover object-[center_20%] transition-all duration-[2000ms] ease-out ${
-                loaded ? "grayscale-0" : "grayscale"
-              }`}
-              priority
-              quality={100}
-              onLoad={() => setLoaded(true)}
-            />
-          </motion.div>
-
-          {/* gradientes de fusão */}
-          <div className="absolute inset-0 z-10 pointer-events-none">
-            {/* funde com o texto à esquerda */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#070707] via-[#070707]/40 to-transparent" />
-            {/* funde no topo e rodapé */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#070707] via-transparent to-[#070707]/30" />
-            {/* vinheta circular sutil */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_40%_50%,transparent_45%,#070707_100%)] opacity-70" />
           </div>
-
-          {/* badge Thaylle */}
-          <motion.div
-            initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ delay: 1.6, duration: 1 }}
-            className="absolute bottom-14 right-12 z-20 text-right backdrop-blur-md bg-black/25 px-6 py-5 rounded-2xl border border-white/[0.06] shadow-2xl"
-          >
-            <div className="h-[1.5px] w-8 bg-[#b8853a] ml-auto mb-3 rounded-full" />
-            <p className="text-[#f5f1eb] font-serif italic text-[1.6rem] leading-none mb-1 drop-shadow-md">
-              Thaylle
-            </p>
-            <p className="text-[8.5px] font-black uppercase tracking-[0.3em] text-[#b8853a]">
-              Falcão Boss
-            </p>
-            <p className="text-[8px] uppercase tracking-[0.15em] text-white/30 mt-1">
-              Master Barber
-            </p>
-          </motion.div>
-
-          {/* linha vertical decorativa */}
-          <div className="absolute left-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-[#b8853a]/20 to-transparent z-20" />
         </div>
       </div>
 
-      {/* ── Poste de barbeiro 3D (desktop) — na divisa texto/foto ─────── */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.9, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-        className="hidden lg:block absolute left-[52%] -translate-x-1/2 top-[18%] z-20 h-[62%] w-[220px] xl:w-[270px] pointer-events-none"
-      >
-        <div className="absolute inset-x-10 bottom-[-3%] h-8 rounded-[50%] bg-black/80 blur-xl" />
-        <BarberPole3D className="relative h-full w-full" />
-      </motion.div>
-
-      {/* ══════════════════════════ MOBILE ════════════════════════════════ */}
-      <div className="md:hidden w-full flex flex-col relative z-10">
-
-        {/* foto ocupa 60vh no mobile */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src={HERO_IMAGE}
-            alt="Thaylle – Falcão Barbearia"
-            fill
-            className="object-cover"
-            style={{ objectPosition: "center 25%" }}
-            quality={90}
-            priority
-          />
-          {/* gradiente: transparente no topo, sólido em baixo */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#070707]/30 via-[#070707]/60 to-[#070707] z-10" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_15%,#070707_85%)] z-10 opacity-90" />
-        </div>
-
-        {/* poste 3D (mobile) */}
-        <div className="absolute right-1 top-24 z-10 h-[36vh] w-[115px] pointer-events-none opacity-90">
-          <BarberPole3D className="h-full w-full" />
-        </div>
-
-        {/* conteúdo flutua por cima */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-20 flex flex-col justify-end min-h-[100dvh] px-5 pb-1 pt-24"
-        >
-          <OpenNow className="self-start mb-5" />
-
-          {/* headline */}
-          <h1 className="mb-5">
-            <span className="flex items-center gap-3 mb-4 text-[#b8853a] text-[9.5px] tracking-[0.25em] uppercase font-black font-sans">
-              <span className="h-[2px] w-6 bg-[#b8853a] rounded-full" />
-              Barbearia em Tapiramutá · BA
-            </span>
-            <span className="block text-[4.2rem] sm:text-[5rem] font-serif font-black text-[#f5f1eb] leading-[0.88] mb-1 drop-shadow-xl">
-              corte.
-            </span>
-            <span className="block text-[2.4rem] sm:text-[2.8rem] font-serif italic font-bold text-[#d4aa7a] leading-none drop-shadow-md">
-              Identidade.
-            </span>
-          </h1>
-
-          {/* copy */}
-          <p className="text-white/65 text-[14px] mb-7 leading-relaxed max-w-xs font-medium">
-            Sem agendamento: chega e senta na cadeira.{" "}
-            <strong className="text-[#d4aa7a]">Quer saber o movimento? Chama no Whats.</strong>
-          </p>
-
-          {/* CTAs */}
-          <div className="flex flex-col gap-3 w-full mb-8">
-            <a
-              href={WHATSAPP_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full bg-gradient-to-r from-[#b8853a] to-[#8f6425] text-[#070707] text-center py-4 rounded-2xl font-black uppercase text-[11px] tracking-[0.12em] shadow-[0_8px_32px_rgba(184,133,58,0.30)] flex items-center justify-center gap-2 active:scale-[0.97] transition-transform"
-            >
-              <FaWhatsapp size={18} />
-              Chamar no WhatsApp
-            </a>
-            <a
-              href={DIRECTIONS_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full border border-white/10 bg-white/[0.04] backdrop-blur-md text-white/75 text-center py-3.5 rounded-2xl text-[11px] font-bold uppercase tracking-[0.1em] flex items-center justify-center gap-2 active:scale-[0.97] transition-transform"
-            >
-              <Navigation size={15} />
-              Como chegar (Google Maps)
-            </a>
-          </div>
-
-          {/* Stats */}
-          <div className="flex justify-between border-t border-white/[0.08] pt-5 px-1">
-            {stats.map((s, i) => (
-              <div key={i} className="text-center">
-                <div className="text-[1.15rem] font-serif italic font-bold text-[#b8853a] leading-none mb-1">
-                  {s.val}
-                </div>
-                <div className="text-[8px] font-bold uppercase tracking-[0.1em] text-white/40">
-                  {s.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
+      {/* Selo do barbeiro (desktop) */}
+      <div className="hero-in [--d:900ms] absolute bottom-14 right-12 z-10 hidden rounded-2xl border border-white/[0.06] bg-black/30 px-6 py-5 text-right shadow-2xl backdrop-blur-md lg:block">
+        <div className="mb-3 ml-auto h-[1.5px] w-8 rounded-full bg-[#b8853a]" />
+        <p className="mb-1 font-serif text-[1.6rem] italic leading-none text-[#f5f1eb]">{SITE.barber}</p>
+        <p className="text-[9px] font-black uppercase tracking-[0.3em] text-[#b8853a]">Master Barber</p>
       </div>
-
-      {/* ── Scroll indicator (desktop) ────────────────────────────────── */}
-      <motion.div
-        animate={{ y: [0, 14, 0], opacity: [0.3, 1, 0.3] }}
-        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 hidden md:flex flex-col items-center gap-2"
-      >
-        <span className="text-[8px] uppercase tracking-[0.4em] text-[#b8853a] font-bold">Scroll</span>
-        <div className="w-[1.5px] h-10 rounded-full bg-gradient-to-b from-[#b8853a] via-[#b8853a]/40 to-transparent" />
-      </motion.div>
     </section>
   );
 }
