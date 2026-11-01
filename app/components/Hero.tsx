@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { FaWhatsapp, FaInstagram } from "react-icons/fa";
 import { Navigation, Star } from "lucide-react";
-import { SITE, SINCE } from "@/config/site";
+import { SITE, SINCE, RATING } from "@/config/site";
 import { WHATSAPP_LINK, INSTAGRAM_URL, DIRECTIONS_LINK } from "../utils/links";
 import OpenNow from "./OpenNow";
 import HeroVisual from "./HeroVisual";
@@ -121,11 +121,11 @@ export default function Hero() {
                 ))}
               </span>
               <span className="text-sm text-white/70 group-hover:text-white transition-colors">
-                <strong className="font-serif text-lg italic text-[#f5f1eb]">{SITE.rating.value}</strong> no Google
+                <strong className="font-serif text-lg italic text-[#f5f1eb]">{RATING}</strong> no Google
               </span>
             </a>
             <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/45">{SINCE}</span>
-            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/45">{SITE.cortesRealizados} cortes</span>
+            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/45">+{SITE.cortesRealizados} cortes</span>
             <a
               href={INSTAGRAM_URL}
               target="_blank"

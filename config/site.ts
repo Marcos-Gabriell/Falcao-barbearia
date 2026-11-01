@@ -45,12 +45,14 @@ export const SITE = {
 
   // Nota do Perfil da Empresa no Google — manter igual ao que aparece no Maps.
   // (Não vai para o JSON-LD: o Google não aceita nota "autodeclarada" no próprio site.)
-  rating: { value: "4,9", count: null as number | null },
-  cortesRealizados: "+300",
+  rating: { value: 4.9 },
+  cortesRealizados: 300,
 } as const;
 
 /** "Desde 2021" — usado no lugar de "X anos", que fica desatualizado. */
 export const SINCE = `Desde ${SITE.foundingYear}`;
+
+export const RATING = SITE.rating.value.toLocaleString("pt-BR", { minimumFractionDigits: 1 });
 
 /** Link do WhatsApp com mensagem pronta. */
 export function whatsapp(message = `Fala, ${SITE.barber}! Tudo certo? Queria cortar o cabelo. Como tá o movimento aí hoje?`) {

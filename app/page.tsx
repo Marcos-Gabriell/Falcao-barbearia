@@ -4,7 +4,7 @@ import Header        from "./components/Header";
 import Hero          from "./components/Hero";
 import Sobre         from "./components/Sobre";
 import Valores       from "./components/Valores";
-import Cortes        from "./components/Cortes";
+import Galeria       from "./components/Galeria";
 import Avaliacoes    from "./components/Avaliacoes";
 import Localizacao   from "./components/Localizacao";
 import Footer        from "./components/Footer";
@@ -37,7 +37,7 @@ export default function Home() {
         <ComoFunciona />
         <Sobre />
         <Valores />
-        <Cortes />
+        <Galeria />
         <Avaliacoes />
         <Localizacao />
         <Faq />

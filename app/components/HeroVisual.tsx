@@ -46,7 +46,7 @@ export default function HeroVisual({ className = "" }: { className?: string }) {
 
     if (desktop) {
       const idle = (cb: () => void) =>
-        "requestIdleCallback" in window ? window.requestIdleCallback(cb, { timeout: 3000 }) : window.setTimeout(cb, 1500);
+        typeof window.requestIdleCallback === "function" ? window.requestIdleCallback(cb, { timeout: 3000 }) : setTimeout(cb, 1500);
       const onLoad = () => idle(start);
       if (document.readyState === "complete") onLoad();
       else window.addEventListener("load", onLoad, { once: true });
