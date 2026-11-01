@@ -11,7 +11,7 @@ import {
   Droplet,
 } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
-import { whatsapp, whatsappServico } from "../utils/site";
+import { whatsapp, whatsappServico } from "@/config/site";
 import Tilt3D from "./Tilt3D";
 
 const DARK_CARD = "rgba(12, 12, 12, 0.7)";

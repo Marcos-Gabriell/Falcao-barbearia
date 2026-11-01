@@ -4,7 +4,7 @@ import { motion, type Variants } from "framer-motion";
 import { FaWhatsapp, FaGoogle } from "react-icons/fa";
 import { Navigation, Armchair } from "lucide-react";
 import Tilt3D from "./Tilt3D";
-import { SITE } from "../utils/site";
+import { SITE } from "@/config/site";
 import { WHATSAPP_LINK, DIRECTIONS_LINK } from "../utils/links";
 
 const stagger: Variants = {

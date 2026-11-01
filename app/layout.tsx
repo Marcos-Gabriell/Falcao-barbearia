@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Montserrat, Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import { SITE } from "./utils/site";
+import { SITE } from "@/config/site";
 
 /* Fontes servidas pelo próprio site (sem @import bloqueando a renderização) */
 const cormorant = Cormorant_Garamond({ subsets: ["latin"], weight: ["400", "600", "700"], style: ["normal", "italic"], variable: "--font-cormorant", display: "swap" });

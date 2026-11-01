@@ -8,7 +8,7 @@ import Navbar from "../../components/Header";
 import Footer from "../../components/Footer";
 import WhatsFloating from "../../components/WhatsFloating";
 import { posts, getPost, formatarData, tempoLeitura, postsOrdenados, type Bloco } from "../data";
-import { SITE, whatsapp } from "../../utils/site";
+import { SITE, whatsapp } from "@/config/site";
 
 interface Props {
   params: Promise<{ slug: string }>;

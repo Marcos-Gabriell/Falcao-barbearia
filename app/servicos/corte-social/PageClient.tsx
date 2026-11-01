@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "../../components/Header"; 
-import { whatsappServico } from "../../utils/site";
+import { whatsappServico } from "@/config/site";
 import Footer from "../../components/Footer";
 
 const galeriaSocial = [

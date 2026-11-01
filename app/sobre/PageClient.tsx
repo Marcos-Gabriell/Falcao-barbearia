@@ -43,7 +43,7 @@ export default function SobrePage() {
                   Nós acreditamos que a sua imagem é o seu maior cartão de visitas. Por isso, construímos um espaço onde técnica de alto nível e um ambiente de respeito se encontram. Cada detalhe, da cadeira à lâmina, foi pensado para entregar uma experiência premium.
                 </p>
                 <p>
-                  Hoje, com mais de 4 anos de mercado e centenas de clientes fiéis, mantemos a mesma missão do primeiro dia: <strong className="text-[#d4aa7a]">elevar a sua autoestima através de um visual inegociável.</strong>
+                  Hoje, com centenas de clientes fiéis desde 2021, mantemos a mesma missão do primeiro dia: <strong className="text-[#d4aa7a]">elevar a sua autoestima através de um visual inegociável.</strong>
                 </p>
               </div>
 

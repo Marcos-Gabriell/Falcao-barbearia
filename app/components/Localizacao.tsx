@@ -3,7 +3,7 @@
 import { motion, type Variants } from "framer-motion";
 import { MapPin, Clock, Smartphone, Navigation } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
-import { SITE } from "../utils/site";
+import { SITE } from "@/config/site";
 import { WHATSAPP_LINK, DIRECTIONS_LINK } from "../utils/links";
 
 // Variáveis de animação

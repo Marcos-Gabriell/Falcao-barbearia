@@ -1,4 +1,4 @@
-import { SITE, whatsapp } from "./site";
+import { SITE, whatsapp } from "@/config/site";
 
 export const WHATSAPP_LINK = whatsapp();
 

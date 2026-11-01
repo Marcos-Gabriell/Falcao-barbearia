@@ -7,7 +7,7 @@ import { FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { MapPin, Clock, Navigation } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { WHATSAPP_LINK, INSTAGRAM_URL, DIRECTIONS_LINK } from "../utils/links";
-import { SITE } from "../utils/site";
+import { SITE } from "@/config/site";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
