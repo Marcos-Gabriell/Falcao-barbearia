@@ -70,7 +70,7 @@ const Localizacao = () => {
                   <MapPin size={20} className="text-[#b8853a]" />
                 </div>
                 <div className="relative z-10">
-                  <h4 className="text-white text-xs uppercase tracking-[0.15em] font-bold mb-2">Endereço</h4>
+                  <h3 className="text-white text-xs uppercase tracking-[0.15em] font-bold mb-2">Endereço</h3>
                   <p className="text-white/50 text-sm font-light leading-relaxed">
                     R. Olavo Bilac, Centro<br />
                     Tapiramutá, BA — 44840-027
@@ -85,7 +85,7 @@ const Localizacao = () => {
                   <Clock size={20} className="text-[#b8853a]" />
                 </div>
                 <div className="relative z-10 w-full">
-                  <h4 className="text-white text-xs uppercase tracking-[0.15em] font-bold mb-2">Atendimento</h4>
+                  <h3 className="text-white text-xs uppercase tracking-[0.15em] font-bold mb-2">Atendimento</h3>
                   <div className="flex justify-between items-center text-sm">
                     <span className="text-white/50 font-light">Seg a Sáb</span>
                     <span className="text-white/80 font-medium">09h às 19h</span>
@@ -105,7 +105,7 @@ const Localizacao = () => {
                   <Smartphone size={20} className="text-[#b8853a]" />
                 </div>
                 <div className="relative z-10">
-                  <h4 className="text-white text-xs uppercase tracking-[0.15em] font-bold mb-2">Contato</h4>
+                  <h3 className="text-white text-xs uppercase tracking-[0.15em] font-bold mb-2">Contato</h3>
                   <a href={`tel:${SITE.phoneE164}`} className="text-white/50 hover:text-[#d4aa7a] text-sm font-light leading-relaxed transition-colors">
                     {SITE.phoneDisplay} · WhatsApp
                   </a>
@@ -187,7 +187,7 @@ const Localizacao = () => {
             >
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <h4 className="text-white font-serif italic text-lg tracking-wide mb-1">Falcão Barbearia</h4>
+                  <p className="text-white font-serif italic text-lg tracking-wide mb-1">Falcão Barbearia</p>
                   <p className="text-white/40 text-xs font-light tracking-widest uppercase">Tapiramutá • BA</p>
                 </div>
 

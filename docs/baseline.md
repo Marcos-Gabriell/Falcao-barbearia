@@ -29,6 +29,44 @@ Medido em 31/10/2026.
    Precisa de fallback estático em aparelho fraco/mobile e carregar só depois do LCP.
 4. `public/cortes.zip` (52 MB) está publicado e acessível por URL.
 
-## Depois do redesign
+## Depois do redesign (branch `redesign-landing`, build de produção local)
 
-_A preencher ao final._
+Medido em 01/11/2026, mesma ferramenta e emulação. Média de 4 rodadas mobile e 3 desktop,
+com a máquina sem outros processos pesados (servidor de dev parado).
+
+| | Performance | Acessibilidade | Boas práticas | SEO | LCP | CLS | TBT | Peso da página |
+|---|---|---|---|---|---|---|---|---|
+| Mobile | **96** (90–98) | **100** | **100** | 100 | 1,0 s | 0 | 110–370 ms | **1,0 MB** |
+| Desktop | **96** (95–97) | **100** | **100** | 100 | 1,2 s | 0 | 60–120 ms | 1,0 MB |
+
+### Antes × depois (mobile)
+
+| | Site no ar (antes) | Redesign | |
+|---|---|---|---|
+| Performance | 49 | 96 | +47 |
+| Acessibilidade | 91 | 100 | +9 |
+| Boas práticas | 96 | 100 | +4 |
+| LCP | 3,8 s | 1,0 s | −74% |
+| TBT | 2.820 ms | ~200 ms | −93% |
+| Peso da página | 17,3 MB | 1,0 MB | −94% |
+
+Observação: com outros processos pesados rodando na mesma máquina (build/servidor de dev),
+o mobile oscilou entre 75 e 89, sempre por TBT. LCP e CLS ficaram estáveis em qualquer cenário.
+Vale medir de novo no PageSpeed Insights depois do deploy na Vercel.
+
+### O que mais pesou na melhora
+
+1. Vídeos com `preload="none"` + poster; loops de 8 s (~0,6 MB) no lugar dos originais (1,5–11 MB).
+2. Galeria com um só DOM (antes, duas cópias baixavam os vídeos em dobro).
+3. 3D carregado só na primeira interação e só em aparelho capaz; poste em SVG no HTML.
+4. `sizes` em todas as imagens e AVIF/WebP (antes caía em `w=3840`).
+5. Animações infinitas em JS trocadas por CSS; `content-visibility` abaixo da dobra.
+
+### Bundle
+
+| Lib | Quando carrega | gzip |
+|---|---|---|
+| three.js (poste 3D) | primeira interação, aparelho capaz | 126 KB |
+| lenis (rolagem suave) | só desktop com mouse | 4 KB |
+| @vercel/analytics | sempre (só ativa com `NEXT_PUBLIC_VERCEL_ANALYTICS=1`) | 3 KB |
+| JS inicial da home (total) | carregamento | 289 KB |

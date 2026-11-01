@@ -41,20 +41,10 @@ export default function WhatsFloating() {
             <div className="absolute inset-0 bg-gradient-to-tr from-[#b8853a]/20 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
             
             {/* Efeito Pulso Cinemático (borda sutil) */}
-            <motion.div
-              className="absolute inset-0 rounded-full border border-[#b8853a]"
-              animate={{ scale: [1, 1.4], opacity: [0.5, 0] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
-              aria-hidden
-            />
+            <span className="absolute inset-0 rounded-full border border-[#b8853a] animate-ping [animation-duration:2.2s] opacity-40" aria-hidden />
             
             {/* Glow Drop Shadow Dourado */}
-            <motion.div
-              className="absolute inset-0 rounded-full"
-              animate={{ boxShadow: ["0 0 10px rgba(184,133,58,0.2)", "0 0 25px rgba(184,133,58,0.5)", "0 0 10px rgba(184,133,58,0.2)"] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              aria-hidden
-            />
+            <span className="absolute inset-0 rounded-full shadow-[0_0_20px_rgba(184,133,58,0.35)]" aria-hidden />
 
             {/* Ícone */}
             <FaWhatsapp size={26} className="text-[#d4aa7a] relative z-10 drop-shadow-md group-hover:text-white transition-colors duration-300" />

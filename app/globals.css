@@ -169,3 +169,6 @@ body {
   .btn-shine::after { display: none; }
   .marquee-track { animation: none; }
 }
+
+/* Seções abaixo da dobra: o navegador só calcula estilo/layout quando chegam perto da tela */
+.cv-auto { content-visibility: auto; contain-intrinsic-size: auto 900px; }

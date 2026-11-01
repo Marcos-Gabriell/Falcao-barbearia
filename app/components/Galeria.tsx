@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { Play, Maximize2, X, ChevronLeft, ChevronRight, Scissors, Star, Calendar } from "lucide-react";
 import { FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { SITE } from "@/config/site";
@@ -125,7 +126,7 @@ export default function Galeria() {
             <div key={s.label} className="flex flex-col items-center gap-2 text-center">
               <span className="text-[#b8853a]" aria-hidden>{s.icon}</span>
               <dd className="font-serif text-3xl font-black text-white md:text-4xl">{s.value}</dd>
-              <dt className="text-[10px] font-semibold uppercase tracking-widest text-white/45">{s.label}</dt>
+              <dt className="text-[10px] font-semibold uppercase tracking-widest text-white/55">{s.label}</dt>
             </div>
           ))}
         </dl>
@@ -216,8 +217,8 @@ export default function Galeria() {
         </div>
       </div>
 
-      {/* Lightbox */}
-      {atual && (
+      {/* Lightbox (portal no <body>: a seção tem content-visibility, que prenderia o position:fixed) */}
+      {atual && createPortal(
         <div
           role="dialog"
           aria-modal="true"
@@ -249,7 +250,8 @@ export default function Galeria() {
           >
             <ChevronRight size={22} />
           </button>
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   );

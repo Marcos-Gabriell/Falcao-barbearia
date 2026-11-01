@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
 import Navbar from "../components/Header";
 import Footer from "../components/Footer";
 import { WHATSAPP_LINK } from "../utils/links";
@@ -62,7 +61,7 @@ export default function EquipePage() {
               
               <div className="space-y-6 text-white/60 text-base leading-relaxed font-medium mb-12">
                 <p>
-                  "A barbearia nunca foi apenas sobre cortar cabelo, mas sobre esculpir a autoestima e construir uma identidade." É com essa filosofia que <strong className="text-[#d4aa7a]">Thaylle</strong> comanda a Falcão Barbearia desde a sua fundação em 2021.
+                  “A barbearia nunca foi apenas sobre cortar cabelo, mas sobre esculpir a autoestima e construir uma identidade.” É com essa filosofia que <strong className="text-[#d4aa7a]">Thaylle</strong> comanda a Falcão Barbearia desde a sua fundação em 2021.
                 </p>
                 <p>
                   Nascido e criado com a cultura do estilo de rua misturada com a barbearia clássica, ele se tornou referência em Tapiramutá. Especialista em degradês milimétricos, finalizações impecáveis na tesoura e transformações visuais.

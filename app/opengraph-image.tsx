@@ -22,7 +22,6 @@ export default async function OgImage() {
     (
       <div style={{ display: "flex", width: "100%", height: "100%", background: "#070707", color: "#f5f1eb" }}>
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", width: "60%", padding: "64px 72px" }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={logoSrc} width={150} height={118} alt="" style={{ marginBottom: 36 }} />
           <div style={{ display: "flex", fontSize: 22, letterSpacing: 6, textTransform: "uppercase", color: "#b8853a", fontWeight: 700 }}>
             {`Barbearia em ${SITE.city} · BA`}
@@ -35,7 +34,6 @@ export default async function OgImage() {
           <div style={{ display: "flex", fontSize: 24, color: "#d4aa7a", marginTop: 8 }}>{`WhatsApp ${SITE.phoneDisplay}`}</div>
         </div>
         <div style={{ display: "flex", position: "relative", width: "40%", height: "100%" }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={fotoSrc} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
           <div
             style={{

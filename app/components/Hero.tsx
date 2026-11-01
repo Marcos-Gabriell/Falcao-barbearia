@@ -124,8 +124,8 @@ export default function Hero() {
                 <strong className="font-serif text-lg italic text-[#f5f1eb]">{RATING}</strong> no Google
               </span>
             </a>
-            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/45">{SINCE}</span>
-            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/45">+{SITE.cortesRealizados} cortes</span>
+            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/55">{SINCE}</span>
+            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/55">+{SITE.cortesRealizados} cortes</span>
             <a
               href={INSTAGRAM_URL}
               target="_blank"

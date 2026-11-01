@@ -25,8 +25,8 @@ function canRun3D() {
 /**
  * Mostra o poste em SVG na hora (vem no HTML, não pesa no LCP) e troca pelo
  * 3D só quando faz sentido:
- *  - desktop: quando o navegador fica ocioso depois do carregamento;
- *  - celular: no primeiro toque/rolagem (quem só abre e sai não baixa o 3D).
+ * na primeira interação (mouse, teclado, toque ou rolagem). Quem só abre e sai
+ * não baixa o 3D, e ele não disputa a CPU com o carregamento da página.
  */
 export default function HeroVisual({ className = "" }: { className?: string }) {
   const svgWrap = useRef<HTMLDivElement>(null);
@@ -40,23 +40,11 @@ export default function HeroVisual({ className = "" }: { className?: string }) {
     // Há uma instância por breakpoint; só a visível pode carregar o 3D
     if (!canRun3D() || svgWrap.current?.offsetParent === null) return;
 
-    const desktop = window.matchMedia("(min-width: 1024px) and (pointer: fine)").matches;
     let cancelled = false;
     const start = () => !cancelled && setMount3D(true);
 
-    if (desktop) {
-      const idle = (cb: () => void) =>
-        typeof window.requestIdleCallback === "function" ? window.requestIdleCallback(cb, { timeout: 3000 }) : setTimeout(cb, 1500);
-      const onLoad = () => idle(start);
-      if (document.readyState === "complete") onLoad();
-      else window.addEventListener("load", onLoad, { once: true });
-      return () => {
-        cancelled = true;
-        window.removeEventListener("load", onLoad);
-      };
-    }
-
-    const events = ["scroll", "touchstart", "pointerdown"] as const;
+    // Desktop: primeiro movimento do mouse/teclado. Celular: primeiro toque/rolagem.
+    const events = ["pointermove", "scroll", "touchstart", "pointerdown", "keydown"] as const;
     const onFirst = () => {
       events.forEach((e) => window.removeEventListener(e, onFirst));
       start();

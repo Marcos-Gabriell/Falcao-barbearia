@@ -41,7 +41,9 @@ function createStripeTexture() {
 export default function BarberPole3D({ className = "", onReady }: { className?: string; onReady?: () => void }) {
   const mountRef = useRef<HTMLDivElement>(null);
   const onReadyRef = useRef(onReady);
-  onReadyRef.current = onReady;
+  useEffect(() => {
+    onReadyRef.current = onReady;
+  }, [onReady]);
 
   useEffect(() => {
     const mount = mountRef.current;

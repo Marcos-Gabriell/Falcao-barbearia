@@ -14,6 +14,7 @@ const inter = Inter({ subsets: ["latin"], weight: ["300", "400", "500", "600", "
 const playfair = Playfair_Display({ subsets: ["latin"], weight: ["700", "900"], style: ["normal", "italic"], variable: "--font-playfair", display: "swap" });
 
 // GA4: defina NEXT_PUBLIC_GA_ID na Vercel (ex.: G-XXXXXXX). Sem ele, nada carrega.
+// Vercel Analytics: ative no painel da Vercel e defina NEXT_PUBLIC_VERCEL_ANALYTICS=1.
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 const DESCRIPTION =
@@ -168,7 +169,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {children}
         <TrackClicks />
         <SmoothScroll />
-        <Analytics />
+        {process.env.NEXT_PUBLIC_VERCEL_ANALYTICS === "1" && <Analytics />}
         {GA_ID && (
           <>
             <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="lazyOnload" />

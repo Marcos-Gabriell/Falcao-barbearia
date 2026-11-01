@@ -36,15 +36,15 @@ export default function Home() {
       <main className="w-full">
         <Hero />
         <Avaliacoes />
-        <Valores />
-        <Galeria />
-        <ComoFunciona />
-        <Sobre />
-        <Localizacao />
-        <Faq />
+        <div className="cv-auto"><Valores /></div>
+        <div className="cv-auto"><Galeria /></div>
+        <div className="cv-auto"><ComoFunciona /></div>
+        <div className="cv-auto"><Sobre /></div>
+        <div className="cv-auto"><Localizacao /></div>
+        <div className="cv-auto"><Faq /></div>
       </main>
 
-      <Footer />
+      <div className="cv-auto"><Footer /></div>
       <WhatsFloating />
       <BarraMobile />
     </>

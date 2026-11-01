@@ -133,7 +133,7 @@ export function Experiencia() {
                 <p className="text-white/40 text-xs leading-relaxed font-medium">{item.desc}</p>
               </div>
               <div className="absolute bottom-3 right-4 opacity-[0.02] group-hover:opacity-10 transition-opacity duration-300">
-                <span className="text-[36px] font-black tracking-tighter text-[#b8853a]">//0{i + 1}</span>
+                <span className="text-[36px] font-black tracking-tighter text-[#b8853a]">{`//0${i + 1}`}</span>
               </div>
             </Tilt3D>
           ))}

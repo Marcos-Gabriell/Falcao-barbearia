@@ -150,9 +150,9 @@ const Footer = () => {
 
           {/* Navegação */}
           <motion.div variants={fadeUp}>
-            <h4 className="text-white/60 text-[10px] font-bold tracking-[0.25em] uppercase mb-5">
+            <h2 className="text-white/60 text-[10px] font-bold tracking-[0.25em] uppercase mb-5">
               Navegação
-            </h4>
+            </h2>
             <ul className="flex flex-col gap-3">
               {linksPrincipais.map((item) => (
                 <li key={item.url}>
@@ -170,9 +170,9 @@ const Footer = () => {
 
           {/* Serviços */}
           <motion.div variants={fadeUp}>
-            <h4 className="text-white/60 text-[10px] font-bold tracking-[0.25em] uppercase mb-5">
+            <h2 className="text-white/60 text-[10px] font-bold tracking-[0.25em] uppercase mb-5">
               Serviços
-            </h4>
+            </h2>
             <ul className="flex flex-col gap-3">
               {linksServicos.map((item) => (
                 <li key={item.url}>
@@ -190,9 +190,9 @@ const Footer = () => {
 
           {/* Contato */}
           <motion.div variants={fadeUp}>
-            <h4 className="text-white/60 text-[10px] font-bold tracking-[0.25em] uppercase mb-5">
+            <h2 className="text-white/60 text-[10px] font-bold tracking-[0.25em] uppercase mb-5">
               Encontre-nos
-            </h4>
+            </h2>
             <div className="flex flex-col gap-4">
               <div className="flex items-start gap-3">
                 <MapPin size={15} className="text-[#b8853a] mt-0.5 shrink-0" />

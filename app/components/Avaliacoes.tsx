@@ -59,7 +59,7 @@ function Card({ r }: { r: (typeof REVIEWS)[number] }) {
           </span>
           <span>
             <span className="block text-sm font-bold text-[#f5f1eb]">{r.nome}</span>
-            <span className="block text-[11px] text-white/45">{r.servico} · {r.tempo}</span>
+            <span className="block text-[11px] text-white/55">{r.servico} · {r.tempo}</span>
           </span>
         </span>
         <GoogleIcon size={18} />
@@ -102,7 +102,7 @@ export default function Avaliacoes() {
                 <span className="font-serif text-4xl font-black leading-none text-[#f5f1eb]">{RATING}</span>
                 <Estrelas size={15} />
               </span>
-              <span className="mt-1 block text-[10px] font-bold uppercase tracking-[0.18em] text-white/45">Ver no Google Maps</span>
+              <span className="mt-1 block text-[10px] font-bold uppercase tracking-[0.18em] text-white/55">Ver no Google Maps</span>
             </span>
           </a>
           <a

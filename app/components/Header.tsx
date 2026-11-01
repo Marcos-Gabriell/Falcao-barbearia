@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion, AnimatePresence, useAnimation } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { WHATSAPP_LINK } from "../utils/links";
@@ -20,26 +20,12 @@ const navLinks = [
 ];
 
 function CTAButton() {
-  const shimmer = useAnimation();
-
-  useEffect(() => {
-    let active = true;
-    const loop = async () => {
-      while (active) {
-        await shimmer.start({ x: ["-110%", "220%"], transition: { duration: 0.85, ease: "easeInOut" } });
-        await new Promise((r) => setTimeout(r, 2600));
-      }
-    };
-    loop();
-    return () => { active = false; };
-  }, [shimmer]);
-
   return (
     <motion.a
       href={WHATSAPP_LINK}
       target="_blank"
       rel="noopener noreferrer"
-      className="hidden lg:inline-flex items-center justify-center gap-2.5 rounded-full px-7 py-3 text-[11px] font-black uppercase tracking-[0.2em] flex-shrink-0 relative overflow-hidden"
+      className="btn-shine hidden lg:inline-flex items-center justify-center gap-2.5 rounded-full px-7 py-3 text-[11px] font-black uppercase tracking-[0.2em] flex-shrink-0 relative overflow-hidden"
       style={{
         background: `linear-gradient(135deg, ${GOLD} 0%, ${GOLD_LIGHT} 50%, #8f6425 100%)`,
         color: "#070707",
@@ -49,12 +35,6 @@ function CTAButton() {
       whileTap={{ scale: 0.97 }}
       transition={{ type: "spring", stiffness: 400, damping: 22 }}
     >
-      <motion.div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: "linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.40) 50%, transparent 65%)" }}
-        animate={shimmer}
-        aria-hidden
-      />
       <FaWhatsapp size={15} className="relative z-10" />
       <span className="relative z-10">Chamar no Whats</span>
     </motion.a>
@@ -92,13 +72,14 @@ export default function Header() {
 
     // Aplica o hash da URL imediatamente (evita delay na navegação por âncora)
     const hash = window.location.hash.slice(1);
-    if (hash && ids.includes(hash)) setActiveSection(`#${hash}`);
+    const h = hash && ids.includes(hash) ? requestAnimationFrame(() => setActiveSection(`#${hash}`)) : 0;
 
     // Delay pequeno para garantir que o browser terminou de rolar até o hash
     const t = setTimeout(update, 120);
     window.addEventListener("scroll", update, { passive: true });
     return () => {
       clearTimeout(t);
+      cancelAnimationFrame(h);
       window.removeEventListener("scroll", update);
     };
   }, []);

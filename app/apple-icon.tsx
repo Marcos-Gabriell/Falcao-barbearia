@@ -11,7 +11,6 @@ export default async function AppleIcon() {
   return new ImageResponse(
     (
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%", height: "100%", background: "#070707" }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={`data:image/png;base64,${logo.toString("base64")}`} width={140} height={110} alt="" />
       </div>
     ),
