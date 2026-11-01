@@ -9,6 +9,7 @@ import Avaliacoes    from "./components/Avaliacoes";
 import Localizacao   from "./components/Localizacao";
 import Footer        from "./components/Footer";
 import WhatsFloating from "./components/WhatsFloating";
+import BarraMobile   from "./components/BarraMobile";
 import ComoFunciona  from "./components/ComoFunciona";
 import Faq           from "./components/faq";
 import { faqs }      from "./utils/faqs";
@@ -34,17 +35,18 @@ export default function Home() {
       <Header />
       <main className="w-full">
         <Hero />
-        <ComoFunciona />
-        <Sobre />
+        <Avaliacoes />
         <Valores />
         <Galeria />
-        <Avaliacoes />
+        <ComoFunciona />
+        <Sobre />
         <Localizacao />
         <Faq />
       </main>
 
       <Footer />
       <WhatsFloating />
+      <BarraMobile />
     </>
   );
 }

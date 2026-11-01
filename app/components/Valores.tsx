@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import {
   Zap,
@@ -259,6 +260,28 @@ export default function Valores() {
             </Tilt3D>
           ))}
         </motion.div>
+
+        {/* Links internos para as páginas de cada serviço */}
+        <nav aria-label="Páginas de serviços" className="mt-12 flex flex-wrap items-center justify-center gap-3">
+          <span className="w-full text-center text-[10px] font-bold uppercase tracking-[0.25em] text-white/40 sm:w-auto">Saiba mais:</span>
+          {[
+            ["Corte degradê", "/servicos/corte-degrade"],
+            ["Barba na navalha", "/servicos/barba"],
+            ["Corte na tesoura", "/servicos/corte-tesoura"],
+            ["Corte social", "/servicos/corte-social"],
+            ["Corte infantil", "/servicos/corte-infantil"],
+            ["Desondulação", "/servicos/desondulacao"],
+            ["Tabela completa", "/servicos"],
+          ].map(([label, href]) => (
+            <Link
+              key={href}
+              href={href}
+              className="inline-flex min-h-[44px] items-center rounded-full border border-white/10 px-4 text-xs font-semibold text-white/65 transition-colors hover:border-[#b8853a]/40 hover:text-[#d4aa7a]"
+            >
+              {label}
+            </Link>
+          ))}
+        </nav>
       </div>
     </section>
   );

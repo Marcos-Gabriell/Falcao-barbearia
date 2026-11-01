@@ -19,7 +19,7 @@ export default function WhatsFloating() {
     <AnimatePresence>
       {visible && (
         <motion.div
-          className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 flex items-center justify-end"
+          className="fixed bottom-8 right-8 z-50 hidden items-center justify-end lg:flex"
           initial={{ opacity: 0, y: 40, scale: 0.8 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 40, scale: 0.8 }}
@@ -28,6 +28,8 @@ export default function WhatsFloating() {
           {/* O Grupo permite expandir no desktop (opcional) ou manter o luxo do botão */}
           <motion.a
             href={WHATSAPP_LINK}
+            data-track="whatsapp"
+            data-track-label="flutuante"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Chamar a Falcão Barbearia no WhatsApp"

@@ -36,8 +36,8 @@ export const SITE = {
   googleDirections:
     "https://www.google.com/maps/dir/?api=1&destination=Barbearia+Falc%C3%A3o%2C+R.+Olavo+Bilac%2C+Centro%2C+Tapiramut%C3%A1+-+BA",
   googleCid: "https://www.google.com/maps?cid=7732497619216377836",
-  // Troque pelo link curto de "Pedir avaliações" do Perfil da Empresa no Google
-  googleReview: "https://www.google.com/maps?cid=7732497619216377836",
+  // Link curto de "Pedir avaliações" do Perfil da Empresa no Google
+  googleReview: "https://g.page/r/Cewn8rudWU9rEBM/review",
   mapsEmbed:
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1952.4065023948574!2d-40.7910955!3d-11.848117799999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x76ba32c243da499%3A0x6b4f599dbbf227ec!2sBarbearia%20Falc%C3%A3o!5e0!3m2!1spt-BR!2sbr!4v1717978253100!5m2!1spt-BR!2sbr",
 
