@@ -1,19 +1,13 @@
 import type { Metadata } from "next";
+import Breadcrumb from "../components/Breadcrumb";
 import EquipePageClient from "./PageClient";
 
 const siteUrl = "https://www.falcaobarbearia.com.br";
 
 export const metadata: Metadata = {
-  title: "Thaylle — Master Barber | Falcão Barbearia em Tapiramutá - BA",
+  title: { absolute: "Thaylle — Master Barber | Falcão Barbearia em Tapiramutá - BA" },
   description:
     "Conheça Thaylle, o fundador e master barber da Falcão Barbearia. Especialista em degradê milimétrico, barba e finalizações na tesoura. Referência em estética masculina em Tapiramutá-BA desde 2021.",
-  keywords: [
-    "Thaylle barbeiro Tapiramutá",
-    "master barber Tapiramutá",
-    "barbeiro Falcão",
-    "equipe Falcão Barbearia",
-    "fundador barbearia Tapiramutá",
-  ],
   alternates: {
     canonical: `${siteUrl}/equipe`,
     languages: { "pt-BR": `${siteUrl}/equipe` },
@@ -45,5 +39,10 @@ export const metadata: Metadata = {
 };
 
 export default function EquipePage() {
-  return <EquipePageClient />;
+  return (
+    <>
+      <Breadcrumb items={[{ name: "Equipe", path: "/equipe" }]} />
+      <EquipePageClient />
+    </>
+  );
 }

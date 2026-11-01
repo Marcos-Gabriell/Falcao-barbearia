@@ -1,19 +1,13 @@
 import type { Metadata } from "next";
+import Breadcrumb from "../../components/Breadcrumb";
 import CorteSocialPageClient from "./PageClient";
 
 const siteUrl = "https://www.falcaobarbearia.com.br";
 
 export const metadata: Metadata = {
-  title: "Corte Social Masculino em Tapiramutá - BA | Falcão Barbearia",
+  title: { absolute: "Corte Social Masculino em Tapiramutá - BA | Falcão Barbearia" },
   description:
     "Corte social masculino clássico e moderno em Tapiramutá-BA. Ideal para ambientes profissionais sem abrir mão do estilo. Acabamento impecável na Falcão Barbearia.",
-  keywords: [
-    "corte social masculino Tapiramutá",
-    "corte social Bahia",
-    "corte executivo masculino Tapiramutá",
-    "Falcão Barbearia corte social",
-    "corte clássico Tapiramutá",
-  ],
   alternates: {
     canonical: `${siteUrl}/servicos/corte-social`,
     languages: { "pt-BR": `${siteUrl}/servicos/corte-social` },
@@ -44,5 +38,10 @@ export const metadata: Metadata = {
 };
 
 export default function CorteSocialPage() {
-  return <CorteSocialPageClient />;
+  return (
+    <>
+      <Breadcrumb items={[{ name: "Serviços", path: "/servicos" }, { name: "Corte Social", path: "/servicos/corte-social" }]} />
+      <CorteSocialPageClient />
+    </>
+  );
 }

@@ -1,19 +1,13 @@
 import type { Metadata } from "next";
+import Breadcrumb from "../../components/Breadcrumb";
 import DesondulacaoPageClient from "./PageClient";
 
 const siteUrl = "https://www.falcaobarbearia.com.br";
 
 export const metadata: Metadata = {
-  title: "Desondulação Capilar em Tapiramutá - BA | Falcão Barbearia",
+  title: { absolute: "Desondulação Capilar em Tapiramutá - BA | Falcão Barbearia" },
   description:
     "Desondulação profissional em Tapiramutá-BA. Elimine o volume excessivo e os fios rebeldes mantendo a naturalidade. Tratamento químico realizado com segurança e técnica na Falcão Barbearia.",
-  keywords: [
-    "desondulação Tapiramutá",
-    "desondulação capilar Bahia",
-    "relaxamento capilar masculino Tapiramutá",
-    "química cabelo masculino Tapiramutá",
-    "Falcão Barbearia desondulação",
-  ],
   alternates: {
     canonical: `${siteUrl}/servicos/desondulacao`,
     languages: { "pt-BR": `${siteUrl}/servicos/desondulacao` },
@@ -44,5 +38,10 @@ export const metadata: Metadata = {
 };
 
 export default function DesondulacaoPage() {
-  return <DesondulacaoPageClient />;
+  return (
+    <>
+      <Breadcrumb items={[{ name: "Serviços", path: "/servicos" }, { name: "Desondulação", path: "/servicos/desondulacao" }]} />
+      <DesondulacaoPageClient />
+    </>
+  );
 }

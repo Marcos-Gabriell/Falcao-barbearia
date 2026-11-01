@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import Breadcrumb from "../components/Breadcrumb";
 import PoliticaPageClient from "./PageClient";
 
 const siteUrl = "https://www.falcaobarbearia.com.br";
 
 export const metadata: Metadata = {
-  title: "Política de Privacidade | Falcão Barbearia",
+  title: { absolute: "Política de Privacidade | Falcão Barbearia" },
   description:
     "Política de Privacidade da Falcão Barbearia em conformidade com a LGPD. Saiba como coletamos, utilizamos e protegemos seus dados pessoais.",
   alternates: {
@@ -39,5 +40,10 @@ export const metadata: Metadata = {
 };
 
 export default function PoliticaPrivacidadePage() {
-  return <PoliticaPageClient />;
+  return (
+    <>
+      <Breadcrumb items={[{ name: "Política de Privacidade", path: "/politica-de-privacidade" }]} />
+      <PoliticaPageClient />
+    </>
+  );
 }

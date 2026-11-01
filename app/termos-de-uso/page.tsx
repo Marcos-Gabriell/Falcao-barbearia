@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import Breadcrumb from "../components/Breadcrumb";
 import TermosPageClient from "./PageClient";
 
 const siteUrl = "https://www.falcaobarbearia.com.br";
 
 export const metadata: Metadata = {
-  title: "Termos de Uso | Falcão Barbearia",
+  title: { absolute: "Termos de Uso | Falcão Barbearia" },
   description:
     "Termos de Uso do site da Falcão Barbearia, barbearia em Tapiramutá-BA.",
   alternates: {
@@ -33,5 +34,10 @@ export const metadata: Metadata = {
 };
 
 export default function TermosDeUsoPage() {
-  return <TermosPageClient />;
+  return (
+    <>
+      <Breadcrumb items={[{ name: "Termos de Uso", path: "/termos-de-uso" }]} />
+      <TermosPageClient />
+    </>
+  );
 }

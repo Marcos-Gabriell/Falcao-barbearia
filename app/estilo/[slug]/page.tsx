@@ -31,7 +31,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: post.titulo,
     description: post.resumo,
-    keywords: [...post.palavrasChave, "Falcão Barbearia", "barbearia Tapiramutá"],
     alternates: { canonical: url },
     openGraph: {
       type: "article",

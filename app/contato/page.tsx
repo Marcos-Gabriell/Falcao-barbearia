@@ -1,19 +1,13 @@
 import type { Metadata } from "next";
+import Breadcrumb from "../components/Breadcrumb";
 import ContatoPageClient from "./PageClient";
 
 const siteUrl = "https://www.falcaobarbearia.com.br";
 
 export const metadata: Metadata = {
-  title: "Localização e Contato | Falcão Barbearia — Tapiramutá - BA",
+  title: { absolute: "Localização e Contato | Falcão Barbearia — Tapiramutá - BA" },
   description:
     "Encontre a Falcão Barbearia em Tapiramutá-BA. R. Olavo Bilac, Centro. Atendimento de segunda a sábado, das 9h às 19h, por ordem de chegada. WhatsApp (74) 98873-2790.",
-  keywords: [
-    "contato Falcão Barbearia",
-    "endereço barbearia Tapiramutá",
-    "localização Falcão Barbearia",
-    "barbearia R. Olavo Bilac Tapiramutá",
-    "horário de funcionamento barbearia Tapiramutá",
-  ],
   alternates: {
     canonical: `${siteUrl}/contato`,
     languages: { "pt-BR": `${siteUrl}/contato` },
@@ -45,5 +39,10 @@ export const metadata: Metadata = {
 };
 
 export default function ContatoPage() {
-  return <ContatoPageClient />;
+  return (
+    <>
+      <Breadcrumb items={[{ name: "Contato", path: "/contato" }]} />
+      <ContatoPageClient />
+    </>
+  );
 }

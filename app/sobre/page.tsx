@@ -1,19 +1,13 @@
 import type { Metadata } from "next";
+import Breadcrumb from "../components/Breadcrumb";
 import SobrePageClient from "./PageClient";
 
 const siteUrl = "https://www.falcaobarbearia.com.br";
 
 export const metadata: Metadata = {
-  title: "Sobre a Falcão Barbearia | História e Missão em Tapiramutá - BA",
+  title: { absolute: "Sobre a Falcão Barbearia | História e Missão em Tapiramutá - BA" },
   description:
     "Conheça a história da Falcão Barbearia. Fundada em 2021 em Tapiramutá-BA, somos referência em corte masculino, degradê e barba alinhada. Estilo, técnica e respeito na cadeira.",
-  keywords: [
-    "história Falcão Barbearia",
-    "sobre a barbearia Tapiramutá",
-    "barbearia desde 2021",
-    "barbearia premium Bahia",
-    "missão Falcão Barbearia",
-  ],
   alternates: {
     canonical: `${siteUrl}/sobre`,
     languages: { "pt-BR": `${siteUrl}/sobre` },
@@ -45,5 +39,10 @@ export const metadata: Metadata = {
 };
 
 export default function SobrePage() {
-  return <SobrePageClient />;
+  return (
+    <>
+      <Breadcrumb items={[{ name: "Sobre", path: "/sobre" }]} />
+      <SobrePageClient />
+    </>
+  );
 }

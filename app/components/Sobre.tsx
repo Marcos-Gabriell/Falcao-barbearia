@@ -51,7 +51,7 @@ export default function Sobre() {
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />
         <div className="absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.015] w-full text-center">
-          <h2 className="text-[18vw] font-serif font-black leading-none tracking-tighter">PRESENÇA</h2>
+          <span className="block text-[18vw] font-serif font-black leading-none tracking-tighter" aria-hidden>PRESENÇA</span>
         </div>
       </div>
 

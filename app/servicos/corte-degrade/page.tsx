@@ -1,20 +1,13 @@
 import type { Metadata } from "next";
+import Breadcrumb from "../../components/Breadcrumb";
 import CorteDegradePageClient from "./PageClient";
 
 const siteUrl = "https://www.falcaobarbearia.com.br";
 
 export const metadata: Metadata = {
-  title: "Corte Degradê em Tapiramutá - BA | Falcão Barbearia",
+  title: { absolute: "Corte Degradê em Tapiramutá - BA | Falcão Barbearia" },
   description:
     "Degradê profissional em Tapiramutá-BA. Mid fade, low fade, high fade e skin fade feitos com precisão milimétrica na Falcão Barbearia. Sem agendamento: chama no WhatsApp.",
-  keywords: [
-    "corte degradê Tapiramutá",
-    "mid fade Tapiramutá",
-    "low fade Tapiramutá",
-    "high fade Bahia",
-    "degradê profissional Tapiramutá",
-    "Falcão Barbearia degradê",
-  ],
   alternates: {
     canonical: `${siteUrl}/servicos/corte-degrade`,
     languages: { "pt-BR": `${siteUrl}/servicos/corte-degrade` },
@@ -45,5 +38,10 @@ export const metadata: Metadata = {
 };
 
 export default function CorteDegradePage() {
-  return <CorteDegradePageClient />;
+  return (
+    <>
+      <Breadcrumb items={[{ name: "Serviços", path: "/servicos" }, { name: "Corte Degradê", path: "/servicos/corte-degrade" }]} />
+      <CorteDegradePageClient />
+    </>
+  );
 }

@@ -1,19 +1,13 @@
 import type { Metadata } from "next";
+import Breadcrumb from "../../components/Breadcrumb";
 import CorteInfantilPageClient from "./PageClient";
 
 const siteUrl = "https://www.falcaobarbearia.com.br";
 
 export const metadata: Metadata = {
-  title: "Corte Infantil em Tapiramutá - BA | Falcão Barbearia",
+  title: { absolute: "Corte Infantil em Tapiramutá - BA | Falcão Barbearia" },
   description:
     "Corte infantil especializado em Tapiramutá-BA. Atendimento com paciência e técnica para os pequenos. Estilo desde cedo na Falcão Barbearia. Sem agendamento: chama no WhatsApp.",
-  keywords: [
-    "corte infantil Tapiramutá",
-    "barbearia infantil Tapiramutá",
-    "corte de cabelo criança Tapiramutá",
-    "cabelo infantil masculino Bahia",
-    "Falcão Barbearia corte kids",
-  ],
   alternates: {
     canonical: `${siteUrl}/servicos/corte-infantil`,
     languages: { "pt-BR": `${siteUrl}/servicos/corte-infantil` },
@@ -44,5 +38,10 @@ export const metadata: Metadata = {
 };
 
 export default function CorteInfantilPage() {
-  return <CorteInfantilPageClient />;
+  return (
+    <>
+      <Breadcrumb items={[{ name: "Serviços", path: "/servicos" }, { name: "Corte Infantil", path: "/servicos/corte-infantil" }]} />
+      <CorteInfantilPageClient />
+    </>
+  );
 }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Breadcrumb from "../components/Breadcrumb";
 import EstiloPageClient from "./PageClient";
 
 const siteUrl = "https://www.falcaobarbearia.com.br";
@@ -7,14 +8,6 @@ export const metadata: Metadata = {
   title: "Blog: dicas de corte, barba e estilo masculino",
   description:
     "Dicas de corte, tendências masculinas, cuidados com a barba e muito mais. O blog da Falcão Barbearia em Tapiramutá-BA: preços, tendências e cuidados com cabelo e barba.",
-  keywords: [
-    "blog barbearia Tapiramutá",
-    "dicas corte masculino",
-    "tendências degradê 2026",
-    "cuidados com a barba",
-    "estilo masculino Bahia",
-    "revista barbearia Falcão",
-  ],
   alternates: {
     canonical: `${siteUrl}/estilo`,
     languages: { "pt-BR": `${siteUrl}/estilo` },
@@ -45,5 +38,10 @@ export const metadata: Metadata = {
 };
 
 export default function EstiloPage() {
-  return <EstiloPageClient />;
+  return (
+    <>
+      <Breadcrumb items={[{ name: "Blog", path: "/estilo" }]} />
+      <EstiloPageClient />
+    </>
+  );
 }

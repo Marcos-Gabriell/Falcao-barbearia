@@ -1,19 +1,13 @@
 import type { Metadata } from "next";
+import Breadcrumb from "../../components/Breadcrumb";
 import CorteTesouraPageClient from "./PageClient";
 
 const siteUrl = "https://www.falcaobarbearia.com.br";
 
 export const metadata: Metadata = {
-  title: "Corte na Tesoura em Tapiramutá - BA | Falcão Barbearia",
+  title: { absolute: "Corte na Tesoura em Tapiramutá - BA | Falcão Barbearia" },
   description:
     "Corte masculino 100% na tesoura em Tapiramutá-BA. Ideal para cabelos mais longos, ondulados ou quem busca um caimento natural e exclusivo. Design personalizado na Falcão Barbearia.",
-  keywords: [
-    "corte na tesoura Tapiramutá",
-    "corte tesoura masculino Bahia",
-    "corte cabelo longo masculino Tapiramutá",
-    "Falcão Barbearia tesoura",
-    "corte clássico masculino Tapiramutá",
-  ],
   alternates: {
     canonical: `${siteUrl}/servicos/corte-tesoura`,
     languages: { "pt-BR": `${siteUrl}/servicos/corte-tesoura` },
@@ -44,5 +38,10 @@ export const metadata: Metadata = {
 };
 
 export default function CorteTesouraPage() {
-  return <CorteTesouraPageClient />;
+  return (
+    <>
+      <Breadcrumb items={[{ name: "Serviços", path: "/servicos" }, { name: "Corte na Tesoura", path: "/servicos/corte-tesoura" }]} />
+      <CorteTesouraPageClient />
+    </>
+  );
 }

@@ -1,20 +1,13 @@
 import type { Metadata } from "next";
+import Breadcrumb from "../components/Breadcrumb";
 import ServicosPageClient from "./PageClient";
 
 const siteUrl = "https://www.falcaobarbearia.com.br";
 
 export const metadata: Metadata = {
-  title: "Serviços e Preços | Falcão Barbearia — Tapiramutá - BA",
+  title: { absolute: "Serviços e Preços | Falcão Barbearia — Tapiramutá - BA" },
   description:
     "Conheça todos os serviços da Falcão Barbearia: corte tradicional, degradê, corte na tesoura, barba premium, pigmentação, desondulação e mais. Preços transparentes e atendimento por ordem de chegada.",
-  keywords: [
-    "serviços barbearia Tapiramutá",
-    "preços barbearia Tapiramutá",
-    "corte degradê Tapiramutá",
-    "barba premium Tapiramutá",
-    "tabela de preços barbearia",
-    "Falcão Barbearia serviços",
-  ],
   alternates: {
     canonical: `${siteUrl}/servicos`,
     languages: { "pt-BR": `${siteUrl}/servicos` },
@@ -46,5 +39,10 @@ export const metadata: Metadata = {
 };
 
 export default function ServicosPage() {
-  return <ServicosPageClient />;
+  return (
+    <>
+      <Breadcrumb items={[{ name: "Serviços", path: "/servicos" }]} />
+      <ServicosPageClient />
+    </>
+  );
 }

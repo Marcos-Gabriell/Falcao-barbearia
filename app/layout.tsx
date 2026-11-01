@@ -15,7 +15,6 @@ const playfair = Playfair_Display({ subsets: ["latin"], weight: ["700", "900"], 
 // GA4: defina NEXT_PUBLIC_GA_ID na Vercel (ex.: G-XXXXXXX). Sem ele, nada carrega.
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
-const OG_IMAGE = `${SITE.url}/og-home.png`;
 const DESCRIPTION =
   "Barbearia em Tapiramutá - BA, no Centro (R. Olavo Bilac). Corte degradê, corte na tesoura, barba na navalha e desondulação. Sem agendamento: atendimento por ordem de chegada. Chame no WhatsApp.";
 
@@ -23,24 +22,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
 
   title: {
-    default: "Falcão Barbearia | Barbearia em Tapiramutá - BA",
+    default: "Barbearia em Tapiramutá - BA | Falcão Barbearia",
     template: "%s | Falcão Barbearia",
   },
   description: DESCRIPTION,
 
-  keywords: [
-    "Falcão Barbearia",
-    "barbearia Tapiramutá",
-    "barbearia em Tapiramutá BA",
-    "barbeiro Tapiramutá",
-    "corte de cabelo Tapiramutá",
-    "corte masculino Tapiramutá",
-    "corte degradê Tapiramutá",
-    "barba Tapiramutá",
-    "desondulação Tapiramutá",
-    "barbearia perto de mim",
-    "barbearia Chapada Diamantina",
-  ],
 
   authors: [{ name: SITE.name, url: SITE.url }],
   creator: SITE.name,
@@ -66,22 +52,19 @@ export const metadata: Metadata = {
     locale: "pt_BR",
     url: SITE.url,
     siteName: SITE.name,
-    title: "Falcão Barbearia | Barbearia em Tapiramutá - BA",
+    title: "Barbearia em Tapiramutá - BA | Falcão Barbearia",
     description: "Degradê, tesoura e barba na navalha no Centro de Tapiramutá. Sem agendamento — chega ou chama no Whats.",
-    images: [{ url: OG_IMAGE, width: 1731, height: 909, alt: "Falcão Barbearia – Tapiramutá, BA" }],
   },
 
   twitter: {
     card: "summary_large_image",
     title: "Falcão Barbearia | Tapiramutá - BA",
     description: "Degradê, tesoura e barba na navalha. Sem agendamento, por ordem de chegada.",
-    images: [OG_IMAGE],
   },
 
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
   },
 
   other: {
@@ -112,12 +95,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "Barbershop",
+        "@type": "HairSalon",
         "@id": `${SITE.url}/#barbershop`,
         name: SITE.name,
         alternateName: "Barbearia Falcão",
         url: SITE.url,
-        image: [OG_IMAGE, `${SITE.url}/thaylle2.jpeg`, `${SITE.url}/cortes/corte21.png`],
+        image: [`${SITE.url}/thaylle2.jpeg`, `${SITE.url}/cortes/corte21.png`, `${SITE.url}/logo2.png`],
         logo: `${SITE.url}/logo2.png`,
         description: DESCRIPTION,
         telephone: SITE.phoneE164,
