@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Home, Calendar, ArrowLeft } from "lucide-react";
+import { Home, ArrowLeft } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
+import { WHATSAPP_LINK } from "../utils/links";
 
 export default function NotFoundContent() {
   return (
@@ -65,7 +67,7 @@ export default function NotFoundContent() {
           transition={{ duration: 0.7, delay: 0.32 }}
         >
           O endereço que você tentou acessar não existe ou foi movido.
-          Mas ainda dá pra agendar seu corte por aqui.
+          Mas a cadeira continua te esperando — chama no Whats.
         </motion.p>
 
         {/* Botões */}
@@ -83,13 +85,15 @@ export default function NotFoundContent() {
             Voltar ao Início
           </Link>
 
-          <Link
-            href="/agendar"
+          <a
+            href={WHATSAPP_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
             className="group flex items-center justify-center gap-2.5 px-7 py-3.5 border border-white/10 text-white/50 text-[11px] font-black tracking-widest uppercase rounded-xl hover:border-[#b8853a]/40 hover:text-[#d4aa7a] active:scale-[0.97] transition-all duration-200"
           >
-            <Calendar size={14} className="shrink-0" />
-            Agendar Horário
-          </Link>
+            <FaWhatsapp size={14} className="shrink-0" />
+            Chamar no WhatsApp
+          </a>
         </motion.div>
 
         {/* Voltar link */}

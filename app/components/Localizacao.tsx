@@ -1,7 +1,10 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { MapPin, Clock, Smartphone, Calendar, Navigation, Star } from "lucide-react";
+import { MapPin, Clock, Smartphone, Navigation } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
+import { SITE } from "../utils/site";
+import { WHATSAPP_LINK, DIRECTIONS_LINK } from "../utils/links";
 
 // Variáveis de animação
 const fadeUp: Variants = {
@@ -49,11 +52,11 @@ const Localizacao = () => {
                 </span>
               </div>
               <h2 className="text-5xl md:text-6xl font-serif text-[#f5f1eb] leading-[1.1] tracking-tight mb-6">
-                Venha para a <br />
-                <span className="italic text-[#b8853a] font-normal">Falcão.</span>
+                Barbearia no Centro <br />
+                <span className="italic text-[#b8853a] font-normal">de Tapiramutá.</span>
               </h2>
               <p className="text-white/50 text-sm md:text-base font-light leading-relaxed max-w-md">
-                Um espaço criado para quem valoriza presença, detalhe e experiência. Seu próximo visual começa aqui.
+                Fácil de achar, fácil de estacionar. Atendimento por ordem de chegada — é só vir.
               </p>
             </motion.div>
 
@@ -87,6 +90,11 @@ const Localizacao = () => {
                     <span className="text-white/50 font-light">Seg a Sáb</span>
                     <span className="text-white/80 font-medium">09h às 19h</span>
                   </div>
+                  <div className="flex justify-between items-center text-sm mt-1">
+                    <span className="text-white/50 font-light">Domingo</span>
+                    <span className="text-[#b8853a] font-medium">Fechado</span>
+                  </div>
+                  <p className="text-white/35 text-xs mt-3">Sem agendamento · por ordem de chegada</p>
                 </div>
               </motion.div>
 
@@ -98,9 +106,9 @@ const Localizacao = () => {
                 </div>
                 <div className="relative z-10">
                   <h4 className="text-white text-xs uppercase tracking-[0.15em] font-bold mb-2">Contato</h4>
-                  <p className="text-white/50 text-sm font-light leading-relaxed">
-                    WhatsApp + Instagram
-                  </p>
+                  <a href={`tel:${SITE.phoneE164}`} className="text-white/50 hover:text-[#d4aa7a] text-sm font-light leading-relaxed transition-colors">
+                    {SITE.phoneDisplay} · WhatsApp
+                  </a>
                 </div>
               </motion.div>
 
@@ -114,18 +122,18 @@ const Localizacao = () => {
               
               <div className="flex flex-col sm:flex-row gap-4">
                 <a
-                  href="https://wa.me/5574988732790"
+                  href={WHATSAPP_LINK}
                   target="_blank"
                   rel="noreferrer"
                   className="group relative overflow-hidden flex-1 flex items-center justify-center gap-3 bg-[#b8853a] text-[#050505] font-bold py-4 px-6 rounded-lg tracking-[0.15em] text-[11px] uppercase hover:scale-[1.02] transition-all duration-500 shadow-[0_0_20px_rgba(184,133,58,0.15)] hover:shadow-[0_0_30px_rgba(184,133,58,0.3)]"
                 >
-                  <Calendar size={16} />
-                  <span className="relative z-10">Agendar Horário</span>
+                  <FaWhatsapp size={16} />
+                  <span className="relative z-10">Chamar no WhatsApp</span>
                   <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
                 </a>
 
                 <a 
-                  href="https://www.google.com/maps/search/?api=1&query=Barbearia+Falc%C3%A3o%2C+R.+Olavo+Bilac%2C+Centro%2C+Tapiramut%C3%A1+-+BA%2C+44840-027" 
+                  href={SITE.googleMaps}
                   target="_blank"
                   rel="noreferrer"
                   className="flex-1 flex items-center justify-center gap-2 border border-white/10 bg-transparent text-white/70 py-4 px-6 rounded-lg text-[11px] font-bold uppercase tracking-[0.15em] hover:bg-white/[0.02] hover:border-[#b8853a]/50 hover:text-[#b8853a] transition-all duration-300"
@@ -158,6 +166,7 @@ const Localizacao = () => {
                 // Esse filtro CSS transforma o mapa padrão do Google em um mapa Dark/Gold premium!
                 filter: "invert(100%) hue-rotate(180deg) brightness(85%) contrast(105%) grayscale(20%) opacity(0.8)" 
               }}
+              title="Mapa: Falcão Barbearia na R. Olavo Bilac, Centro, Tapiramutá - BA"
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
@@ -181,14 +190,11 @@ const Localizacao = () => {
                   <h4 className="text-white font-serif italic text-lg tracking-wide mb-1">Falcão Barbearia</h4>
                   <p className="text-white/40 text-xs font-light tracking-widest uppercase">Tapiramutá • BA</p>
                 </div>
-                <div className="flex items-center gap-1 bg-white/10 px-2 py-1 rounded-full border border-white/5">
-                  <Star size={10} className="text-[#b8853a] fill-[#b8853a]" />
-                  <span className="text-white font-mono text-[10px] pt-px">5.0</span>
-                </div>
+
               </div>
 
               <a 
-                href="https://www.google.com/maps/search/?api=1&query=Barbearia+Falc%C3%A3o%2C+R.+Olavo+Bilac%2C+Centro%2C+Tapiramut%C3%A1+-+BA%2C+44840-027" 
+                href={DIRECTIONS_LINK}
                 target="_blank"
                 rel="noreferrer"
                 className="w-full py-2.5 rounded flex items-center justify-center gap-2 bg-white/5 hover:bg-[#b8853a] border border-white/10 hover:border-[#b8853a] text-white/70 hover:text-[#050505] text-[10px] font-bold uppercase tracking-widest transition-all duration-300"

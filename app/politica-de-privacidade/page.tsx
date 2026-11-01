@@ -6,7 +6,7 @@ const siteUrl = "https://www.falcaobarbearia.com.br";
 export const metadata: Metadata = {
   title: "Política de Privacidade | Falcão Barbearia",
   description:
-    "Política de Privacidade da Falcão Barbearia em conformidade com a LGPD. Saiba como coletamos, utilizamos e protegemos seus dados pessoais no sistema de agendamento online.",
+    "Política de Privacidade da Falcão Barbearia em conformidade com a LGPD. Saiba como coletamos, utilizamos e protegemos seus dados pessoais.",
   alternates: {
     canonical: `${siteUrl}/politica-de-privacidade`,
   },

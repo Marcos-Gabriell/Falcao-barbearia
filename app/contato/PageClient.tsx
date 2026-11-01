@@ -1,10 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
 import Navbar from "../../app/components/Header";
 import Footer from "../../app/components/Footer";
-import { FaWhatsapp, FaInstagram, FaMapMarkerAlt, FaClock, FaCalendarAlt, FaExternalLinkAlt } from "react-icons/fa";
+import { FaWhatsapp, FaInstagram, FaMapMarkerAlt, FaClock } from "react-icons/fa";
 import { WHATSAPP_LINK, INSTAGRAM_URL } from "../utils/links";
 
 export default function ContatoPage() {
@@ -68,22 +67,25 @@ export default function ContatoPage() {
                     <span>Domingo</span>
                     <span className="text-[#b8853a] font-medium">Fechado</span>
                   </div>
+                  <p className="text-white/35 text-xs mt-3">Sem agendamento · atendimento por ordem de chegada</p>
                 </div>
               </div>
 
-              {/* Botão Agendar + Redes */}
-              <Link 
-                href="/agendar"
+              {/* WhatsApp + Redes */}
+              <a
+                href={WHATSAPP_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-gradient-to-r from-[#b8853a] to-[#8f6425] p-6 rounded-2xl flex items-center justify-center gap-3 hover:scale-[1.02] transition-transform shadow-[0_8px_32px_rgba(184,133,58,0.25)]"
               >
-                <FaCalendarAlt className="text-[#070707]" />
-                <span className="text-[#070707] font-black text-sm uppercase tracking-widest">Agendar Experiência</span>
-              </Link>
+                <FaWhatsapp className="text-[#070707]" />
+                <span className="text-[#070707] font-black text-sm uppercase tracking-widest">Chamar no WhatsApp</span>
+              </a>
 
               <div className="grid grid-cols-2 gap-4">
-                <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="bg-white/[0.02] border border-white/5 p-5 rounded-2xl flex flex-col items-center gap-2 hover:border-[#b8853a]/50 transition-all">
+                <a href="tel:+5574988732790" className="bg-white/[0.02] border border-white/5 p-5 rounded-2xl flex flex-col items-center gap-2 hover:border-[#b8853a]/50 transition-all">
                   <FaWhatsapp className="text-xl text-[#d4aa7a]" />
-                  <span className="text-white/80 font-bold text-[11px]">WhatsApp</span>
+                  <span className="text-white/80 font-bold text-[11px]">(74) 98873-2790</span>
                 </a>
                 <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" className="bg-white/[0.02] border border-white/5 p-5 rounded-2xl flex flex-col items-center gap-2 hover:border-[#b8853a]/50 transition-all">
                   <FaInstagram className="text-xl text-white/50" />
@@ -104,6 +106,7 @@ export default function ContatoPage() {
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1952.4065023948574!2d-40.7910955!3d-11.848117799999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x76ba32c243da499%3A0x6b4f599dbbf227ec!2sBarbearia%20Falc%C3%A3o!5e0!3m2!1spt-BR!2sbr!4v1717978253100!5m2!1spt-BR!2sbr"
                 className="absolute inset-0 w-full h-full"
                 style={{ filter: "invert(90%) hue-rotate(180deg) contrast(105%) brightness(90%)" }}
+                title="Mapa: Falcão Barbearia em Tapiramutá - BA"
                 allowFullScreen={false}
                 loading="lazy"
               />

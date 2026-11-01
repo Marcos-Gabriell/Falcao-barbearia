@@ -6,7 +6,7 @@ const siteUrl = "https://www.falcaobarbearia.com.br";
 export const metadata: Metadata = {
   title: "Termos de Uso | Falcão Barbearia",
   description:
-    "Termos de Uso do sistema de agendamento online da Falcão Barbearia. Conheça as regras e condições para utilização do nosso serviço digital.",
+    "Termos de Uso do site da Falcão Barbearia, barbearia em Tapiramutá-BA.",
   alternates: {
     canonical: `${siteUrl}/termos-de-uso`,
   },
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     locale: "pt_BR",
     siteName: "Falcão Barbearia",
     title: "Termos de Uso | Falcão Barbearia",
-    description: "Condições de uso do sistema de agendamento online.",
+    description: "Condições de uso do site da Falcão Barbearia.",
     images: [
       {
         url: `${siteUrl}/og-home.png`,

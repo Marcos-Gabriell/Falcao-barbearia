@@ -6,7 +6,7 @@ const siteUrl = "https://www.falcaobarbearia.com.br";
 export const metadata: Metadata = {
   title: "Barba Premium com Navalha em Tapiramutá - BA | Falcão Barbearia",
   description:
-    "Barba alinhada com navalha, toalha quente e acabamento impecável na Falcão Barbearia em Tapiramutá-BA. Pigmentação e sobrancelha também disponíveis. Agende online.",
+    "Barba alinhada com navalha, toalha quente e acabamento impecável na Falcão Barbearia em Tapiramutá-BA. Pigmentação e sobrancelha também disponíveis. Sem agendamento: chama no WhatsApp.",
   keywords: [
     "barba com navalha Tapiramutá",
     "barba alinhada Tapiramutá",

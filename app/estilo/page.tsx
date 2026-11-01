@@ -4,13 +4,13 @@ import EstiloPageClient from "./PageClient";
 const siteUrl = "https://www.falcaobarbearia.com.br";
 
 export const metadata: Metadata = {
-  title: "Cultura & Estilo — Revista da Barbearia | Falcão Barbearia",
+  title: "Blog: dicas de corte, barba e estilo masculino",
   description:
-    "Dicas de corte, tendências masculinas, cuidados com a barba e muito mais. A revista digital da Falcão Barbearia em Tapiramutá-BA. Conteúdo semanal sobre estética e estilo masculino.",
+    "Dicas de corte, tendências masculinas, cuidados com a barba e muito mais. O blog da Falcão Barbearia em Tapiramutá-BA: preços, tendências e cuidados com cabelo e barba.",
   keywords: [
     "blog barbearia Tapiramutá",
     "dicas corte masculino",
-    "tendências degradê 2025",
+    "tendências degradê 2026",
     "cuidados com a barba",
     "estilo masculino Bahia",
     "revista barbearia Falcão",

@@ -2,35 +2,10 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { FaWhatsapp } from "react-icons/fa";
+import { WHATSAPP_LINK } from "../utils/links";
+import { faqs } from "../utils/faqs";
 
-/* ─── DADOS DO FAQ ──────────────────────────────────────────────────────── */
-const faqs = [
-  {
-    pergunta: "Aceitam Pix e Cartão?",
-    resposta:
-      "Sim, aceitamos Pix e os principais cartões de crédito e débito. O pagamento é feito de forma rápida e segura direto na barbearia após o seu atendimento.",
-  },
-  {
-    pergunta: "Tem onde estacionar?",
-    resposta:
-      "Estamos super bem localizados no centro de Tapiramutá. É bem tranquilo achar vaga na rua bem em frente ou nas ruas laterais da barbearia.",
-  },
-  {
-    pergunta: "Vocês atendem crianças (Corte Kids)?",
-    resposta:
-      "Com certeza! Estilo vem de berço. Atendemos crianças com o mesmo padrão de qualidade e paciência, garantindo que os moleques já saiam com o visual na régua.",
-  },
-  {
-    pergunta: "Posso ir sem agendar (ordem de chegada)?",
-    resposta:
-      "Nós priorizamos quem agenda pra garantir que você não perca seu tempo esperando. Pode até rolar um encaixe se a cadeira estiver vazia, mas o ideal é garantir seu horário aqui pelo site.",
-  },
-  {
-    pergunta: "E se eu me atrasar?",
-    resposta:
-      "Sabemos que imprevistos acontecem, por isso temos uma tolerância de 10 minutos. O respeito pelo seu tempo e pelo tempo do próximo cliente é fundamental por aqui.",
-  },
-];
 
 /* ─── COMPONENTE ITEM DO FAQ ────────────────────────────────────────────── */
 function FaqItem({
@@ -102,7 +77,7 @@ export default function Faq() {
   };
 
   return (
-    <section className="relative w-full py-24 md:py-32 bg-[#070707] select-none overflow-hidden border-t border-white/5">
+    <section id="faq" className="relative w-full py-24 md:py-32 bg-[#070707] select-none overflow-hidden border-t border-white/5">
       {/* ── Background Elements ── */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden>
         <div
@@ -142,7 +117,7 @@ export default function Faq() {
             Tira-dúvidas<span className="text-[#b8853a] italic font-normal">.</span>
           </h2>
           <p className="text-white/35 text-sm font-light mt-4 max-w-xs mx-auto leading-relaxed">
-            As perguntas mais comuns antes de agendar.
+            As perguntas mais comuns antes de vir cortar.
           </p>
         </motion.div>
 
@@ -163,6 +138,17 @@ export default function Faq() {
             />
           ))}
         </motion.div>
+
+        <div className="mt-10 text-center">
+          <a
+            href={WHATSAPP_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.2em] text-[#b8853a] hover:text-[#d4aa7a] transition-colors"
+          >
+            <FaWhatsapp size={15} /> Outra dúvida? Chama no Whats
+          </a>
+        </div>
       </div>
     </section>
   );

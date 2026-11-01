@@ -6,7 +6,7 @@ const siteUrl = "https://www.falcaobarbearia.com.br";
 export const metadata: Metadata = {
   title: "Corte Degradê em Tapiramutá - BA | Falcão Barbearia",
   description:
-    "Degradê profissional em Tapiramutá-BA. Mid fade, low fade, high fade e skin fade feitos com precisão milimétrica na Falcão Barbearia. Agende seu horário online.",
+    "Degradê profissional em Tapiramutá-BA. Mid fade, low fade, high fade e skin fade feitos com precisão milimétrica na Falcão Barbearia. Sem agendamento: chama no WhatsApp.",
   keywords: [
     "corte degradê Tapiramutá",
     "mid fade Tapiramutá",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Corte Degradê | Falcão Barbearia",
-    description: "O melhor degradê de Tapiramutá-BA. Agende online.",
+    description: "O melhor degradê de Tapiramutá-BA. Sem agendamento, por ordem de chegada.",
     images: [`${siteUrl}/cortes/corte15.jpeg`],
   },
 };

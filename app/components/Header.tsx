@@ -3,7 +3,8 @@
 import Image from "next/image";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import { useState, useEffect } from "react";
-import { User } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
+import { WHATSAPP_LINK } from "../utils/links";
 
 const GOLD       = "#b8853a";
 const GOLD_LIGHT = "#d4aa7a";
@@ -15,6 +16,7 @@ const navLinks = [
   { label: "Galeria",     href: "/#cortes"      },
   { label: "Avaliações",  href: "/#avaliacoes"  },
   { label: "Localização", href: "/#localizacao" },
+  { label: "Blog",        href: "/estilo"       },
 ];
 
 function CTAButton() {
@@ -34,7 +36,9 @@ function CTAButton() {
 
   return (
     <motion.a
-      href="/agendar"
+      href={WHATSAPP_LINK}
+      target="_blank"
+      rel="noopener noreferrer"
       className="hidden lg:inline-flex items-center justify-center gap-2.5 rounded-full px-7 py-3 text-[11px] font-black uppercase tracking-[0.2em] flex-shrink-0 relative overflow-hidden"
       style={{
         background: `linear-gradient(135deg, ${GOLD} 0%, ${GOLD_LIGHT} 50%, #8f6425 100%)`,
@@ -51,21 +55,8 @@ function CTAButton() {
         animate={shimmer}
         aria-hidden
       />
-      <span className="relative z-10">Agendar Horário</span>
-    </motion.a>
-  );
-}
-
-function PortalButton() {
-  return (
-    <motion.a
-      href="/portal"
-      aria-label="Portal do Cliente — Minha Conta"
-      className="hidden lg:inline-flex items-center justify-center w-11 h-11 rounded-full flex-shrink-0 border border-white/10 text-white/50 hover:text-[#d4aa7a] hover:border-[#b8853a]/40 transition-colors duration-300"
-      whileHover={{ scale: 1.06 }}
-      whileTap={{ scale: 0.95 }}
-    >
-      <User size={17} strokeWidth={1.75} />
+      <FaWhatsapp size={15} className="relative z-10" />
+      <span className="relative z-10">Chamar no Whats</span>
     </motion.a>
   );
 }
@@ -189,9 +180,8 @@ export default function Header() {
           })}
         </nav>
 
-        {/* PORTAL + CTA + HAMBÚRGUER */}
+        {/* CTA + HAMBÚRGUER */}
         <div className="flex-1 flex justify-end items-center gap-3">
-          <PortalButton />
           <CTAButton />
 
           <button
@@ -241,30 +231,22 @@ export default function Header() {
                 </motion.a>
               ))}
 
-              <motion.a
-                href="/portal"
-                onClick={() => setMenuOpen(false)}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: navLinks.length * 0.08 }}
-                className="text-3xl font-serif italic tracking-wide flex items-center gap-3"
-                style={{ color: "#f5f1eb" }}
-              >
-                <User size={22} className="text-[#d4aa7a]" /> Minha Conta
-              </motion.a>
 
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: (navLinks.length + 1) * 0.08 }}
+                transition={{ delay: navLinks.length * 0.08 }}
                 className="mt-8"
               >
                 <a
-                  href="/agendar"
+                  href={WHATSAPP_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setMenuOpen(false)}
-                  className="inline-flex items-center justify-center w-full rounded-xl px-6 py-4 text-[13px] font-black uppercase tracking-[0.2em] bg-gradient-to-r from-[#b8853a] to-[#8f6425] text-[#070707] shadow-[0_8px_32px_rgba(184,133,58,0.25)]"
+                  className="inline-flex items-center justify-center gap-3 w-full rounded-xl px-6 py-4 text-[13px] font-black uppercase tracking-[0.2em] bg-gradient-to-r from-[#b8853a] to-[#8f6425] text-[#070707] shadow-[0_8px_32px_rgba(184,133,58,0.25)]"
                 >
-                  Agendar Horário
+                  <FaWhatsapp size={18} />
+                  Chamar no WhatsApp
                 </a>
               </motion.div>
             </nav>

@@ -6,7 +6,7 @@ const siteUrl = "https://www.falcaobarbearia.com.br";
 export const metadata: Metadata = {
   title: "Corte Infantil em Tapiramutá - BA | Falcão Barbearia",
   description:
-    "Corte infantil especializado em Tapiramutá-BA. Atendimento com paciência e técnica para os pequenos. Estilo desde cedo na Falcão Barbearia. Agende online.",
+    "Corte infantil especializado em Tapiramutá-BA. Atendimento com paciência e técnica para os pequenos. Estilo desde cedo na Falcão Barbearia. Sem agendamento: chama no WhatsApp.",
   keywords: [
     "corte infantil Tapiramutá",
     "barbearia infantil Tapiramutá",

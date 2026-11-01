@@ -4,9 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import { FaInstagram, FaWhatsapp } from "react-icons/fa";
-import { MapPin, Clock, Calendar } from "lucide-react";
+import { MapPin, Clock, Navigation } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { WHATSAPP_LINK, INSTAGRAM_URL } from "../utils/links";
+import { WHATSAPP_LINK, INSTAGRAM_URL, DIRECTIONS_LINK } from "../utils/links";
+import { SITE } from "../utils/site";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -22,7 +23,7 @@ const linksPrincipais = [
     { nome: "Início", url: "/" },
     { nome: "Nossa História", url: "/sobre" },
     { nome: "A Equipe", url: "/equipe" },
-    { nome: "Revista & Estilo", url: "/estilo" },
+    { nome: "Blog & Dicas", url: "/estilo" },
     { nome: "Contato & Local", url: "/contato" },
   ];
 
@@ -70,32 +71,34 @@ const Footer = () => {
 
               <div className="relative z-10">
                 <p className="text-[#b8853a] text-[10px] font-bold tracking-[0.35em] uppercase mb-4">
-                  Reserva Online
+                  Sem agendamento
                 </p>
                 <h2 className="text-3xl md:text-[2.75rem] font-serif text-[#f5f1eb] leading-tight tracking-tight mb-4">
                   Seu visual{" "}
                   <span className="italic text-[#b8853a] font-normal">merece presença.</span>
                 </h2>
                 <p className="text-white/40 max-w-lg mx-auto text-sm leading-relaxed mb-10">
-                  Agende seu horário online. Técnica, estilo e experiência em cada detalhe.
+                  Atendimento por ordem de chegada, de segunda a sábado. Chama no Whats pra saber o movimento ou já vem direto.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                  <Link
-                    href="/agendar"
+                  <a
+                    href={WHATSAPP_LINK}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center gap-2.5 px-8 py-3.5 bg-[#b8853a] text-black text-[11px] font-black tracking-widest uppercase rounded-xl hover:bg-[#d4aa7a] active:scale-[0.97] transition-all duration-200 w-full sm:w-auto justify-center"
                   >
-                    <Calendar size={15} />
-                    Agendar Horário
-                  </Link>
+                    <FaWhatsapp size={15} />
+                    Chamar no WhatsApp
+                  </a>
                   <a
-                    href={INSTAGRAM_URL}
+                    href={DIRECTIONS_LINK}
                     target="_blank"
                     rel="noreferrer"
                     className="flex items-center gap-2.5 px-8 py-3.5 border border-white/10 text-white/50 text-[11px] font-black tracking-widest uppercase rounded-xl hover:border-[#b8853a]/40 hover:text-white/70 active:scale-[0.97] transition-all duration-200 w-full sm:w-auto justify-center"
                   >
-                    <FaInstagram size={15} />
-                    Ver Instagram
+                    <Navigation size={15} />
+                    Como chegar
                   </a>
                 </div>
               </div>
@@ -201,17 +204,27 @@ const Footer = () => {
               <div className="flex items-start gap-3">
                 <Clock size={15} className="text-[#b8853a] mt-0.5 shrink-0" />
                 <p className="text-sm text-white/40 leading-relaxed">
-                  Seg a Sex: 09h–19h<br />
-                  Sábado: 08h–20h
+                  {SITE.hours.map((h) => (
+                    <span key={h.label} className="block">{h.label}: {h.value}</span>
+                  ))}
+                  <span className="block">{SITE.closedLabel}: fechado</span>
                 </p>
               </div>
-              <Link
-                href="/agendar"
+              <a
+                href={`tel:${SITE.phoneE164}`}
+                className="text-sm text-white/40 hover:text-[#d4aa7a] transition-colors pl-[27px]"
+              >
+                {SITE.phoneDisplay}
+              </a>
+              <a
+                href={DIRECTIONS_LINK}
+                target="_blank"
+                rel="noreferrer"
                 className="mt-1 flex items-center gap-2 text-[11px] font-black tracking-widest uppercase text-[#b8853a] hover:text-[#d4aa7a] transition-colors"
               >
-                <Calendar size={13} />
-                Agendar online
-              </Link>
+                <Navigation size={13} />
+                Ver no Google Maps
+              </a>
             </div>
           </motion.div>
         </motion.div>

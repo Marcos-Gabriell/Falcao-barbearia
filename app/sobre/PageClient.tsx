@@ -49,11 +49,12 @@ export default function SobrePage() {
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <a 
-                   href="/agendar"
+                  href={WHATSAPP_LINK}
+                  target="_blank"
                   rel="noopener noreferrer" 
                   className="bg-gradient-to-r from-[#b8853a] to-[#8f6425] text-[#070707] px-8 py-4 rounded-xl font-black uppercase text-[11px] tracking-[0.2em] hover:scale-105 transition-transform shadow-[0_8px_32px_rgba(184,133,58,0.25)] text-center"
                 >
-                  Agendar Horário
+                  Chamar no WhatsApp
                 </a>
                 <Link 
                   href="/equipe" 

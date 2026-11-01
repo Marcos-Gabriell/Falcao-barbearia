@@ -6,7 +6,7 @@ const siteUrl = "https://www.falcaobarbearia.com.br";
 export const metadata: Metadata = {
   title: "Serviços e Preços | Falcão Barbearia — Tapiramutá - BA",
   description:
-    "Conheça todos os serviços da Falcão Barbearia: corte tradicional, degradê, corte na tesoura, barba premium, pigmentação, desondulação e mais. Preços transparentes e agendamento online.",
+    "Conheça todos os serviços da Falcão Barbearia: corte tradicional, degradê, corte na tesoura, barba premium, pigmentação, desondulação e mais. Preços transparentes e atendimento por ordem de chegada.",
   keywords: [
     "serviços barbearia Tapiramutá",
     "preços barbearia Tapiramutá",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Serviços e Preços | Falcão Barbearia",
     description:
-      "Todos os serviços da Falcão Barbearia com preços. Agende online em Tapiramutá-BA.",
+      "Todos os serviços da Falcão Barbearia com preços. Atendimento por ordem de chegada em Tapiramutá-BA.",
     images: [`${siteUrl}/og-home.png`],
   },
 };

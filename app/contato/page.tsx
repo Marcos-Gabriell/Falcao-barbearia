@@ -6,7 +6,7 @@ const siteUrl = "https://www.falcaobarbearia.com.br";
 export const metadata: Metadata = {
   title: "Localização e Contato | Falcão Barbearia — Tapiramutá - BA",
   description:
-    "Encontre a Falcão Barbearia em Tapiramutá-BA. R. Olavo Bilac, Centro. Atendimento de segunda a sábado. Agende pelo site ou fale pelo WhatsApp.",
+    "Encontre a Falcão Barbearia em Tapiramutá-BA. R. Olavo Bilac, Centro. Atendimento de segunda a sábado, das 9h às 19h, por ordem de chegada. WhatsApp (74) 98873-2790.",
   keywords: [
     "contato Falcão Barbearia",
     "endereço barbearia Tapiramutá",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     siteName: "Falcão Barbearia",
     title: "Localização e Contato | Falcão Barbearia",
     description:
-      "Estamos na R. Olavo Bilac, Centro — Tapiramutá-BA. Seg–Sex das 9h às 19h, Sábado das 8h às 20h. Agende online ou via WhatsApp.",
+      "Estamos na R. Olavo Bilac, Centro — Tapiramutá-BA. Seg a Sáb das 9h às 19h, por ordem de chegada. Fale no WhatsApp.",
     images: [
       {
         url: `${siteUrl}/og-home.png`,

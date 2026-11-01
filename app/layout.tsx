@@ -1,63 +1,47 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
+import { Cormorant_Garamond, Montserrat, Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
+import { SITE } from "./utils/site";
 
-const site = {
-  name: "Falcão Barbearia",
-  city: "Tapiramutá",
-  region: "BA",
-  country: "BR",
-  street: "R. Olavo Bilac",
-  postalCode: "44840-027",
-  phoneE164: "+5574988732790",
-  phoneDisplay: "(74) 98873-2790",
-  url: "https://www.falcaobarbearia.com.br",
-  logo: "https://www.falcaobarbearia.com.br/logo2.png",
-  image1: "https://www.falcaobarbearia.com.br/cortes/corte21.png",
-  whatsapp:
-    "https://wa.me/5574988732790?text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20meu%20agendamento.",
-  mapsQuery:
-    "https://www.google.com/maps/search/?api=1&query=R.%20Olavo%20Bilac%2C%20Tapiramut%C3%A1%20-%20BA",
-};
+/* Fontes servidas pelo próprio site (sem @import bloqueando a renderização) */
+const cormorant = Cormorant_Garamond({ subsets: ["latin"], weight: ["400", "600", "700"], style: ["normal", "italic"], variable: "--font-cormorant", display: "swap" });
+const montserrat = Montserrat({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700", "800", "900"], variable: "--font-montserrat", display: "swap" });
+const inter = Inter({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700"], variable: "--font-inter", display: "swap" });
+const playfair = Playfair_Display({ subsets: ["latin"], weight: ["700", "900"], style: ["normal", "italic"], variable: "--font-playfair", display: "swap" });
+
+const OG_IMAGE = `${SITE.url}/og-home.png`;
+const DESCRIPTION =
+  "Barbearia em Tapiramutá - BA, no Centro (R. Olavo Bilac). Corte degradê, corte na tesoura, barba na navalha e desondulação. Sem agendamento: atendimento por ordem de chegada. Chame no WhatsApp.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(site.url),
+  metadataBase: new URL(SITE.url),
 
   title: {
-    default: `Falcão Barbearia | O Melhor Corte em Tapiramutá - BA`,
-    template: `%s | Falcão Barbearia`,
+    default: "Falcão Barbearia | Barbearia em Tapiramutá - BA",
+    template: "%s | Falcão Barbearia",
   },
+  description: DESCRIPTION,
 
-  description:
-    "Barbearia premium em Tapiramutá - BA. Corte masculino, corte degradê e barba na navalha. Faça seu agendamento 100% online através do nosso site.",
-
-  // ← FIX: keywords ampliadas com variações exatas de busca
   keywords: [
     "Falcão Barbearia",
     "barbearia Tapiramutá",
     "barbearia em Tapiramutá BA",
-    "barbearia Tapiramutá online",
-    "agendamento barbearia Tapiramutá",
-    "marcar barbeiro online",
+    "barbeiro Tapiramutá",
     "corte de cabelo Tapiramutá",
     "corte masculino Tapiramutá",
     "corte degradê Tapiramutá",
-    "degradê navalhado Tapiramutá",
     "barba Tapiramutá",
-    "barba na navalha Tapiramutá",
-    "melhor barbearia Tapiramutá",
-    "barbearia premium Bahia",
-    "Falcão barbeiro",
+    "desondulação Tapiramutá",
+    "barbearia perto de mim",
+    "barbearia Chapada Diamantina",
   ],
 
-  authors: [{ name: site.name, url: site.url }],
-  creator: site.name,
-  publisher: site.name,
+  authors: [{ name: SITE.name, url: SITE.url }],
+  creator: SITE.name,
+  publisher: SITE.name,
+  category: "Barbearia",
 
-  alternates: {
-    canonical: site.url,
-    languages: { "pt-BR": site.url },
-  },
+  alternates: { canonical: "/" },
 
   robots: {
     index: true,
@@ -74,33 +58,18 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "pt_BR",
-    url: site.url,
-    siteName: site.name,
-    title: "Falcão Barbearia | Agendamento Online em Tapiramutá - BA",
-    description:
-      "Transforme seu visual com os melhores barbeiros de Tapiramutá. Agende seu horário diretamente no site de forma rápida e fácil.",
-    images: [
-      {
-        url: site.logo,
-        width: 1200,
-        height: 1200,
-        alt: "Falcão Barbearia – Logo",
-      },
-      {
-        url: site.image1,
-        width: 1200,
-        height: 800,
-        alt: "Falcão Barbearia – Corte masculino",
-      },
-    ],
+    url: SITE.url,
+    siteName: SITE.name,
+    title: "Falcão Barbearia | Barbearia em Tapiramutá - BA",
+    description: "Degradê, tesoura e barba na navalha no Centro de Tapiramutá. Sem agendamento — chega ou chama no Whats.",
+    images: [{ url: OG_IMAGE, width: 1731, height: 909, alt: "Falcão Barbearia – Tapiramutá, BA" }],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "Falcão Barbearia | Agendamento Online",
-    description:
-      "Corte masculino moderno, degradê e barba. Agende agora online!",
-    images: [site.logo],
+    title: "Falcão Barbearia | Tapiramutá - BA",
+    description: "Degradê, tesoura e barba na navalha. Sem agendamento, por ordem de chegada.",
+    images: [OG_IMAGE],
   },
 
   icons: {
@@ -108,188 +77,101 @@ export const metadata: Metadata = {
     shortcut: "/favicon.ico",
     apple: "/apple-touch-icon.png",
   },
+
+  other: {
+    "geo.region": "BR-BA",
+    "geo.placename": SITE.city,
+    "geo.position": `${SITE.geo.lat};${SITE.geo.lng}`,
+    ICBM: `${SITE.geo.lat}, ${SITE.geo.lng}`,
+  },
 };
 
 export const viewport: Viewport = { themeColor: "#050505" };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const servicos: [string, string, number][] = [
+  ["Corte Tradicional", "Corte masculino clássico, na régua.", 30],
+  ["Corte na Tesoura", "Design exclusivo feito 100% na tesoura.", 40],
+  ["Corte Degradê", "Degradê navalhado: low, mid, high e skin fade.", 30],
+  ["Pezinho", "Alinhamento rápido de contorno e nuca.", 15],
+  ["Barba Premium", "Barba com toalha quente e acabamento na navalha.", 15],
+  ["Sobrancelha", "Limpeza de contorno prática e bem alinhada.", 10],
+  ["Pigmentação", "Correção de falhas com aspecto natural.", 20],
+  ["Luzes", "Mechas e reflexos de alto contraste.", 80],
+  ["Nevou", "Descoloração global platinada.", 100],
+  ["Desondulação", "Redução de volume e alinhamento do fio.", 100],
+];
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Barbershop",
-    "@id": `${site.url}/#barbershop`,
-    name: site.name,
-    url: site.url,
-    image: [site.logo, site.image1],
-    logo: {
-      "@type": "ImageObject",
-      url: site.logo,
-      width: 1200,
-      height: 1200,
-    },
-    description:
-      "Barbearia premium em Tapiramutá - BA. Corte masculino moderno, corte degradê, barba alinhada na navalha. Sistema de agendamento 100% online integrado.",
-    telephone: site.phoneE164,
-    priceRange: "$$",
-    currenciesAccepted: "BRL",
-    paymentAccepted: ["Cash", "Pix", "Cartão de Crédito", "Cartão de Débito"],
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: site.street,
-      addressLocality: site.city,
-      addressRegion: site.region,
-      postalCode: site.postalCode,
-      addressCountry: site.country,
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: -11.8167,
-      longitude: -40.7833,
-    },
-    hasMap: site.mapsQuery,
-    areaServed: {
-      "@type": "City",
-      name: site.city,
-      containedInPlace: { "@type": "State", name: "Bahia" },
-    },
-    openingHoursSpecification: [
+    "@graph": [
       {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        opens: "09:00",
-        closes: "19:00",
+        "@type": "Barbershop",
+        "@id": `${SITE.url}/#barbershop`,
+        name: SITE.name,
+        alternateName: "Barbearia Falcão",
+        url: SITE.url,
+        image: [OG_IMAGE, `${SITE.url}/thaylle2.jpeg`, `${SITE.url}/cortes/corte21.png`],
+        logo: `${SITE.url}/logo2.png`,
+        description: DESCRIPTION,
+        telephone: SITE.phoneE164,
+        priceRange: "R$ 10 – R$ 100",
+        currenciesAccepted: "BRL",
+        paymentAccepted: "Dinheiro, Pix, Cartão de Crédito, Cartão de Débito",
+        foundingDate: String(SITE.foundingYear),
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: SITE.street,
+          addressLocality: SITE.city,
+          addressRegion: SITE.region,
+          postalCode: SITE.postalCode,
+          addressCountry: SITE.country,
+        },
+        geo: { "@type": "GeoCoordinates", latitude: SITE.geo.lat, longitude: SITE.geo.lng },
+        hasMap: SITE.googleCid,
+        areaServed: [
+          { "@type": "City", name: SITE.city, containedInPlace: { "@type": "State", name: SITE.state } },
+        ],
+        openingHoursSpecification: SITE.hours.map((h) => ({
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: h.days,
+          opens: h.opens,
+          closes: h.closes,
+        })),
+        // Contato principal: WhatsApp (sem agendamento online)
+        potentialAction: {
+          "@type": "CommunicateAction",
+          target: `https://wa.me/${SITE.whatsappNumber}`,
+          name: "Chamar no WhatsApp",
+        },
+        employee: { "@type": "Person", name: SITE.barber, jobTitle: "Barbeiro" },
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: "Serviços de Barbearia",
+          itemListElement: servicos.map(([name, description, price]) => ({
+            "@type": "Offer",
+            price,
+            priceCurrency: "BRL",
+            itemOffered: { "@type": "Service", name, description },
+          })),
+        },
+        sameAs: [SITE.instagram, SITE.googleCid],
       },
       {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Saturday"],
-        opens: "08:00",
-        closes: "20:00",
-      },
-    ],
-    /* A MÁGICA DO AGENDAMENTO ONLINE ESTÁ AQUI: */
-    potentialAction: {
-      "@type": "ReserveAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${site.url}/agendar`,
+        "@type": "WebSite",
+        "@id": `${SITE.url}/#website`,
+        url: SITE.url,
+        name: SITE.name,
         inLanguage: "pt-BR",
-        actionPlatform: [
-          "http://schema.org/DesktopWebPlatform",
-          "http://schema.org/MobileWebPlatform"
-        ]
+        publisher: { "@id": `${SITE.url}/#barbershop` },
       },
-      result: {
-        "@type": "Reservation",
-        name: "Agendamento de Horário"
-      }
-    },
-    contactPoint: {
-      "@type": "ContactPoint",
-      telephone: site.phoneE164,
-      contactType: "customer support",
-      availableLanguage: "Portuguese",
-    },
-    // ← FIX: catálogo completo — antes só tinha 2 serviços, agora cobre todos
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: "Serviços de Barbearia",
-      itemListElement: [
-        {
-          "@type": "Offer",
-          priceCurrency: "BRL",
-          itemOffered: {
-            "@type": "Service",
-            name: "Corte Tradicional",
-            description: "Corte masculino clássico, na régua e no estilo que você já conhece.",
-          },
-        },
-        {
-          "@type": "Offer",
-          priceCurrency: "BRL",
-          itemOffered: {
-            "@type": "Service",
-            name: "Corte Degradê",
-            description: "Degradê navalhado com transição perfeita, do clássico ao moderno.",
-          },
-        },
-        {
-          "@type": "Offer",
-          priceCurrency: "BRL",
-          itemOffered: {
-            "@type": "Service",
-            name: "Corte na Tesoura",
-            description: "Design exclusivo feito 100% na tesoura.",
-          },
-        },
-        {
-          "@type": "Offer",
-          priceCurrency: "BRL",
-          itemOffered: {
-            "@type": "Service",
-            name: "Barba Premium",
-            description: "Barba alinhada com toalha quente e acabamento na navalha.",
-          },
-        },
-        {
-          "@type": "Offer",
-          priceCurrency: "BRL",
-          itemOffered: {
-            "@type": "Service",
-            name: "Pezinho",
-            description: "Alinhamento rápido de contorno e nuca.",
-          },
-        },
-        {
-          "@type": "Offer",
-          priceCurrency: "BRL",
-          itemOffered: {
-            "@type": "Service",
-            name: "Sobrancelha",
-            description: "Limpeza de contorno prática e bem alinhada.",
-          },
-        },
-        {
-          "@type": "Offer",
-          priceCurrency: "BRL",
-          itemOffered: {
-            "@type": "Service",
-            name: "Pigmentação",
-            description: "Correção de imperfeições com aspecto natural.",
-          },
-        },
-        {
-          "@type": "Offer",
-          priceCurrency: "BRL",
-          itemOffered: {
-            "@type": "Service",
-            name: "Luzes",
-            description: "Mechas e reflexos de alto contraste.",
-          },
-        },
-        {
-          "@type": "Offer",
-          priceCurrency: "BRL",
-          itemOffered: {
-            "@type": "Service",
-            name: "Desondulação",
-            description: "Redução extrema de volume e alinhamento do fio.",
-          },
-        },
-      ],
-    },
-    sameAs: [
-      "https://instagram.com/barbeariafalcao_",
     ],
   };
 
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" className={`${cormorant.variable} ${montserrat.variable} ${inter.variable} ${playfair.variable}`}>
       <body className="antialiased">
-        <Script
-          id="ld-json-barbershop"
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />

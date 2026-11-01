@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import {
   Zap,
@@ -10,9 +9,10 @@ import {
   Scissors,
   Crown,
   Droplet,
-  ArrowRight,
 } from "lucide-react";
-import { WHATSAPP_LINK } from "../utils/links";
+import { FaWhatsapp } from "react-icons/fa";
+import { whatsapp, whatsappServico } from "../utils/site";
+import Tilt3D from "./Tilt3D";
 
 const DARK_CARD = "rgba(12, 12, 12, 0.7)";
 
@@ -52,7 +52,6 @@ const diferenciais = [
 ];
 
 // ─── DADOS: SERVIÇOS ───────────────────────────────────────────────────────────
-// id deve bater com os IDs reais do banco / fallback do ServiceStep
 const categorias = [
   {
     titulo: "Cortes & Estilo",
@@ -117,10 +116,9 @@ export function Experiencia() {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
         >
           {diferenciais.map((item, i) => (
-            <motion.div
+            <Tilt3D
               key={i} variants={fadeUp}
-              whileHover={{ y: -6, borderColor: "rgba(184,133,58,0.4)" }}
-              className="group relative p-6 rounded-xl border border-white/5 transition-all duration-300 overflow-hidden flex flex-col justify-between min-h-[190px]"
+              className="group p-6 rounded-xl border border-white/5 transition-all duration-300 overflow-hidden flex flex-col justify-between min-h-[190px]"
               style={{ background: DARK_CARD, backdropFilter: "blur(12px)" }}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-[#b8853a]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
@@ -136,7 +134,7 @@ export function Experiencia() {
               <div className="absolute bottom-3 right-4 opacity-[0.02] group-hover:opacity-10 transition-opacity duration-300">
                 <span className="text-[36px] font-black tracking-tighter text-[#b8853a]">//0{i + 1}</span>
               </div>
-            </motion.div>
+            </Tilt3D>
           ))}
         </motion.div>
       </div>
@@ -174,7 +172,7 @@ export default function Valores() {
             </h2>
           </motion.div>
           <motion.p variants={fadeUp} className="text-white/40 text-xs sm:text-sm max-w-xs font-medium leading-relaxed">
-            Clique no serviço pra agendar direto. Sem enrolação.
+            Atendimento por ordem de chegada. Toque no serviço e fale direto com a gente no WhatsApp.
           </motion.p>
         </motion.div>
 
@@ -186,9 +184,9 @@ export default function Valores() {
           className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6"
         >
           {categorias.map((cat, idx) => (
-            <motion.div 
-              key={idx} variants={fadeUp}
-              className="bg-white/[0.01] border border-white/5 rounded-2xl p-6 md:p-8 flex flex-col justify-between shadow-xl"
+            <Tilt3D
+              key={idx} variants={fadeUp} max={5}
+              className="bg-white/[0.01] border border-white/5 rounded-2xl p-6 md:p-8 flex flex-col justify-between shadow-xl hover:border-[#b8853a]/20 transition-colors"
             >
               <div className="space-y-8">
                 {/* Categoria header */}
@@ -199,19 +197,22 @@ export default function Valores() {
                   <h3 className="text-[#f5f1eb] font-serif text-lg font-bold tracking-wide">{cat.titulo}</h3>
                 </div>
 
-                {/* Itens — cada um é um Link */}
+                {/* Itens — cada um abre o WhatsApp citando o serviço */}
                 <div className="space-y-3">
                   {cat.itens.map((item) => (
-                    <Link
+                    <a
                       key={item.id}
-                      href={`/agendar?servico=${item.id}`}
+                      href={whatsappServico(item.nome)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${item.nome} — R$ ${item.preco}. Chamar no WhatsApp`}
                       className="group relative p-4 rounded-xl border border-white/[0.03] bg-black/40
                         hover:bg-[#b8853a]/[0.04] hover:border-[#b8853a]/30
                         active:scale-[0.98] transition-all duration-200 cursor-pointer block"
                     >
                       {item.maisPedido && (
                         <span className="absolute -top-2 right-4 bg-gradient-to-r from-[#b8853a] to-[#8f6425] text-black text-[8px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full shadow-md flex items-center gap-1 z-10">
-                          🔥 Mais Pedido
+                          Mais pedido
                         </span>
                       )}
 
@@ -232,28 +233,30 @@ export default function Valores() {
                           <div className="w-6 h-6 rounded-full bg-white/[0.03] border border-white/[0.06]
                             group-hover:bg-[#b8853a] group-hover:border-[#b8853a] 
                             flex items-center justify-center transition-all duration-200">
-                            <ArrowRight size={11} className="text-white/30 group-hover:text-black transition-colors" />
+                            <FaWhatsapp size={11} className="text-white/30 group-hover:text-black transition-colors" />
                           </div>
                         </div>
                       </div>
-                    </Link>
+                    </a>
                   ))}
                 </div>
               </div>
 
-              {/* Botão da categoria — vai pra /agendar sem pré-seleção */}
               <div className="mt-8 pt-4 border-t border-white/5">
-                <Link
-                  href="/agendar"
-                  className="w-full py-3 bg-white/[0.03] border border-white/5
+                <a
+                  href={whatsapp(`Fala, Thaylle! Queria saber mais sobre ${cat.titulo.toLowerCase()}. Como tá o movimento hoje?`)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-3 flex items-center justify-center gap-2 bg-white/[0.03] border border-white/5
                     hover:border-[#b8853a]/40 hover:bg-[#b8853a] hover:text-black
                     rounded-xl text-center text-[10px] font-black uppercase tracking-widest
-                    text-white/80 block transition-all active:scale-[0.98]"
+                    text-white/80 transition-all active:scale-[0.98]"
                 >
-                  Agendar desta lista
-                </Link>
+                  <FaWhatsapp size={13} />
+                  Tirar dúvida no Whats
+                </a>
               </div>
-            </motion.div>
+            </Tilt3D>
           ))}
         </motion.div>
       </div>

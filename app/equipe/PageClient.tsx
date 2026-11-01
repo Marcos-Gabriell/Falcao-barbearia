@@ -78,7 +78,7 @@ export default function EquipePage() {
                 rel="noopener noreferrer" 
                 className="w-full sm:w-max bg-gradient-to-r from-[#b8853a] to-[#8f6425] text-[#070707] px-10 py-4 rounded-xl font-black uppercase text-[11px] tracking-[0.2em] hover:scale-105 transition-transform shadow-[0_8px_32px_rgba(184,133,58,0.25)] text-center"
               >
-                Agendar com Thaylle
+                Chamar o Thaylle no Whats
               </a>
             </motion.div>
           </div>

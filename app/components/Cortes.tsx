@@ -4,8 +4,8 @@ import Image from "next/image";
 import { motion, useInView, AnimatePresence, useMotionTemplate, useMotionValue } from "framer-motion";
 import { useRef, useState } from "react";
 import { Play, ArrowRight, Scissors, Maximize2, X, ChevronLeft, ChevronRight, Star, Calendar } from "lucide-react";
-import { FaInstagram } from "react-icons/fa";
-import { INSTAGRAM_URL } from "../utils/links";
+import { FaInstagram, FaWhatsapp } from "react-icons/fa";
+import { INSTAGRAM_URL, WHATSAPP_LINK } from "../utils/links";
 import Link from "next/link";
 
 const GOLD = "#b8853a";
@@ -370,8 +370,8 @@ export default function TrabalhosEditorial() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="flex flex-col sm:flex-row items-center gap-4"
             >
-              <a href="/agendar" className="px-8 py-4 bg-[#b8853a] text-black font-bold uppercase tracking-widest text-[11px] rounded-lg hover:scale-105 hover:shadow-[0_0_30px_rgba(184,133,58,0.4)] transition-all flex items-center gap-2">
-                <Calendar size={16} /> Agendar Experiência
+              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-[#b8853a] text-black font-bold uppercase tracking-widest text-[11px] rounded-lg hover:scale-105 hover:shadow-[0_0_30px_rgba(184,133,58,0.4)] transition-all flex items-center gap-2">
+                <FaWhatsapp size={16} /> Quero esse corte
               </a>
               <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" className="px-8 py-4 bg-transparent border border-white/10 text-white/70 font-bold uppercase tracking-widest text-[11px] rounded-lg hover:border-[#b8853a]/50 hover:text-[#b8853a] transition-all flex items-center gap-2">
                 <FaInstagram size={16} /> Ver mais no Instagram

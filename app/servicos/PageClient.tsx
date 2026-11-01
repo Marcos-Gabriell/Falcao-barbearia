@@ -189,14 +189,13 @@ export default function ServicosGaleriaPage() {
                   ))}
                 </div>
 
-                {/* Botão Agendar da Lista */}
                 <a
-                  href="/agendar"
+                  href={WHATSAPP_LINK}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-10 w-full py-4 rounded-xl border border-white/10 bg-white/[0.03] text-white/70 text-[10px] font-bold uppercase tracking-[0.2em] text-center hover:bg-[#b8853a] hover:text-[#070707] hover:border-[#b8853a] transition-all duration-300"
                 >
-                  Agendar desta lista
+                  Chamar no WhatsApp
                 </a>
               </motion.div>
             ))}

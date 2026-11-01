@@ -6,11 +6,11 @@ import Link from "next/link";
 import Navbar from "../components/Header";
 import Footer from "../components/Footer";
 
-import { posts } from "./data";
+import { postsOrdenados, formatarData, tempoLeitura } from "./data";
 
 export default function EstiloBlogPage() {
-  const postDestaque = posts[0];
-  const postsSecundarios = posts.slice(1);
+  const postDestaque = postsOrdenados.find((p) => p.destaque) ?? postsOrdenados[0];
+  const postsSecundarios = postsOrdenados.filter((p) => p !== postDestaque);
 
   return (
     <>
@@ -27,14 +27,14 @@ export default function EstiloBlogPage() {
             <div className="flex items-center justify-center md:justify-start gap-3 mb-4">
               <div className="h-[2px] w-8 bg-[#b8853a] rounded-full" />
               <span className="text-[#b8853a] font-bold text-[9px] tracking-[0.3em] uppercase">
-                Revista Digital
+                Blog da Falcão
               </span>
             </div>
             <h1 className="text-5xl md:text-7xl font-serif font-black text-[#f5f1eb] leading-tight tracking-tight">
               Cultura & <span className="text-[#d4aa7a] italic">Estilo.</span>
             </h1>
             <p className="text-white/50 text-sm md:text-base mt-4 max-w-xl font-medium mx-auto md:mx-0">
-              Dicas, tendências e tudo o que você precisa saber para manter a sua presença em alta, dentro e fora da barbearia.
+              Dicas de corte, barba e estilo masculino direto da cadeira da Falcão Barbearia, em Tapiramutá-BA.
             </p>
           </motion.div>
 
@@ -45,7 +45,7 @@ export default function EstiloBlogPage() {
             transition={{ delay: 0.2, duration: 0.8 }}
             className="mb-20"
           >
-            <Link href={`/estilo/${postDestaque.id}`} className="group block relative rounded-3xl overflow-hidden border border-white/5 bg-white/[0.02] shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
+            <Link href={`/estilo/${postDestaque.slug}`} className="group block relative rounded-3xl overflow-hidden border border-white/5 bg-white/[0.02] shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
                 <div className="relative aspect-square sm:aspect-video lg:aspect-auto lg:h-full overflow-hidden">
                   <Image 
@@ -62,7 +62,7 @@ export default function EstiloBlogPage() {
                       {postDestaque.categoria}
                     </span>
                     <span className="text-white/30 text-[10px] uppercase tracking-widest font-bold">
-                      {postDestaque.data}
+                      <time dateTime={postDestaque.data}>{formatarData(postDestaque.data)}</time> · {tempoLeitura(postDestaque)} min
                     </span>
                   </div>
                   <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-black text-[#f5f1eb] leading-tight mb-6 group-hover:text-[#d4aa7a] transition-colors">
@@ -81,9 +81,9 @@ export default function EstiloBlogPage() {
 
           {/* ================= GRID DE POSTS ================= */}
           <div className="mb-8">
-            <h3 className="text-2xl font-serif font-bold text-[#f5f1eb] mb-8 border-b border-white/5 pb-4">
+            <h2 className="text-2xl font-serif font-bold text-[#f5f1eb] mb-8 border-b border-white/5 pb-4">
               Publicações Recentes
-            </h3>
+            </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -95,7 +95,7 @@ export default function EstiloBlogPage() {
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ delay: (index % 3) * 0.1 }}
               >
-                <Link href={`/estilo/${post.id}`} className="group block flex flex-col h-full bg-white/[0.01] border border-white/5 rounded-2xl p-4 hover:bg-white/[0.03] transition-colors">
+                <Link href={`/estilo/${post.slug}`} className="group block flex flex-col h-full bg-white/[0.01] border border-white/5 rounded-2xl p-4 hover:bg-white/[0.03] transition-colors">
                   <div className="relative aspect-square sm:aspect-[4/3] rounded-xl overflow-hidden mb-6">
                     <Image 
                       src={post.imagem} 
@@ -110,11 +110,11 @@ export default function EstiloBlogPage() {
                   
                   <div className="flex flex-col flex-grow px-2">
                     <span className="text-white/30 text-[9px] uppercase tracking-widest font-bold mb-3">
-                      {post.data}
+                      <time dateTime={post.data}>{formatarData(post.data)}</time> · {tempoLeitura(post)} min de leitura
                     </span>
-                    <h4 className="text-xl font-serif font-bold text-[#f5f1eb] leading-tight mb-3 group-hover:text-[#d4aa7a] transition-colors">
+                    <h3 className="text-xl font-serif font-bold text-[#f5f1eb] leading-tight mb-3 group-hover:text-[#d4aa7a] transition-colors">
                       {post.titulo}
-                    </h4>
+                    </h3>
                     <p className="text-white/40 text-xs leading-relaxed font-medium mb-6 flex-grow line-clamp-3">
                       {post.resumo}
                     </p>

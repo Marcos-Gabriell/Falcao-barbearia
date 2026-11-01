@@ -30,7 +30,7 @@ export default function WhatsFloating() {
             href={WHATSAPP_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Agendar pelo WhatsApp"
+            aria-label="Chamar a Falcão Barbearia no WhatsApp"
             className="group relative flex items-center justify-center rounded-full p-4 backdrop-blur-xl bg-[#070707]/80 border border-[#b8853a]/30 shadow-[0_8px_32px_rgba(0,0,0,0.8)] overflow-hidden"
             whileHover={{ scale: 1.05, borderColor: "rgba(184,133,58,0.8)" }}
             whileTap={{ scale: 0.95 }}
@@ -59,7 +59,7 @@ export default function WhatsFloating() {
             
             {/* Tooltip Premium Escondido (Aparece no Hover no Desktop) */}
             <span className="absolute right-full mr-4 whitespace-nowrap bg-[#070707]/90 border border-white/10 text-white/90 text-[10px] font-bold uppercase tracking-widest px-4 py-2 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 hidden md:block backdrop-blur-md">
-              Agendar Horário
+              Como tá o movimento?
             </span>
           </motion.a>
         </motion.div>
