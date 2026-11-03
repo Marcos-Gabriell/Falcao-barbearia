@@ -10,6 +10,7 @@ import Localizacao   from "./components/Localizacao";
 import Footer        from "./components/Footer";
 import WhatsFloating from "./components/WhatsFloating";
 import BarraMobile   from "./components/BarraMobile";
+import FundoDinamico from "./components/FundoDinamico";
 import ComoFunciona  from "./components/ComoFunciona";
 import Faq           from "./components/faq";
 import { faqs }      from "./utils/faqs";
@@ -32,6 +33,9 @@ export default function Home() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      {/* Fundo: degradê em CSS (aparece na hora) + partículas 3D por cima */}
+      <div className="fundo-base pointer-events-none fixed inset-0 -z-20" aria-hidden />
+      <FundoDinamico />
       <Header />
       <main className="w-full">
         <Hero />

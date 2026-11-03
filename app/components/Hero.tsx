@@ -14,7 +14,7 @@ export default function Hero() {
     <section
       id="inicio"
       aria-labelledby="hero-title"
-      className="relative isolate flex min-h-[100dvh] overflow-hidden bg-[#070707]"
+      className="relative isolate flex min-h-[100dvh] overflow-hidden"
     >
       {/* ── Foto: tela cheia no celular, metade direita no desktop ── */}
       <div className="absolute inset-0 -z-10 overflow-hidden lg:left-[38%]">

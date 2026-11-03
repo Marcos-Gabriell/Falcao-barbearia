@@ -46,7 +46,7 @@ export default function ComoFunciona() {
     <section
       id="como-funciona"
       aria-labelledby="como-funciona-title"
-      className="relative w-full py-24 md:py-32 bg-[#070707] overflow-hidden select-none"
+      className="relative w-full py-24 md:py-32 bg-[#050505]/40 overflow-hidden select-none"
     >
       <div className="pointer-events-none absolute inset-0" aria-hidden>
         <div className="absolute right-[-10%] top-[10%] w-[520px] h-[520px] rounded-full bg-[#b8853a]/[0.06] blur-[120px]" />

@@ -86,7 +86,7 @@ const categorias = [
 // ─── COMPONENTE 1: EXPERIÊNCIA ─────────────────────────────────────────────────
 export function Experiencia() {
   return (
-    <section id="sobre" className="relative py-24 md:py-32 bg-[#050505] overflow-hidden select-none">
+    <section id="sobre" className="relative py-24 md:py-32 bg-transparent overflow-hidden select-none">
       <div className="absolute top-1/2 left-1/4 w-[500px] h-[500px] bg-[#b8853a]/3 blur-[130px] rounded-full pointer-events-none -translate-y-1/2" />
       <div 
         className="absolute inset-0 opacity-[0.02] pointer-events-none" 
@@ -146,7 +146,7 @@ export function Experiencia() {
 // ─── COMPONENTE 2: SERVIÇOS ────────────────────────────────────────────────────
 export default function Valores() {
   return (
-    <section id="servicos" className="relative w-full py-24 md:py-32 bg-[#050505] overflow-hidden antialiased select-none">
+    <section id="servicos" className="relative w-full py-24 md:py-32 bg-transparent overflow-hidden antialiased select-none">
       <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_bottom,rgba(184,133,58,0.04)_0%,transparent_60%)]" />
       <div 
         className="absolute inset-0 opacity-[0.02] pointer-events-none" 

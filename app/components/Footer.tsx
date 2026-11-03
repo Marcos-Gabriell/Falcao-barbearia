@@ -41,7 +41,7 @@ const Footer = () => {
   const isHome = pathname === "/";
 
   return (
-    <footer className="relative w-full bg-[#050505] pt-28 pb-10 overflow-hidden antialiased">
+    <footer className="relative w-full bg-[#050505]/85 pt-28 pb-10 overflow-hidden antialiased">
 
       {/* Linha dourada topo */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#b8853a]/30 to-transparent" />

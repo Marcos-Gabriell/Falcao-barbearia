@@ -31,7 +31,7 @@ export default function Sobre() {
   return (
     <section
       id="sobre"
-      className="relative w-full py-32 md:py-48 overflow-hidden bg-[#070707] select-none"
+      className="relative w-full py-32 md:py-48 overflow-hidden bg-[#050505]/55 select-none"
       ref={containerRef}
     >
       {/* ── Background ── */}

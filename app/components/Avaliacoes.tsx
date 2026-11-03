@@ -97,7 +97,7 @@ export default function Avaliacoes() {
   const faixa = [...REVIEWS, ...REVIEWS, ...REVIEWS, ...REVIEWS];
 
   return (
-    <section id="avaliacoes" aria-labelledby="avaliacoes-title" className="relative overflow-hidden border-y border-white/5 bg-[#050505] py-20 md:py-28">
+    <section id="avaliacoes" aria-labelledby="avaliacoes-title" className="relative overflow-hidden border-y border-white/5 bg-[#050505]/65 py-20 md:py-28">
       <Sprite />
       <div className="mx-auto mb-12 flex max-w-7xl flex-col gap-8 px-5 sm:px-6 md:flex-row md:items-end md:justify-between">
         <div>

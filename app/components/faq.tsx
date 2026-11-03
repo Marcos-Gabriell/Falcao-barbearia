@@ -7,7 +7,7 @@ import { faqs } from "../utils/faqs";
    e funciona com teclado e leitor de tela. */
 export default function Faq() {
   return (
-    <section id="faq" aria-labelledby="faq-title" className="relative w-full overflow-hidden border-t border-white/5 bg-[#070707] py-24 md:py-32">
+    <section id="faq" aria-labelledby="faq-title" className="relative w-full overflow-hidden border-t border-white/5 bg-[#050505]/55 py-24 md:py-32">
       <div className="pointer-events-none absolute inset-0" aria-hidden>
         <div className="grain absolute inset-0 opacity-[0.02]" />
         <div className="absolute bottom-[-20%] left-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle,rgba(184,133,58,0.1)_0%,transparent_70%)] blur-[60px]" />

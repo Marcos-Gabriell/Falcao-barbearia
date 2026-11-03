@@ -22,7 +22,7 @@ const staggerContainer: Variants = {
 
 const Localizacao = () => {
   return (
-    <section id="localizacao" className="relative w-full py-32 bg-[#050505] overflow-hidden antialiased">
+    <section id="localizacao" className="relative w-full py-32 bg-[#050505]/50 overflow-hidden antialiased">
       
       {/* ── Background Effects & Grain ── */}
       <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,rgba(184,133,58,0.03)_0%,transparent_70%)]" />

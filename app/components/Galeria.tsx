@@ -95,7 +95,7 @@ export default function Galeria() {
   const atual = aberto !== null ? lista[aberto] : null;
 
   return (
-    <section id="cortes" aria-labelledby="galeria-title" className="relative w-full overflow-hidden bg-[#050505] pt-24 lg:pt-32">
+    <section id="cortes" aria-labelledby="galeria-title" className="relative w-full overflow-hidden bg-transparent pt-24 lg:pt-32">
       <div className="grain pointer-events-none absolute inset-0 opacity-[0.02]" aria-hidden />
       <div className="pointer-events-none absolute right-0 top-0 h-[700px] w-[700px] translate-x-1/3 -translate-y-1/3 rounded-full bg-[#b8853a]/5 blur-[120px]" aria-hidden />
 
@@ -116,7 +116,7 @@ export default function Galeria() {
         </div>
 
         {/* Números */}
-        <dl className="mb-14 grid grid-cols-2 gap-6 border-y border-white/5 bg-white/[0.01] py-10 md:grid-cols-4">
+        <dl className="mb-14 grid grid-cols-2 gap-6 rounded-2xl border border-white/5 bg-[#050505]/75 py-10 md:grid-cols-4">
           {[
             { icon: <Scissors size={18} />, label: "Cortes realizados", value: <Contador to={SITE.cortesRealizados} prefix="+" /> },
             { icon: <Star size={18} />, label: "Nota no Google", value: <Contador to={SITE.rating.value} decimals={1} /> },
