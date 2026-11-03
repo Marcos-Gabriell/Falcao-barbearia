@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -23,11 +22,7 @@ export default function EstiloBlogPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           
           {/* ================= CABEÇALHO ================= */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-16 text-center md:text-left"
-          >
+          <div className="hero-in mb-16 text-center md:text-left">
             <div className="flex items-center justify-center md:justify-start gap-3 mb-4">
               <div className="h-[2px] w-8 bg-[#b8853a] rounded-full" />
               <span className="text-[#b8853a] font-bold text-[9px] tracking-[0.3em] uppercase">
@@ -40,22 +35,18 @@ export default function EstiloBlogPage() {
             <p className="text-white/50 text-sm md:text-base mt-4 max-w-xl font-medium mx-auto md:mx-0">
               Dicas de corte, barba e estilo masculino direto da cadeira da Falcão Barbearia, em Tapiramutá-BA.
             </p>
-          </motion.div>
+          </div>
 
           {/* ================= POST EM DESTAQUE ================= */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-            className="mb-20"
-          >
+          <div className="hero-in [--d:80ms] mb-20">
             <Link href={`/estilo/${postDestaque.slug}`} className="group block relative rounded-3xl overflow-hidden border border-white/5 bg-white/[0.02] shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
                 <div className="relative aspect-square sm:aspect-video lg:aspect-auto lg:h-full overflow-hidden">
                   <Image 
                     src={postDestaque.imagem} 
                     alt={postDestaque.titulo} 
-                    fill sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw" 
+                    fill sizes="(min-width: 1024px) 50vw, 100vw"
+                    priority
                     className="object-cover transition-transform duration-1000 group-hover:scale-105 grayscale-[0.2] group-hover:grayscale-0"
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#070707] opacity-0 lg:opacity-100" />
@@ -65,7 +56,7 @@ export default function EstiloBlogPage() {
                     <span className="bg-[#b8853a]/10 text-[#d4aa7a] px-3 py-1.5 rounded-md text-[9px] uppercase tracking-widest font-bold border border-[#b8853a]/20">
                       {postDestaque.categoria}
                     </span>
-                    <span className="text-white/30 text-[10px] uppercase tracking-widest font-bold">
+                    <span className="text-white/55 text-[10px] uppercase tracking-widest font-bold">
                       <time dateTime={postDestaque.data}>{formatarData(postDestaque.data)}</time> · {tempoLeitura(postDestaque)} min
                     </span>
                   </div>
@@ -81,7 +72,7 @@ export default function EstiloBlogPage() {
                 </div>
               </div>
             </Link>
-          </motion.div>
+          </div>
 
           {/* ================= GRID DE POSTS ================= */}
           <div className="mb-8">
@@ -109,14 +100,8 @@ export default function EstiloBlogPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {visiveis.map((post, index) => (
-              <motion.div
-                key={post.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ delay: (index % 3) * 0.1 }}
-              >
+            {visiveis.map((post) => (
+              <div key={post.id} className="cv-card">
                 <Link href={`/estilo/${post.slug}`} className="group block flex flex-col h-full bg-white/[0.01] border border-white/5 rounded-2xl p-4 hover:bg-white/[0.03] transition-colors">
                   <div className="relative aspect-square sm:aspect-[4/3] rounded-xl overflow-hidden mb-6">
                     <Image 
@@ -131,7 +116,7 @@ export default function EstiloBlogPage() {
                   </div>
                   
                   <div className="flex flex-col flex-grow px-2">
-                    <span className="text-white/30 text-[9px] uppercase tracking-widest font-bold mb-3">
+                    <span className="text-white/55 text-[10px] uppercase tracking-widest font-bold mb-3">
                       <time dateTime={post.data}>{formatarData(post.data)}</time> · {tempoLeitura(post)} min de leitura
                     </span>
                     <h3 className="text-xl font-serif font-bold text-[#f5f1eb] leading-tight mb-3 group-hover:text-[#d4aa7a] transition-colors">
@@ -145,7 +130,7 @@ export default function EstiloBlogPage() {
                     </div>
                   </div>
                 </Link>
-              </motion.div>
+              </div>
             ))}
           </div>
 

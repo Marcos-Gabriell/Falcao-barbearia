@@ -181,3 +181,6 @@ body {
     radial-gradient(70vw 50vh at 30% 100%, rgba(120, 82, 30, 0.10), transparent 70%),
     linear-gradient(180deg, #070707 0%, #0a0806 50%, #060606 100%);
 }
+
+/* Cards de listas longas (blog): o navegador pula o trabalho dos que estão fora da tela */
+.cv-card { content-visibility: auto; contain-intrinsic-size: auto 520px; }
