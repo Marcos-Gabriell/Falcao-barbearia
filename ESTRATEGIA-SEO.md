@@ -15,7 +15,7 @@ Em cidade pequena, o mapa do Google ("Local Pack") aparece antes de qualquer sit
 - [ ] Serviços com preço (mesma tabela do site).
 - [ ] **Fotos toda semana** (cortes, fachada, interior, equipe). Perfil com foto nova sobe.
 - [ ] **Avaliações**: pedir pra cada cliente satisfeito. Meta: 5 por semana.
-      Pegue o link curto em *Perfil → Pedir avaliações* e cole em `app/utils/site.ts`
+      Pegue o link curto em *Perfil → Pedir avaliações* e cole em `config/site.ts`
       no campo `googleReview` (hoje aponta pro perfil geral). Responda TODAS as avaliações
       citando o serviço ("Valeu pelo degradê, Pedro!").
 - [ ] Postar no perfil (Google Posts) 1x por semana — pode ser o mesmo post do blog.
@@ -23,7 +23,7 @@ Em cidade pequena, o mapa do Google ("Local Pack") aparece antes de qualquer sit
 ## 2. Consistência de dados (NAP)
 
 Nome, endereço e telefone **idênticos** em todo lugar: site, Google, Instagram
-(bio + botão de contato), Facebook, WhatsApp Business. Tudo vem de `app/utils/site.ts`.
+(bio + botão de contato), Facebook, WhatsApp Business. Tudo vem de `config/site.ts`.
 
 ## 3. Blog — pauta (1 post a cada 2 semanas)
 
