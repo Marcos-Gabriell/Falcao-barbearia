@@ -27,19 +27,22 @@ Nome, endereço e telefone **idênticos** em todo lugar: site, Google, Instagram
 
 ## 3. Blog — pauta (1 post a cada 2 semanas)
 
-Já publicados: sem agendamento, tabela de preços, desondulação, alturas de degradê,
-barba, tesoura, mullet, infantil, freestyle.
+Publicados (21): sem agendamento, tabela de preços, 7 cortes mais pedidos de 2026,
+São João, formatura e casamento, quanto tempo dura o degradê, entradas e calvície,
+cabelo cacheado, barba falhada e pigmentação, luzes e nevou, corte infantil na volta às aulas,
+corte pelo formato do rosto, entrevista de emprego, sobrancelha masculina, desondulação,
+alturas de degradê, rotina da barba, tesoura, mullet, corte infantil e freestyle.
 
-Próximos (focados em busca local e sazonal):
+Próximos (ideias):
 
-1. Corte para o São João: os estilos mais pedidos em Tapiramutá
-2. Corte para formatura e casamento: como se preparar
-3. Volta às aulas: cortes infantis práticos
-4. Pigmentação de barba: vale a pena?
-5. Luzes e nevou masculino: cuidados no sol da Chapada
-6. Cabelo cacheado masculino: corte e finalização
-7. Calvície e entradas: cortes que disfarçam
-8. Quanto tempo dura um degradê? Frequência ideal de corte
+1. Melhores produtos para finalizar o cabelo (pomada, cera, gel: quando usar cada)
+2. Como cuidar do cabelo no calor e no sol da Chapada
+3. Corte para o Natal e Réveillon
+4. Barba lenhador x barba curta: qual combina com você
+5. Como manter o freestyle por mais tempo
+6. Caspa e couro cabeludo oleoso: o que ajuda (e quando procurar médico)
+
+Os posts mais recentes aparecem automaticamente na seção "Dicas de cadeira" da home.
 
 Como publicar: adicione um objeto em `app/estilo/data.ts` (slug, título, resumo, data,
 imagem e conteúdo). O sitemap e o schema do Google atualizam sozinhos.

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Breadcrumb from "../components/Breadcrumb";
+import { postsOrdenados } from "./data";
 import EstiloPageClient from "./PageClient";
 
 const siteUrl = "https://www.falcaobarbearia.com.br";
@@ -41,6 +42,26 @@ export default function EstiloPage() {
   return (
     <>
       <Breadcrumb items={[{ name: "Blog", path: "/estilo" }]} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Blog",
+            name: "Blog da Falcão Barbearia",
+            url: `${siteUrl}/estilo`,
+            inLanguage: "pt-BR",
+            publisher: { "@id": `${siteUrl}/#barbershop` },
+            blogPost: postsOrdenados.map((p) => ({
+              "@type": "BlogPosting",
+              headline: p.titulo,
+              url: `${siteUrl}/estilo/${p.slug}`,
+              datePublished: p.data,
+              image: `${siteUrl}${p.imagem}`,
+            })),
+          }),
+        }}
+      />
       <EstiloPageClient />
     </>
   );

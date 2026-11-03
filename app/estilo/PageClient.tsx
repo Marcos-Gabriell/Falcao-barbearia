@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "../components/Header";
@@ -11,6 +12,9 @@ import { postsOrdenados, formatarData, tempoLeitura } from "./data";
 export default function EstiloBlogPage() {
   const postDestaque = postsOrdenados.find((p) => p.destaque) ?? postsOrdenados[0];
   const postsSecundarios = postsOrdenados.filter((p) => p !== postDestaque);
+  const categorias = ["Todos", ...Array.from(new Set(postsSecundarios.map((p) => p.categoria)))];
+  const [cat, setCat] = useState("Todos");
+  const visiveis = cat === "Todos" ? postsSecundarios : postsSecundarios.filter((p) => p.categoria === cat);
 
   return (
     <>
@@ -84,10 +88,28 @@ export default function EstiloBlogPage() {
             <h2 className="text-2xl font-serif font-bold text-[#f5f1eb] mb-8 border-b border-white/5 pb-4">
               Publicações Recentes
             </h2>
+            {/* Filtro por categoria */}
+            <div className="-mt-2 flex flex-wrap gap-2" role="group" aria-label="Filtrar por categoria">
+              {categorias.map((c) => (
+                <button
+                  key={c}
+                  type="button"
+                  onClick={() => setCat(c)}
+                  aria-pressed={cat === c}
+                  className={`min-h-[40px] rounded-full border px-4 text-[11px] font-bold uppercase tracking-[0.15em] transition-colors ${
+                    cat === c
+                      ? "border-[#b8853a] bg-[#b8853a] text-[#070707]"
+                      : "border-white/10 text-white/60 hover:border-[#b8853a]/40 hover:text-[#d4aa7a]"
+                  }`}
+                >
+                  {c}
+                </button>
+              ))}
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {postsSecundarios.map((post, index) => (
+            {visiveis.map((post, index) => (
               <motion.div
                 key={post.id}
                 initial={{ opacity: 0, y: 20 }}

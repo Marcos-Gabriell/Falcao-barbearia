@@ -13,6 +13,7 @@ import BarraMobile   from "./components/BarraMobile";
 import FundoDinamico from "./components/FundoDinamico";
 import ComoFunciona  from "./components/ComoFunciona";
 import Faq           from "./components/faq";
+import DoBlog        from "./components/DoBlog";
 import { faqs }      from "./utils/faqs";
 
 export const metadata: Metadata = {
@@ -46,6 +47,7 @@ export default function Home() {
         <div className="cv-auto"><Sobre /></div>
         <div className="cv-auto"><Localizacao /></div>
         <div className="cv-auto"><Faq /></div>
+        <div className="cv-auto"><DoBlog /></div>
       </main>
 
       <div className="cv-auto"><Footer /></div>
