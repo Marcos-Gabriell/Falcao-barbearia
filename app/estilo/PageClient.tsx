@@ -122,7 +122,7 @@ export default function EstiloBlogPage() {
                     <h3 className="text-xl font-serif font-bold text-[#f5f1eb] leading-tight mb-3 group-hover:text-[#d4aa7a] transition-colors">
                       {post.titulo}
                     </h3>
-                    <p className="text-white/40 text-xs leading-relaxed font-medium mb-6 flex-grow line-clamp-3">
+                    <p className="text-white/60 text-xs leading-relaxed font-medium mb-6 flex-grow line-clamp-3">
                       {post.resumo}
                     </p>
                     <div className="mt-auto text-[#b8853a] text-[10px] font-bold uppercase tracking-[0.2em] flex items-center gap-2 group-hover:gap-3 transition-all duration-300">

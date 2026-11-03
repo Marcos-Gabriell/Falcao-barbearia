@@ -116,7 +116,7 @@ export default async function BlogPostPage({ params }: Props) {
       <main className="min-h-screen bg-[#070707] pt-32 pb-24">
         <article className="max-w-3xl mx-auto px-6 lg:px-8">
           <nav aria-label="Navegação estrutural" className="mb-10">
-            <Link href="/estilo" className="inline-flex items-center gap-2 text-white/40 hover:text-[#d4aa7a] transition-colors text-[10px] font-black uppercase tracking-[0.2em]">
+            <Link href="/estilo" className="inline-flex items-center gap-2 text-white/60 hover:text-[#d4aa7a] transition-colors text-[10px] font-black uppercase tracking-[0.2em]">
               <ArrowLeft size={14} /> Voltar para o blog
             </Link>
           </nav>
@@ -126,7 +126,7 @@ export default async function BlogPostPage({ params }: Props) {
               <span className="bg-[#b8853a]/10 text-[#d4aa7a] px-3 py-1.5 rounded-md text-[9px] uppercase tracking-widest font-bold border border-[#b8853a]/20">
                 {post.categoria}
               </span>
-              <span className="text-white/35 text-[10px] uppercase tracking-widest font-bold">
+              <span className="text-white/60 text-[10px] uppercase tracking-widest font-bold">
                 <time dateTime={post.data}>{formatarData(post.data)}</time> · {tempoLeitura(post)} min de leitura
               </span>
             </div>
