@@ -25,7 +25,7 @@ function CTAButton() {
       href={WHATSAPP_LINK}
       target="_blank"
       rel="noopener noreferrer"
-      className="btn-shine hidden lg:inline-flex items-center justify-center gap-2.5 rounded-full px-7 py-3 text-[11px] font-black uppercase tracking-[0.2em] flex-shrink-0 relative overflow-hidden"
+      className="btn-shine hidden lg:inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-[10px] font-black uppercase tracking-[0.14em] flex-shrink-0 relative overflow-hidden"
       style={{
         background: `linear-gradient(135deg, ${GOLD} 0%, ${GOLD_LIGHT} 50%, #8f6425 100%)`,
         color: "#070707",
@@ -35,8 +35,8 @@ function CTAButton() {
       whileTap={{ scale: 0.97 }}
       transition={{ type: "spring", stiffness: 400, damping: 22 }}
     >
-      <FaWhatsapp size={15} className="relative z-10" />
-      <span className="relative z-10">Chamar no Whats</span>
+      <FaWhatsapp size={14} className="relative z-10" />
+      <span className="relative z-10">WhatsApp</span>
     </motion.a>
   );
 }
@@ -130,7 +130,7 @@ export default function Header() {
         </div>
 
         {/* LINKS DESKTOP */}
-        <nav className="hidden xl:flex items-center justify-center gap-8 2xl:gap-10 shrink-0">
+        <nav className="hidden xl:flex items-center justify-center gap-6 2xl:gap-9 shrink-0">
           {navLinks.map((link) => {
             const isActive = link.href.includes("#")
               ? activeSection === "#" + link.href.split("#")[1]
@@ -139,7 +139,7 @@ export default function Header() {
               <a
                 key={link.label}
                 href={link.href}
-                className="relative group text-[10px] font-bold tracking-[0.25em] uppercase transition-colors duration-300 py-2"
+                className="relative group text-[10px] font-bold tracking-[0.2em] uppercase transition-colors duration-300 py-2"
                 style={{ color: isActive ? "#f5f1eb" : "rgba(255,255,255,0.4)" }}
               >
                 <span className="group-hover:text-[#f5f1eb] transition-colors duration-300">

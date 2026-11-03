@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Montserrat, Inter, Playfair_Display } from "next/font/google";
+import { Cormorant_Garamond, Inter } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
@@ -8,10 +8,9 @@ import SmoothScroll from "./components/SmoothScroll";
 import { SITE } from "@/config/site";
 
 /* Fontes servidas pelo próprio site (sem @import bloqueando a renderização) */
-const cormorant = Cormorant_Garamond({ subsets: ["latin"], weight: ["400", "600", "700"], style: ["normal", "italic"], variable: "--font-cormorant", display: "swap" });
-const montserrat = Montserrat({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700", "800", "900"], variable: "--font-montserrat", display: "swap" });
-const inter = Inter({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700"], variable: "--font-inter", display: "swap" });
-const playfair = Playfair_Display({ subsets: ["latin"], weight: ["700", "900"], style: ["normal", "italic"], variable: "--font-playfair", display: "swap" });
+const cormorant = Cormorant_Garamond({ subsets: ["latin"], weight: ["400", "700"], style: ["normal", "italic"], variable: "--font-cormorant", display: "swap" });
+// Inter variável: um arquivo só para todos os pesos
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
 // GA4: defina NEXT_PUBLIC_GA_ID na Vercel (ex.: G-XXXXXXX). Sem ele, nada carrega.
 // Vercel Analytics: ative no painel da Vercel e defina NEXT_PUBLIC_VERCEL_ANALYTICS=1.
@@ -160,7 +159,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   };
 
   return (
-    <html lang="pt-BR" className={`${cormorant.variable} ${montserrat.variable} ${inter.variable} ${playfair.variable}`}>
+    <html lang="pt-BR" className={`${cormorant.variable} ${inter.variable}`}>
       <body className="antialiased">
         <script
           type="application/ld+json"

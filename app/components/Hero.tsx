@@ -3,11 +3,10 @@ import { FaWhatsapp, FaInstagram } from "react-icons/fa";
 import { Navigation, Star } from "lucide-react";
 import { SITE, SINCE, RATING } from "@/config/site";
 import { WHATSAPP_LINK, INSTAGRAM_URL, DIRECTIONS_LINK } from "../utils/links";
-import OpenNow from "./OpenNow";
-import HeroVisual from "./HeroVisual";
 
 /* Hero único e responsivo (server component).
    - Um só H1 com a palavra-chave local; "corte. Identidade." é visual.
+   - Foto do Thaylle como destaque (sem elementos sobrepostos).
    - Uma só imagem LCP (priority), com sizes corretos.
    - Animações de entrada em CSS (.hero-in), sem esperar JavaScript. */
 export default function Hero() {
@@ -18,7 +17,7 @@ export default function Hero() {
       className="relative isolate flex min-h-[100dvh] overflow-hidden bg-[#070707]"
     >
       {/* ── Foto: tela cheia no celular, metade direita no desktop ── */}
-      <div className="absolute inset-0 -z-10 overflow-hidden lg:left-[40%]">
+      <div className="absolute inset-0 -z-10 overflow-hidden lg:left-[38%]">
         <Image
           src="/thaylle2.jpeg"
           alt={`${SITE.barber}, barbeiro da Falcão Barbearia, cortando cabelo em ${SITE.city} - BA`}
@@ -29,10 +28,10 @@ export default function Hero() {
           className="object-cover object-[center_22%] hero-photo"
         />
         {/* celular: escurece de baixo pra cima */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#070707]/40 via-[#070707]/70 to-[#070707] lg:hidden" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#070707]/20 via-[#070707]/55 to-[#070707] lg:hidden" />
         {/* desktop: funde com o texto à esquerda */}
-        <div className="absolute inset-0 hidden lg:block bg-gradient-to-r from-[#070707] via-[#070707]/45 to-transparent" />
-        <div className="absolute inset-0 hidden lg:block bg-gradient-to-t from-[#070707] via-transparent to-[#070707]/40" />
+        <div className="absolute inset-0 hidden lg:block bg-gradient-to-r from-[#070707] via-[#070707]/10 to-transparent" />
+        <div className="absolute inset-0 hidden lg:block bg-gradient-to-t from-[#070707]/80 via-transparent to-[#070707]/30" />
       </div>
 
       {/* ── Ambiente: brilho dourado + grão ── */}
@@ -42,45 +41,37 @@ export default function Hero() {
       </div>
 
       {/* ── Conteúdo ── */}
-      <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col justify-end px-5 pb-28 pt-28 sm:px-8 lg:grid lg:grid-cols-[minmax(0,34rem)_minmax(180px,240px)] lg:content-center lg:justify-start lg:items-center lg:gap-6 lg:px-16 lg:pb-16 xl:gap-10 xl:px-24">
-        {/* Poste 3D (desktop): coluna própria na divisa texto/foto */}
-        <HeroVisual className="hero-in [--d:700ms] pointer-events-none relative hidden lg:order-2 lg:block lg:h-[66vh] lg:w-full" />
+      <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col justify-end px-5 pb-28 pt-28 sm:px-8 lg:justify-center lg:px-16 lg:pb-16 xl:px-24">
 
-        <div className="max-w-xl lg:order-1 lg:max-w-none">
-          <div className="hero-in [--d:0ms] mb-6 lg:mb-10">
-            <OpenNow />
-          </div>
-
+        <div className="max-w-xl lg:max-w-[34rem]">
           <h1
             id="hero-title"
-            className="hero-in [--d:80ms] mb-4 flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.28em] text-[#d4aa7a] sm:text-xs"
+            className="hero-in [--d:0ms] mb-4 flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.28em] text-[#d4aa7a] sm:text-xs"
           >
             <span className="h-[2px] w-8 rounded-full bg-gradient-to-r from-[#b8853a] to-transparent" aria-hidden />
             Barbearia em {SITE.city} – Falcão
           </h1>
 
-          <div className="relative mb-6 font-serif leading-none" aria-hidden>
-            {/* Poste (celular): ao lado do "corte." */}
-            <HeroVisual className="hero-in [--d:700ms] pointer-events-none absolute -top-[18%] right-0 h-[136%] w-[84px] sm:w-[100px] lg:hidden" />
-            <span className="hero-in [--d:160ms] mb-2 hidden text-2xl font-light uppercase italic tracking-[0.22em] text-white/35 lg:block xl:text-3xl">
+          <div className="mb-6 font-serif leading-none" aria-hidden>
+            <span className="hero-in [--d:40ms] mb-2 hidden text-2xl font-light uppercase italic tracking-[0.22em] text-white/35 lg:block xl:text-3xl">
               Seu visual merece
             </span>
-            <span className="hero-in [--d:220ms] block text-[clamp(4rem,17vw,10.5rem)] font-black leading-[0.84] text-[#f5f1eb] drop-shadow-2xl">
+            <span className="hero-in [--d:80ms] block text-[clamp(4rem,17vw,10.5rem)] font-black leading-[0.84] text-[#f5f1eb] drop-shadow-2xl">
               corte.
             </span>
-            <span className="hero-in [--d:320ms] mt-2 block text-[clamp(2.4rem,9vw,4.75rem)] font-bold italic text-[#d4aa7a]">
+            <span className="hero-in [--d:120ms] mt-2 block text-[clamp(2.4rem,9vw,4.75rem)] font-bold italic text-[#d4aa7a]">
               Identidade.
             </span>
           </div>
 
-          <p className="hero-in [--d:420ms] mb-8 max-w-md text-[15px] font-medium leading-relaxed text-white/65">
+          <p className="hero-in [--d:160ms] mb-8 max-w-md text-[15px] font-medium leading-relaxed text-white/65">
             Degradê, barba na navalha e corte na tesoura com{" "}
             <strong className="font-bold text-[#d4aa7a]">técnica de nível</strong> no Centro de {SITE.city}.
             Sem agendamento: chega e senta — ou chama no Whats pra saber o movimento.
           </p>
 
           {/* CTAs */}
-          <div className="hero-in [--d:520ms] flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+          <div className="hero-in [--d:200ms] flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
             <a
               href={WHATSAPP_LINK}
               target="_blank"
@@ -106,7 +97,7 @@ export default function Hero() {
           </div>
 
           {/* Prova social logo abaixo do CTA */}
-          <div className="hero-in [--d:640ms] mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-white/[0.08] pt-6">
+          <div className="hero-in [--d:240ms] mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-white/[0.08] pt-6">
             <a
               href={SITE.googleMaps}
               target="_blank"
@@ -142,7 +133,7 @@ export default function Hero() {
       </div>
 
       {/* Selo do barbeiro (desktop) */}
-      <div className="hero-in [--d:900ms] absolute bottom-14 right-12 z-10 hidden rounded-2xl border border-white/[0.06] bg-black/30 px-6 py-5 text-right shadow-2xl backdrop-blur-md lg:block">
+      <div className="hero-in [--d:300ms] absolute bottom-14 right-12 z-10 hidden rounded-2xl border border-white/[0.06] bg-black/30 px-6 py-5 text-right shadow-2xl backdrop-blur-md lg:block">
         <div className="mb-3 ml-auto h-[1.5px] w-8 rounded-full bg-[#b8853a]" />
         <p className="mb-1 font-serif text-[1.6rem] italic leading-none text-[#f5f1eb]">{SITE.barber}</p>
         <p className="text-[9px] font-black uppercase tracking-[0.3em] text-[#b8853a]">Master Barber</p>

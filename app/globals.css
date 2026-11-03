@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-serif: var(--font-cormorant), var(--font-playfair), Georgia, serif;
-  --font-sans: var(--font-montserrat), var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-cormorant), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
 }
 
 :root {
@@ -103,7 +103,7 @@ body {
 
 /* Font utilities */
 .font-display {
-  font-family: var(--font-playfair), Georgia, serif;
+  font-family: var(--font-cormorant), Georgia, serif;
 }
 
 /* Premium mobile tap feedback */
@@ -124,18 +124,18 @@ body {
 
 /* ── Hero: entrada em CSS (não depende de JS, não atrasa o LCP) ── */
 @keyframes hero-in {
-  from { opacity: 0.01; transform: translate3d(0, 22px, 0); filter: blur(6px); }
-  to   { opacity: 1;    transform: none;                    filter: none; }
+  from { opacity: 0.01; transform: translate3d(0, 14px, 0); }
+  to   { opacity: 1;    transform: none; }
 }
 .hero-in {
-  animation: hero-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: hero-in 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: var(--d, 0ms);
 }
 @keyframes hero-photo {
   from { transform: scale(1.08); }
   to   { transform: scale(1.02); }
 }
-.hero-photo { animation: hero-photo 2.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.hero-photo { animation: hero-photo 1.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
 
 /* Brilho que passa no botão principal */
 .btn-shine::after {
