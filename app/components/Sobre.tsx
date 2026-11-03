@@ -31,7 +31,7 @@ export default function Sobre() {
   return (
     <section
       id="sobre"
-      className="relative w-full py-32 md:py-48 overflow-hidden bg-[#050505]/55 select-none"
+      className="relative w-full py-32 md:py-48 overflow-hidden bg-[#050505]/85 select-none"
       ref={containerRef}
     >
       {/* ── Background ── */}
@@ -150,7 +150,7 @@ export default function Sobre() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ delay: 0.5 + i * 0.1, duration: 0.6 }}
-                  className="group relative bg-white/[0.02] border border-white/5 hover:border-[#b8853a]/30 p-5 rounded-2xl transition-all duration-300 hover:bg-[#b8853a]/[0.02] overflow-hidden"
+                  className="group relative bg-[#0b0b0b]/95 border border-white/5 hover:border-[#b8853a]/30 p-5 rounded-2xl transition-all duration-300 hover:bg-[#b8853a]/[0.02] overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-[#b8853a]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   <div className="relative z-10">

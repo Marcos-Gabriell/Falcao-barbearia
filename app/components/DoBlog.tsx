@@ -9,7 +9,7 @@ export default function DoBlog() {
   const ultimos = postsOrdenados.slice(0, 3);
 
   return (
-    <section id="blog" aria-labelledby="blog-title" className="relative w-full bg-[#050505]/50 py-24 md:py-32">
+    <section id="blog" aria-labelledby="blog-title" className="relative w-full bg-[#050505]/80 py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-6">
         <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>

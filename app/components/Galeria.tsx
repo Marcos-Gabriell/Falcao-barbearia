@@ -95,7 +95,7 @@ export default function Galeria() {
   const atual = aberto !== null ? lista[aberto] : null;
 
   return (
-    <section id="cortes" aria-labelledby="galeria-title" className="relative w-full overflow-hidden bg-transparent pt-24 lg:pt-32">
+    <section id="cortes" aria-labelledby="galeria-title" className="relative w-full overflow-hidden bg-[#050505]/80 pt-24 lg:pt-32">
       <div className="grain pointer-events-none absolute inset-0 opacity-[0.02]" aria-hidden />
       <div className="pointer-events-none absolute right-0 top-0 h-[700px] w-[700px] translate-x-1/3 -translate-y-1/3 rounded-full bg-[#b8853a]/5 blur-[120px]" aria-hidden />
 

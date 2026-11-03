@@ -146,7 +146,7 @@ export function Experiencia() {
 // ─── COMPONENTE 2: SERVIÇOS ────────────────────────────────────────────────────
 export default function Valores() {
   return (
-    <section id="servicos" className="relative w-full py-24 md:py-32 bg-transparent overflow-hidden antialiased select-none">
+    <section id="servicos" className="relative w-full py-24 md:py-32 bg-[#050505]/85 overflow-hidden antialiased select-none">
       <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_bottom,rgba(184,133,58,0.04)_0%,transparent_60%)]" />
       <div 
         className="absolute inset-0 opacity-[0.02] pointer-events-none" 
@@ -187,7 +187,7 @@ export default function Valores() {
           {categorias.map((cat, idx) => (
             <Tilt3D
               key={idx} variants={fadeUp} max={5}
-              className="bg-white/[0.01] border border-white/5 rounded-2xl p-6 md:p-8 flex flex-col justify-between shadow-xl hover:border-[#b8853a]/20 transition-colors"
+              className="bg-[#0b0b0b]/95 border border-white/5 rounded-2xl p-6 md:p-8 flex flex-col justify-between shadow-xl hover:border-[#b8853a]/20 transition-colors"
             >
               <div className="space-y-8">
                 {/* Categoria header */}

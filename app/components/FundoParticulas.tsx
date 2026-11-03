@@ -102,7 +102,7 @@ export default function FundoParticulas() {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const fraco = (nav.hardwareConcurrency ?? 4) < 4 || (nav.deviceMemory ?? 8) < 4 || !!nav.connection?.saveData;
     const mobile = window.matchMedia("(max-width: 767px)").matches;
-    const N = fraco ? 1200 : mobile ? 2000 : 3600;
+    const N = fraco ? 1000 : mobile ? 1400 : 3600;
 
     const compile = (type: number, src: string) => {
       const sh = gl.createShader(type)!;
@@ -179,7 +179,7 @@ export default function FundoParticulas() {
       if (!reduce) raf = requestAnimationFrame(frame);
     };
 
-    canvas.style.opacity = "1";
+    canvas.style.opacity = mobile ? "0.55" : "0.85";
     if (reduce) {
       // sem animação: redesenha só quando rola (a forma ainda muda com a página)
       const redraw = () => { onScroll(); p = alvoP; frame(performance.now()); };
@@ -208,7 +208,7 @@ export default function FundoParticulas() {
     <canvas
       ref={ref}
       aria-hidden
-      className="pointer-events-none fixed inset-0 -z-10 h-full w-full opacity-0 transition-opacity duration-[1500ms]"
+      className="fundo-3d pointer-events-none fixed inset-0 -z-10 h-full w-full opacity-0 transition-opacity duration-[1500ms]"
     />
   );
 }

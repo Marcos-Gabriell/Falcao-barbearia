@@ -68,7 +68,7 @@ function Estrelas({ size = 14 }: { size?: number }) {
 
 function Card({ r }: { r: (typeof REVIEWS)[number] }) {
   return (
-    <figure className="flex h-full w-[82vw] max-w-[380px] shrink-0 flex-col rounded-3xl border border-white/[0.06] bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-7 sm:w-[380px]">
+    <figure className="flex h-full w-[82vw] max-w-[380px] shrink-0 flex-col rounded-3xl border border-white/[0.06] bg-[#0b0b0b]/95 p-7 sm:w-[380px]">
       <div className="mb-5 flex items-center justify-between">
         <Estrelas />
         <Quote size={22} className="text-[#b8853a]/30" aria-hidden />
@@ -97,7 +97,7 @@ export default function Avaliacoes() {
   const faixa = [...REVIEWS, ...REVIEWS, ...REVIEWS, ...REVIEWS];
 
   return (
-    <section id="avaliacoes" aria-labelledby="avaliacoes-title" className="relative overflow-hidden border-y border-white/5 bg-[#050505]/65 py-20 md:py-28">
+    <section id="avaliacoes" aria-labelledby="avaliacoes-title" className="relative overflow-hidden border-y border-white/5 bg-[#050505]/85 py-20 md:py-28">
       <Sprite />
       <div className="mx-auto mb-12 flex max-w-7xl flex-col gap-8 px-5 sm:px-6 md:flex-row md:items-end md:justify-between">
         <div>
@@ -117,7 +117,7 @@ export default function Avaliacoes() {
             rel="noopener noreferrer"
             data-track="google"
             data-track-label="avaliacoes-nota"
-            className="flex items-center gap-4 rounded-2xl border border-white/[0.06] bg-white/[0.02] px-5 py-4 transition-colors hover:border-[#b8853a]/30"
+            className="flex items-center gap-4 rounded-2xl border border-white/[0.06] bg-[#0b0b0b]/95 px-5 py-4 transition-colors hover:border-[#b8853a]/30"
           >
             <GoogleIcon size={28} />
             <span>

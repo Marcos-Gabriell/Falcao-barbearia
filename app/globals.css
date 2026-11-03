@@ -184,3 +184,8 @@ body {
 
 /* Cards de listas longas (blog): o navegador pula o trabalho dos que estão fora da tela */
 .cv-card { content-visibility: auto; contain-intrinsic-size: auto 520px; }
+
+/* Fundo 3D: no celular fica desfocado (bokeh) e não compete com o conteúdo */
+@media (max-width: 1023px) {
+  .fundo-3d { filter: blur(2.5px); }
+}
